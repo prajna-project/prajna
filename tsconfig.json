@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+        "outDir": "./dist/",
+		"declaration": true,
+        "module": "commonjs",
+		"moduleResolution": "ES6",
+        "sourceMap": true,
+        "noImplicitAny": true,
+        "typeRoots": [
+			"node_modules/@types"
+        ],
+        "target": "es2015"
+    },
+    "include": [
+        "./src/**/*"
+    ],
+	"exclude": [
+		"neurons",
+		"node_modules"
+	]
+}
