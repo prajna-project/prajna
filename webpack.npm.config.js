@@ -1,5 +1,4 @@
 const path = require('path');
-const CortexRecombinerPlugin = require('cortex-recombiner-webpack-plugin');
 const webpack = require('webpack');
 const relativeToRootPath = "./";
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
@@ -38,9 +37,9 @@ module.exports = {
         ]
     },
     plugins: [
-        // new UglifyJSPlugin({
-        //     sourceMap: true
-        // }),
+        new UglifyJSPlugin({
+            sourceMap: true
+        }),
         new webpack.optimize.ModuleConcatenationPlugin()
     ]
 };
