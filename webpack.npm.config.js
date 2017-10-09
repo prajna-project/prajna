@@ -1,21 +1,21 @@
 const path = require('path');
 const webpack = require('webpack');
-const relativeToRootPath = "./";
+const relativeToRootPath = './';
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
     entry: ['./src/polyfill.js', './src/core/index.ts'],
     output: {
-        filename: './dist/Whatever.js',
-        library: 'whatever',
+        filename: './dist/prajna.js',
+        library: 'prajna',
         libraryTarget: 'commonjs2'
     },
     externals: ['cookie'],
     watch: true,
-    devtool: "source-map",
+    devtool: 'source-map',
     resolve: {
-        extensions: [".webpack.js", ".web.js", ".ts", ".tsx", ".js"],
-        modules: ["node_modules"]
+        extensions: ['.webpack.js', '.web.js', '.ts', '.tsx', '.js'],
+        modules: ['node_modules']
     },
     module: {
         rules: [
@@ -25,14 +25,17 @@ module.exports = {
                     {
                         loader: 'babel-loader',
                         options: {
-                            presets: ['env', 'es3'],
-                            plugins: ['babel-plugin-transform-object-assign']
+                            presets: [
+                                ['env'],
+                                ['babel-preset-es3'],
+                                // ['babel-plugin-transform-object-assign']
+                            ]
                         }
                     },
-                    "awesome-typescript-loader",
-                    "source-map-loader",
+                    'awesome-typescript-loader',
+                    'source-map-loader',
                 ],
-                enforce: "pre"
+                enforce: 'pre'
             },
         ]
     },

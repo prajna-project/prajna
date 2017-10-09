@@ -16,20 +16,9 @@ class Core {
         this.use(performanceMiddleware);
     }
 
-    start(...args: any[]): any { // TODO
-        console.log('...start');
-        this.callback();
-        return;
-    }
-
     toJSON(): Core { return only(this, []); }
 
     inspect(): Core { return this.toJSON(); }
-
-    use(lambda: (...args: any[]) => any): Core {
-        this.middleware.push(lambda);
-        return this;
-    }
 
     callback(): () => any {		// TODO
         const lambda: (ctx: any, next?: any) => any = compose(this.middleware);
@@ -46,7 +35,36 @@ class Core {
         return context;
     }
 
+    start(...args: any[]): any { // TODO
+        console.log('...start');
+        this.callback();
+        return;
+    }
+
+    set(...args: any[]): void {
+        `Set prajna configurations`
+        return;
+    }
+
+    use(lambda: (...args: any[]) => any): Core {
+        `Install prajna middleware`
+        this.middleware.push(lambda);
+        return this;
+    }
+
+    pageView(): void {
+        `Send PV manually`
+        return;
+    }
+
+    // TODO: @prajnaEvent
+    prajnaEvent(message: Message): void {
+        `Aftermath of page events`
+        return;
+    }
+
     report(message: Message): void {
+        `Report ERROR|WARNING|INFO|DEBUG info`
         console.log(message);
         return;
     }

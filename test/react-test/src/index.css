@@ -3,3 +3,10 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+.button {
+  background-color: #50a6bd;
+  padding: 4px 12px 4px 12px;
+  cursor: pointer;
+  border: 1px solid #3f8ba0;
+  border-radius: 4px;
+}

@@ -92,7 +92,3 @@ jspm_packages
 
 dist/
 # test/
-cortex-dist/
-neurons/
-test/bundle.js
-test/bundle.js.map

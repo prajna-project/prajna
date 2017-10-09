@@ -1,1 +1,1 @@
-module.exports = require('./dist/Whatever');
+module.exports = require('./dist/prajna');
