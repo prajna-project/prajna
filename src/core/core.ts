@@ -1,30 +1,51 @@
-const only = require('only');
 import compose from './compose';
 import { context } from './context';
 import envMiddleware from './env-middleware';
 import performanceMiddleware from './performance-middleware';
 import Message from './types/message.type';
+import { EventEmitter2 } from 'eventemitter2';
 
-class Core {
-    public middleware: any[];
-    public context: any;
+const only = require('only');
+const debug = require('debug')('prajna:core');
+const datascript = require('datascript');
+
+class Core extends EventEmitter2 {
+    private middleware: any[];
+    private context: any;
+    public env: string = 'beta';
+    public url: string = 'https://prajna.51ping.com';
+    public performanceFlag: boolean = false;
+    public autopv: boolean = true;
 
     constructor(opt: any) {
+        super();
+
         this.middleware = [];
         this.context = Object.create(context);
-        this.use(envMiddleware);
-        this.use(performanceMiddleware);
+        this.autopv = opt.autopv || this.autopv;
     }
 
-    toJSON(): Core { return only(this, []); }
+    toJSON(): Core {
+        return only(this, [
+            'env',
+            'url',
+            'performanceFlag',
+            'autopv'
+        ]);
+    }
 
-    inspect(): Core { return this.toJSON(); }
+    inspect(): Core {
+        return this.toJSON();
+    }
 
     callback(): () => any {		// TODO
         const lambda: (ctx: any, next?: any) => any = compose(this.middleware);
         const handler = () => {
             const ctx = this.createContext();
-            return lambda(ctx);
+            const handleEnv = () => envHelper(ctx);
+            return lambda(ctx).then(handleEnv).catch((err: any) => {
+                console.log(err);
+            });
         };
         return handler;
     }
@@ -35,10 +56,11 @@ class Core {
         return context;
     }
 
-    start(...args: any[]): any { // TODO
-        console.log('...start');
-        this.callback();
-        return;
+    start(...args: any[]): Core {
+        debug('start');
+        // this.use(envMiddleware);
+        // this.use(performanceMiddleware);
+        return this.on('LOGGING', this.callback());
     }
 
     set(...args: any[]): void {
@@ -52,6 +74,7 @@ class Core {
         return this;
     }
 
+    // @pageView
     pageView(): void {
         `Send PV manually`
         return;
@@ -65,19 +88,18 @@ class Core {
 
     report(message: Message): void {
         `Report ERROR|WARNING|INFO|DEBUG info`
+        this.emit('LOGGING')
         console.log(message);
         return;
     }
 }
 
-function reportHelper(ctx: any) {
-    console.log('report');
+function envHelper(ctx: any) {
+    return (ctx: any) => { };
 }
 
 function mixin(middleware_a: any, middleware_b: any) {
-    let empty = {
-    };
-    console.log('mixin');
+    let empty = {};
     return empty;
 }
 

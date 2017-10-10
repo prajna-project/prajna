@@ -6,11 +6,12 @@ import './App.css';
 
 class App extends Component {
     componentWillMount () {
-        let prajna = Prajna.init({});
+        let prajna = Prajna.init({
+            autopv: false
+        });
         prajna.use(Dejavu);
+        prajna.start();
         prajna.report({});
-        // console.log(prajna);
-        // console.log(Dejavu);
     }
 
     // @prajnaEvent

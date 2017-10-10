@@ -51,6 +51,7 @@ export default interface Message {
     network?: Network,			// [OPTIONAL] 网络情况
     region?: Region,			// [OPTIONAL] 用户地理信息
     jsBridge?: Bridge,			// [OPTIONAL] JS bridge 信息(Hybrid 应用)
+
     performance?: Performance,	// [OPTIONAL] 页面性能数据信息
     xhr?: Xhr,					// [OPTIONAL] 网络 ajax 请求信息
     resource?: Resouce,			// [OPTIONAL] 网络资源请求信息

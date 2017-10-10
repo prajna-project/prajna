@@ -1,6 +1,11 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
+    <link class="whatever-seed-content" rel="dns-prefetch" href="//analytics.meituan.net">
+    <meta class="whatever-seed-content" name="lx:appnm" content="test">
+    <meta class="whatever-seed-content" name="lx:autopv" content="off">
+    <meta class="whatever-seed-content" name="lx:category" content="react-test">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="theme-color" content="#000000">
@@ -20,8 +25,10 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>React App</title>
-  </head>
-  <body>
+    <script class="whatever-seed-content">var __envMapping__={test:"https://prajna.local.com:8081",beta:"https://prajna.51ping.com",product:"https://prajna.dianping.com"},__host__=__envMapping__.beta||"https://prajna.dianping.com";window.__prajnaEnv__="beta",window.__category__="react-test",window.__appName__="test",window.__supervisorFallback__=!1,window.__analysorFallback__=!1,function(n){var t=Navigator,e=window,o=t.prototype.sendBeacon,a=new XMLHttpRequest;t.prototype.sendBeacon=function(t,i){var r=new Date,p=arguments[0];if(/catfront.(dianping|51ping).com/.test(t)&&!e.__supervisorFallback__){s="";if(p){_={url:t,method:"POST","@timestamp":r.toISOString(),env:n,cat:JSON.parse(i),p:!e.__supervisorFallback__,c:!0,sendBeacon:!0};return Object.keys(_).map(function(n){s+=n+"="+encodeURIComponent(JSON.stringify(_[n]))+"&"}),a.open("POST",window.__host__+"/api/web/cat",!0),a.setRequestHeader("Content-Type","application/x-www-form-urlencoded"),a.onload=function(n){},a.onerror=function(n){console.log(n)},void a.send(s.substr(0,s.length-1))}}else if(/report.meituan.com/.test(t)&&!e.__analysorFallback__){var s="";if(p){var _={url:t,method:"POST","@timestamp":r.toISOString(),env:n,lingxi:JSON.parse(i),p:!e.__supervisorFallback__,l:!0,sendBeacon:!0};return Object.keys(_).map(function(n){s+=n+"="+encodeURIComponent(JSON.stringify(_[n]))+"&"}),a.open("POST",window.__host__+"/api/web/lingxi",!0),a.setRequestHeader("Content-Type","application/x-www-form-urlencoded"),a.onload=function(n){},a.onerror=function(n){console.log(n)},void a.send(s.substr(0,s.length-1))}}return o.apply(this,arguments)}}(window.__prajnaEnv__),function(n){var t=window,e=t.XMLHttpRequest,o=new XMLHttpRequest;!function(n){if("file:"!==t.location.protocol){var o=e.prototype.open,a=function(n,e,o){return{method:n,url:e,"@timestamp":(new Date).toISOString(),env:o,p:!t.__supervisorFallback__}};e.prototype.open=function(e,i){var r=this;return r.originUrl=i,r.originMethod=e,r.prajnaData={},/catfront.(dianping|51ping).com/.test(i)&&!t.__supervisorFallback__?(r.prajnaData=a(e,i,n),arguments[0]="POST",arguments[1]=window.__host__+"/api/web/cat"):/report.meituan.com/.test(i)&&!t.__analysorFallback__&&(r.prajnaData=a(e,i,n),arguments[0]="POST",arguments[1]=window.__host__+"/api/web/lingxi"),o.apply(this,arguments)}}}(n),function(n){var o=e.prototype.setRequestHeader;e.prototype.setRequestHeader=function(n,e){return/catfront.(dianping|51ping).com/.test(this.originUrl)&&!t.__supervisorFallback__||/report.meituan.com/.test(this.originUrl)&&!t.__analysorFallback__&&"Content-Type"==arguments[0]&&(arguments[1]="application/x-www-form-urlencoded"),o.apply(this,arguments)}}(),function(n){var a=e.prototype.send;e.prototype.send=function(){new Date;var n=arguments[0];if(/catfront.(dianping|51ping).com/.test(this.originUrl)&&!t.__supervisorFallback__){var e=this,i="";if(this.prajnaData.cat=n||null,this.prajnaData.c=!0,Object.keys(e.prajnaData).map(function(n){i+=n+"="+encodeURIComponent(JSON.stringify(e.prajnaData[n]))+"&"}),"GET"==e.prajnaData.method)return o.open("POST",window.__host__+"/api/web/cat",!0),o.setRequestHeader("Content-Type","application/x-www-form-urlencoded"),o.onload=function(n){},o.onerror=function(n){console.log(n)},void o.send(i.substr(0,i.length-1));arguments[0]=i.substr(0,i.length-1)}else if(/report.meituan.com/.test(this.originUrl)&&!t.__analysorFallback__){var e=this,i="";if(this.prajnaData.lingxi=JSON.parse(n)||null,this.prajnaData.l=!0,Object.keys(e.prajnaData).map(function(n){i+=n+"="+encodeURIComponent(JSON.stringify(e.prajnaData[n]))+"&"}),"GET"==e.originMethod)return o.open("POST",window.__host__+"/api/web/lingxi",!0),o.setRequestHeader("Content-Type","application/x-www-form-urlencoded"),o.onload=function(n){},o.onerror=function(n){console.log(n)},void o.send(i.substr(0,i.length-1));arguments[0]=i.substr(0,i.length-1)}return a.apply(this,arguments)}}()}(window.__prajnaEnv__),function(n,t,e){if(n._MeiTuanALogObject=e,!n[e]){var o=function(){return o.q.push(arguments),o};o.q=o.q||[],o.l=+new Date,n[e]=o}}(window,document,"LXAnalytics");</script>
+</head>
+
+<body>
     <noscript>
       You need to enable JavaScript to run this app.
     </noscript>
@@ -36,5 +43,11 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
-  </body>
+    <script class="whatever-seed-content" src="//analytics.meituan.net/analytics.js" type="text/javascript" charset="utf-8" async defer></script>
+    <script class="whatever-seed-content">
+    "use strict";!function(){var a=arguments.length>0&&void 0!==arguments[0]?arguments[0]:"_Owl_",i=window,t={page:!0,resource:!0,js:!0};i[a]||(i[a]={isRunning:!1,isReady:!1,preTasks:[],config:t,dataSet:[],use:function(a,t){this.isReady&&i.Owl&&i.Owl[a](t),this.preTasks.push({api:a,data:[t]})},add:function(a){this.dataSet.push(a)},run:function(a){var t=this;if(!this.isRunning){this.isRunning=!0;var e=a||this.config;if(!1!==e.js){var n=i.onerror;i.onerror=function(){this.isReady||this.add({type:"jsError",data:arguments}),n&&n.apply(i,arguments)}.bind(this)}var r=i.addEventListener||i.attachEvent;!1!==e.<p></p>age&&r("load",function(){if(!t.isReady){var a=i.performance&&i.performance.timing;t.add({type:"pageTime",data:[a]})}}),!1!==e.resource&&(r("error",function(a){t.isReady||t.add({type:"resError",data:[a]})},!0),r("oload",function(a){t.isReady||t.add({type:"resTime",data:[a]})}))}}})}();
+    _Owl_.run({ page: true, js: true, resource: true })
+    </script>
+</body>
+
 </html>

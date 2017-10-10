@@ -42,14 +42,17 @@
   },
   "dependencies": {
     "@types/cookie": "^0.3.1",
-    "@types/deep-assign": "^0.1.0",
+    "@types/debug": "0.0.30",
+    "@types/eventemitter2": "^4.1.0",
     "@types/lodash": "^4.14.74",
     "cookie": "^0.3.1",
     "datascript": "^0.16.2",
+    "debug": "^3.1.0",
     "delegates": "^1.0.0",
-    "events": "^1.1.1",
+    "eventemitter2": "^4.1.2",
     "lodash": "^4.17.4",
-    "only": "^0.0.2"
+    "only": "^0.0.2",
+    "wolfy87-eventemitter": "^5.2.3"
   },
   "homepage": "https://github.com/YoungLeeNENU/prajna#readme"
 }
