@@ -20,10 +20,6 @@ const runtime: any = {
 
     get ua(): string {
         return NAV.userAgent;
-    },
-
-    get performance(): Performance {
-        return GLOBAL.performance;
     }
 };
 

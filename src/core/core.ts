@@ -1,13 +1,13 @@
 import compose from './compose';
 import * as context from './context';
 import { runtime } from './runtime';
-import performanceMiddleware from './performance-middleware';
+import performanceMiddleware from '../middleware/performance-middleware';
 import Message from './types/message.type';
 import { EventEmitter2 } from 'eventemitter2';
 
 const only = require('only');
-const debug = require('debug')('prajna:core');
-const datascript = require('datascript');
+// const debug = require('debug')('prajna:core');
+// const datascript = require('datascript');
 
 class Core extends EventEmitter2 {
     private middleware: any[];
@@ -62,7 +62,6 @@ class Core extends EventEmitter2 {
     }
 
     start(...args: any[]): Core {
-        debug('start');
         this.use(performanceMiddleware);
         return this.on('LOGGING', this.callback());
     }
@@ -102,10 +101,4 @@ function envHelper(ctx: any) {
     return (ctx: any) => { };
 }
 
-function mixin(middleware_a: any, middleware_b: any) {
-    let empty = {};
-    return empty;
-}
-
 export default Core;
-export { mixin };

@@ -25,7 +25,6 @@ const proto: any = {
 };
 
 delegate(proto, 'runtime')
-    .getter('performance')
     .getter('ua');
 
 export default proto;
