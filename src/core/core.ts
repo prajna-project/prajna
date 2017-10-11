@@ -1,7 +1,13 @@
 import compose from './compose';
 import * as context from './context';
 import { runtime } from './runtime';
+import eventMiddleware from '../middleware/event-middleware';
 import performanceMiddleware from '../middleware/performance-middleware';
+import PVMiddleware from '../middleware/pv-middleware';
+import reportMiddleware from '../middleware/report-middleware';
+import resourceMiddleware from '../middleware/resource-middleware';
+import XHRMiddleware from '../middleware/xhr-middleware';
+
 import Message from './types/message.type';
 import { EventEmitter2 } from 'eventemitter2';
 
@@ -63,6 +69,11 @@ class Core extends EventEmitter2 {
 
     start(...args: any[]): Core {
         this.use(performanceMiddleware);
+        this.use(resourceMiddleware);
+        this.use(XHRMiddleware);
+        this.use(eventMiddleware);
+        this.use(PVMiddleware);
+        this.use(reportMiddleware);
         return this.on('LOGGING', this.callback());
     }
 
