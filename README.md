@@ -1,4 +1,4 @@
-## प्रज्ञ (Prajna), analysing browser side javascript application with wisdom
+## Prajna (प्रज्ञ), analysing browser side javascript application with wisdom
 
 ### Installation
 ```shell
