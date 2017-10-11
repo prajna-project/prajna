@@ -9,7 +9,16 @@ class App extends Component {
         let prajna = Prajna.init({
             autopv: false
         });
-        prajna.use(Dejavu);
+        prajna.use(async (ctx, next)=>{
+            // console.log('1');
+            next();
+            // console.log('2');
+        });
+        prajna.use(async (ctx, next)=>{
+            // console.log('4');
+            // console.log('3');
+            next();
+        });
         prajna.start();
         prajna.report({});
     }

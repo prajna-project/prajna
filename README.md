@@ -4,3 +4,7 @@
 ```shell
 npm install --save prajna
 ```
+
+### Documentation
+### License
+MIT

@@ -1,8 +1,9 @@
 const Global: Window = window;
 
 function performanceMiddleware(ctx: any, next: any): any {
-    console.log(Global.performance);
-    return;
+    console.log('performance-middleware', Global.performance);
+    next();
+    // return;
 }
 
 export default performanceMiddleware;

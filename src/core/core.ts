@@ -1,6 +1,6 @@
 import compose from './compose';
-import { context } from './context';
-import envMiddleware from './env-middleware';
+import * as context from './context';
+import { runtime } from './runtime';
 import performanceMiddleware from './performance-middleware';
 import Message from './types/message.type';
 import { EventEmitter2 } from 'eventemitter2';
@@ -12,6 +12,7 @@ const datascript = require('datascript');
 class Core extends EventEmitter2 {
     private middleware: any[];
     private context: any;
+    private runtime: any;
     public env: string = 'beta';
     public url: string = 'https://prajna.51ping.com';
     public performanceFlag: boolean = false;
@@ -22,6 +23,7 @@ class Core extends EventEmitter2 {
 
         this.middleware = [];
         this.context = Object.create(context);
+        this.runtime = Object.create(runtime);
         this.autopv = opt.autopv || this.autopv;
     }
 
@@ -43,7 +45,7 @@ class Core extends EventEmitter2 {
         const handler = () => {
             const ctx = this.createContext();
             const handleEnv = () => envHelper(ctx);
-            return lambda(ctx).then(handleEnv).catch((err: any) => {
+            return lambda(ctx).then(handleEnv).catch((err: Error) => {
                 console.log(err);
             });
         };
@@ -52,14 +54,16 @@ class Core extends EventEmitter2 {
 
     createContext(): void {		// TODO
         const context = Object.create(this.context);
+        const runtime = context.runtime = Object.create(this.runtime);
+        context.core = runtime.core = this;
         context.state = {};
+        console.warn('context:', context);
         return context;
     }
 
     start(...args: any[]): Core {
         debug('start');
-        // this.use(envMiddleware);
-        // this.use(performanceMiddleware);
+        this.use(performanceMiddleware);
         return this.on('LOGGING', this.callback());
     }
 
