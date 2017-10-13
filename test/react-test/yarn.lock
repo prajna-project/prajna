@@ -26,19 +26,19 @@
   version "1.5.16"
   resolved "http://r.npm.sankuai.com/@dp/owl/download/@dp/owl-1.5.16.tgz#0dd4cf5cca463304949c19aacffbcbcdbdd5251e"
 
-"@dp/prajna-gadget-plugin@^1.0.4-beta":
-  version "1.0.4-beta"
-  resolved "http://r.npm.sankuai.com/@dp/prajna-gadget-plugin/download/@dp/prajna-gadget-plugin-1.0.4-beta.tgz#43308cd86156a44b5f8475b885deb49b288ab70d"
+"@dp/prajna-gadget-plugin@^1.0.0-rc2":
+  version "1.0.0-rc2"
+  resolved "http://r.npm.sankuai.com/@dp/prajna-gadget-plugin/download/@dp/prajna-gadget-plugin-1.0.0-rc2.tgz#5dbf2e024f6914d47d94a66394601c5ae906830e"
   dependencies:
-    "@dp/prajna-gadget" "^1.0.1-beta"
+    "@dp/prajna-gadget" "^1.0.0-rc2"
     cheerio "^1.0.0-rc.2"
     js-beautify "^1.7.3"
     lodash "^4.17.4"
     uglify-js "^3.1.1"
 
-"@dp/prajna-gadget@^1.0.1-beta":
-  version "1.0.1-beta"
-  resolved "http://r.npm.sankuai.com/@dp/prajna-gadget/download/@dp/prajna-gadget-1.0.1-beta.tgz#50f3262bcab2d35f1de0174a9244ab5489d1d2a3"
+"@dp/prajna-gadget@^1.0.0-rc2":
+  version "1.0.0-rc2"
+  resolved "http://r.npm.sankuai.com/@dp/prajna-gadget/download/@dp/prajna-gadget-1.0.0-rc2.tgz#ae1e9e9301e29faeb0f97008384b1477201250dd"
 
 "@hfe/hbnb@0.4.5":
   version "0.4.5"
