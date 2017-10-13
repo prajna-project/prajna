@@ -4,7 +4,8 @@ export enum EventType {
     MODULE_EDIT,
     ORDER,
     PAY,
-    PAGE_DISAPPEAR
+    PAGE_DISAPPEAR,
+    MGE
 }
 
 export interface Padding {		// 附加信息是任意 json 结构的数据

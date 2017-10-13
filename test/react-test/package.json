@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@dp/prajna-gadget-plugin": "^1.0.0-beta",
+    "@dp/knb": "^1.4.4",
+    "@dp/owl": "^1.5.16",
+    "@dp/prajna-gadget-plugin": "^1.0.4-beta",
     "autoprefixer": "7.1.2",
     "babel-core": "6.25.0",
     "babel-eslint": "7.2.3",

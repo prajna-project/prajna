@@ -1,6 +1,6 @@
 import compose from './compose';
 import * as context from './context';
-import { runtime } from './runtime';
+import runtime from './runtime';
 import eventMiddleware from '../middleware/event-middleware';
 import performanceMiddleware from '../middleware/performance-middleware';
 import PVMiddleware from '../middleware/pv-middleware';
@@ -14,15 +14,17 @@ import { EventEmitter2 } from 'eventemitter2';
 const only = require('only');
 // const debug = require('debug')('prajna:core');
 // const datascript = require('datascript');
+const GLOBAL: any = window;
 
 class Core extends EventEmitter2 {
     private middleware: any[];
     private context: any;
     private runtime: any;
-    public env: string = 'beta';
-    public url: string = 'https://prajna.51ping.com';
+    public env: string = GLOBAL.__prajnaEnv__ || 'dev';
+    public url: string = GLOBAL.__envMapping__[this.env] || 'http://localhost:8080';
     public performanceFlag: boolean = false;
     public autopv: boolean = true;
+    public channel: string = null;
 
     constructor(opt: any) {
         super();
@@ -31,6 +33,7 @@ class Core extends EventEmitter2 {
         this.context = Object.create(context);
         this.runtime = Object.create(runtime);
         this.autopv = opt.autopv || this.autopv;
+        this.channel = opt.channel || this.channel;
     }
 
     toJSON(): Core {
@@ -63,7 +66,6 @@ class Core extends EventEmitter2 {
         const runtime = context.runtime = Object.create(this.runtime);
         context.core = runtime.core = this;
         context.state = {};
-        console.warn('context:', context);
         return context;
     }
 

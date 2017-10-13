@@ -25,6 +25,19 @@ const proto: any = {
 };
 
 delegate(proto, 'runtime')
-    .getter('ua');
+    .getter('env')
+    .getter('project')
+    .getter('thirdparty')
+    .getter('version')
+    .getter('auto')
+    .getter('channel')
+    .getter('network')
+    .getter('jsBridge')
+    // .getter('ua')
+    .getter('device')
+    .getter('os')
+    .getter('region')
+    .access('timestamp')
+    ;
 
 export default proto;

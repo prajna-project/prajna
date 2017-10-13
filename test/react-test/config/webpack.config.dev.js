@@ -221,8 +221,7 @@ module.exports = {
     new InterpolateHtmlPlugin(env.raw),
     new gadgetPlugin({
       includes: ['./public/index.html'],
-      whateverOptions: {
-        env: 'beta',
+      prajnaOptions: {
         project: 'test',
         category: 'react-test'
       }

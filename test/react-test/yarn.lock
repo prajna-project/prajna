@@ -2,19 +2,50 @@
 # yarn lockfile v1
 
 
-"@dp/prajna-gadget-plugin@^1.0.0-beta":
-  version "1.0.0-beta"
-  resolved "http://r.npm.sankuai.com/@dp/prajna-gadget-plugin/download/@dp/prajna-gadget-plugin-1.0.0-beta.tgz#b29d43581b563f58c7ff0181b49e8a1e50726edd"
+"@dp/dpapp-core@^1.0.1":
+  version "1.0.5"
+  resolved "http://r.npm.sankuai.com/@dp/dpapp-core/download/@dp/dpapp-core-1.0.5.tgz#a13e4300da52b66137c752e8fcd6eb06c9a513fd"
   dependencies:
-    "@dp/prajna-gadget" "^1.0.0-beta"
+    promise "^7.1.1"
+
+"@dp/dpapp@1.7.0":
+  version "1.7.0"
+  resolved "http://r.npm.sankuai.com/@dp/dpapp/download/@dp/dpapp-1.7.0.tgz#d73f1635aa45fcff81ce92c995d1b90f0f0c69e6"
+  dependencies:
+    "@dp/dpapp-core" "^1.0.1"
+
+"@dp/knb@^1.4.4":
+  version "1.4.4"
+  resolved "http://r.npm.sankuai.com/@dp/knb/download/@dp/knb-1.4.4.tgz#801087b6a18541ca9dc4a6d9d82439a91240fe15"
+  dependencies:
+    "@dp/dpapp" "1.7.0"
+    "@hfe/hbnb" "0.4.5"
+    pinkie "2.0.4"
+
+"@dp/owl@^1.5.16":
+  version "1.5.16"
+  resolved "http://r.npm.sankuai.com/@dp/owl/download/@dp/owl-1.5.16.tgz#0dd4cf5cca463304949c19aacffbcbcdbdd5251e"
+
+"@dp/prajna-gadget-plugin@^1.0.4-beta":
+  version "1.0.4-beta"
+  resolved "http://r.npm.sankuai.com/@dp/prajna-gadget-plugin/download/@dp/prajna-gadget-plugin-1.0.4-beta.tgz#43308cd86156a44b5f8475b885deb49b288ab70d"
+  dependencies:
+    "@dp/prajna-gadget" "^1.0.1-beta"
     cheerio "^1.0.0-rc.2"
     js-beautify "^1.7.3"
     lodash "^4.17.4"
     uglify-js "^3.1.1"
 
-"@dp/prajna-gadget@^1.0.0-beta":
-  version "1.0.0-beta"
-  resolved "http://r.npm.sankuai.com/@dp/prajna-gadget/download/@dp/prajna-gadget-1.0.0-beta.tgz#8eaef64aaf18a0d4d5cb1455806b073b61c33bea"
+"@dp/prajna-gadget@^1.0.1-beta":
+  version "1.0.1-beta"
+  resolved "http://r.npm.sankuai.com/@dp/prajna-gadget/download/@dp/prajna-gadget-1.0.1-beta.tgz#50f3262bcab2d35f1de0174a9244ab5489d1d2a3"
+
+"@hfe/hbnb@0.4.5":
+  version "0.4.5"
+  resolved "http://r.npm.sankuai.com/@hfe/hbnb/download/@hfe/hbnb-0.4.5.tgz#c8505c1793a85eacd73ac7b98c9d1cd1ee693c01"
+  dependencies:
+    debug "2.2.0"
+    pinkie "2.0.4"
 
 "@types/node@^6.0.46":
   version "6.0.89"
@@ -1782,6 +1813,12 @@ dashdash@^1.12.0:
 date-now@^0.1.4:
   version "0.1.4"
   resolved "http://r.npm.sankuai.com/date-now/download/date-now-0.1.4.tgz#eaf439fd4d4848ad74e5cc7dbef200672b9e345b"
+
+debug@2.2.0:
+  version "2.2.0"
+  resolved "http://r.npm.sankuai.com/debug/download/debug-2.2.0.tgz#f87057e995b1a1f6ae6a4960664137bc56f039da"
+  dependencies:
+    ms "0.7.1"
 
 debug@2.6.9, debug@^2.1.1, debug@^2.2.0, debug@^2.6.0, debug@^2.6.3, debug@^2.6.6, debug@^2.6.8:
   version "2.6.9"
@@ -4176,6 +4213,10 @@ mkdirp@0.5.1, mkdirp@0.5.x, "mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1, mkdi
   dependencies:
     minimist "0.0.8"
 
+ms@0.7.1:
+  version "0.7.1"
+  resolved "http://r.npm.sankuai.com/ms/download/ms-0.7.1.tgz#9cd13c03adbff25b65effde7ce864ee952017098"
+
 ms@2.0.0:
   version "2.0.0"
   resolved "http://r.npm.sankuai.com/ms/download/ms-2.0.0.tgz#5608aeadfc00be6c2901df5f9861788de0d597c8"
@@ -4638,7 +4679,7 @@ pinkie-promise@^2.0.0:
   dependencies:
     pinkie "^2.0.0"
 
-pinkie@^2.0.0:
+pinkie@2.0.4, pinkie@^2.0.0:
   version "2.0.4"
   resolved "http://r.npm.sankuai.com/pinkie/download/pinkie-2.0.4.tgz#72556b80cfa0d48a974e80e77248e80ed4f7f870"
 

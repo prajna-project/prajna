@@ -1,24 +1,31 @@
 import React, { Component } from 'react';
 import Prajna from 'prajna';        // 基础功能
-import Dejavu from 'prajna-dejavu'; // 场景还原
+// import Dejavu from 'prajna-dejavu'; // 场景还原
 import logo from './logo.svg';
+import KNB from '@dp/knb';
 import './App.css';
+const owl = require('@dp/owl');
 
 class App extends Component {
     componentWillMount () {
+        console.log(KNB);
+        owl.start({
+            devMode: 'beta',
+            project: window.__appName__,
+            pageUrl: 'http://localhost:8088'
+        });
         let prajna = Prajna.init({
-            autopv: false
+            autopv: false,
+            channel: 'qrcode'
         });
         prajna.use(async (ctx, next)=>{
-            // console.log('1');
+            console.log(ctx);
             next();
-            // console.log('2');
         });
         prajna.use(async (ctx, next)=>{
-            // console.log('4');
-            // console.log('3');
             next();
         });
+        // prajna.use(Dejavu);
         prajna.start();
         prajna.report({});
     }
