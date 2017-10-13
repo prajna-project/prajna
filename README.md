@@ -6,5 +6,7 @@ npm install --save prajna
 ```
 
 ### Documentation
+[Home](https://github.com/mtdp-diancan-f2e/prajna/wiki)
+
 ### License
 MIT
