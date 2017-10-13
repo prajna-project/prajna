@@ -76,7 +76,8 @@ class Core extends EventEmitter2 {
         this.use(eventMiddleware);
         this.use(PVMiddleware);
         this.use(reportMiddleware);
-        return this.on('LOGGING', this.callback());
+        this.on('LOGGING', this.callback());
+        return;
     }
 
     set(...args: any[]): void {
@@ -105,7 +106,6 @@ class Core extends EventEmitter2 {
     report(message: Message): void {
         `Report ERROR|WARNING|INFO|DEBUG info`
         this.emit('LOGGING')
-        console.log(message);
         return;
     }
 }
