@@ -1,5 +1,5 @@
 function reportMiddleware(ctx: any, next: any): any {
-    console.log('report-middleware');
+    console.log('use report-middleware');
     next();
 }
 

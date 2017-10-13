@@ -1,5 +1,5 @@
 function resourceMiddleware(ctx: any, next: any): any {
-    console.log('resource-middleware');
+    console.log('use resource-middleware');
     next();
 }
 

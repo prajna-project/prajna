@@ -1,7 +1,8 @@
 const Global: Window = window;
 
 function performanceMiddleware(ctx: any, next: any): any {
-    console.log('performance-middleware', Global.performance);
+    // ctx.runtime.performance = Global.performance;
+    console.log('use performance-middleware');
     next();
 }
 

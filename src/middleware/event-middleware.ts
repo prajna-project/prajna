@@ -1,5 +1,5 @@
 function eventMiddleware(ctx: any, next: any): any {
-    console.log('event-middleware');
+    console.log('use event-middleware');
     next();
 }
 

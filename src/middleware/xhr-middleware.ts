@@ -1,5 +1,5 @@
 function XHRMiddleware(ctx: any, next: any): any {
-    console.log('xhr-middleware');
+    console.log('use xhr-middleware');
     next();
 }
 
