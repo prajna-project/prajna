@@ -29,7 +29,7 @@ const runtime: any = {
     },
 
     get project(): string {
-        return GLOBAL.__appName__;;
+        return GLOBAL.__appName__;
     },
 
     get thirdParty(): ThirdParty {

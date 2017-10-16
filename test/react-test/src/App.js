@@ -2,13 +2,12 @@ import React, { Component } from 'react';
 import Prajna from 'prajna';        // 基础功能
 // import Dejavu from 'prajna-dejavu'; // 场景还原
 import logo from './logo.svg';
-import KNB from '@dp/knb';
+// import KNB from '@dp/knb';
 import './App.css';
 const owl = require('@dp/owl');
 
 class App extends Component {
     componentWillMount () {
-        console.log(KNB);
         owl.start({
             devMode: 'beta',
             project: window.__appName__,
@@ -19,11 +18,14 @@ class App extends Component {
             channel: 'qrcode'
         });
         prajna.use(async (ctx, next)=>{
-            console.log(ctx);
+            console.log(1);
             next();
+            console.log(4);
         });
         prajna.use(async (ctx, next)=>{
+            console.log(2);
             next();
+            console.log(3);
         });
         // prajna.use(Dejavu);
         prajna.start();

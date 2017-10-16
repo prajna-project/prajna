@@ -1,5 +1,5 @@
 import compose from './compose';
-import * as context from './context';
+import context from './context';
 import runtime from './runtime';
 import eventMiddleware from '../middleware/event-middleware';
 import performanceMiddleware from '../middleware/performance-middleware';
@@ -51,17 +51,17 @@ class Core extends EventEmitter2 {
 
     callback(): () => any {		// TODO
         const lambda: (ctx: any, next?: any) => any = compose(this.middleware);
-        const handler = () => {
-            const ctx = this.createContext();
-            const handleEnv = () => envHelper(ctx);
-            return lambda(ctx).then(handleEnv).catch((err: Error) => {
+        const handler = (main: any) => {
+            const ctx = this.createContext(main);
+            const handleRuntime = () => runtimeHelper(ctx);
+            return lambda(ctx).then(handleRuntime).catch((err: Error) => {
                 console.log(err);
             });
         };
         return handler;
     }
 
-    createContext(): void {		// TODO
+    createContext(main: any): void {		// TODO
         const context = Object.create(this.context);
         const runtime = context.runtime = Object.create(this.runtime);
         context.core = runtime.core = this;
@@ -100,6 +100,7 @@ class Core extends EventEmitter2 {
     // TODO: @prajnaEvent
     prajnaEvent(message: Message): void {
         `Aftermath of page events`
+
         return;
     }
 
@@ -110,7 +111,7 @@ class Core extends EventEmitter2 {
     }
 }
 
-function envHelper(ctx: any) {
+function runtimeHelper(ctx: any) {
     return (ctx: any) => { };
 }
 

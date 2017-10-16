@@ -1,8 +1,8 @@
 const delegate = require('delegates');
 
-const proto: any = {
+const context: any = {
     inspect(): void {
-        if (this === proto) { return this; }
+        if (this === context) { return this; }
         return this.toJSON();
     },
 
@@ -24,7 +24,7 @@ const proto: any = {
     }
 };
 
-delegate(proto, 'runtime')
+delegate(context, 'runtime')
     .getter('env')
     .getter('project')
     .getter('thirdparty')
@@ -33,11 +33,8 @@ delegate(proto, 'runtime')
     .getter('channel')
     .getter('network')
     .getter('jsBridge')
-    // .getter('ua')
-    .getter('device')
-    .getter('os')
+    .getter('ua')
     .getter('region')
-    .access('timestamp')
-    ;
+    .access('timestamp');
 
-export default proto;
+export default context;

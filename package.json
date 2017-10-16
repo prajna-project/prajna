@@ -4,7 +4,8 @@
   "description": "prajna browser side SDK",
   "main": "index.js",
   "scripts": {
-    "build": "node $NODE_DEBUG_OPTION node_modules/.bin/webpack --config webpack.npm.config.js"
+    "dev": "node $NODE_DEBUG_OPTION node_modules/.bin/webpack --watch",
+    "build": "node $NODE_DEBUG_OPTION node_modules/.bin/webpack"
   },
   "repository": {
     "type": "git",
