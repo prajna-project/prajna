@@ -9,11 +9,10 @@ import resourceMiddleware from '../middleware/resource-middleware';
 import XHRMiddleware from '../middleware/xhr-middleware';
 
 import Message from './types/message.type';
+import { InitOption } from './types/core.type';
 import { EventEmitter2 } from 'eventemitter2';
 
 const only = require('only');
-// const debug = require('debug')('prajna:core');
-// const datascript = require('datascript');
 const GLOBAL: any = window;
 
 class Core extends EventEmitter2 {
@@ -21,10 +20,12 @@ class Core extends EventEmitter2 {
     private context: any;
     private runtime: any;
     public env: string = GLOBAL.__prajnaEnv__ || 'dev';
-    public url: string = GLOBAL.__envMapping__[this.env] || 'http://localhost:8080';
-    public performanceFlag: boolean = false;
-    public autopv: boolean = true;
+    public autopv: string = GLOBAL.__prajnaAutoPV__ || true;
+    public url: string = GLOBAL.__envMapping__[this.env] || 'http://localhost:8080'; // es 的 url
+    public pageUrl: string = GLOBAL.location.href;
+    public pageId: string = '';
     public channel: string = null;
+    // public performanceFlag: boolean = false;
 
     constructor(opt: any) {
         super();
@@ -32,7 +33,8 @@ class Core extends EventEmitter2 {
         this.middleware = [];
         this.context = Object.create(context);
         this.runtime = Object.create(runtime);
-        this.autopv = opt.autopv || this.autopv;
+        this.pageId = opt.pageId || this.pageId;
+        this.pageUrl = opt.pageUrl || this.pageUrl;
         this.channel = opt.channel || this.channel;
     }
 
@@ -40,8 +42,10 @@ class Core extends EventEmitter2 {
         return only(this, [
             'env',
             'url',
-            'performanceFlag',
-            'autopv'
+            'autopv',
+            'pageUrl',
+            'pageId',
+            'channel'
         ]);
     }
 
@@ -51,8 +55,8 @@ class Core extends EventEmitter2 {
 
     callback(): () => any {		// TODO
         const lambda: (ctx: any, next?: any) => any = compose(this.middleware);
-        const handler = (main: any) => {
-            const ctx = this.createContext(main);
+        const handler = () => {
+            const ctx = this.createContext();
             const handleRuntime = () => runtimeHelper(ctx);
             return lambda(ctx).then(handleRuntime).catch((err: Error) => {
                 console.log(err);
@@ -61,7 +65,7 @@ class Core extends EventEmitter2 {
         return handler;
     }
 
-    createContext(main: any): void {		// TODO
+    createContext(): void {		// TODO
         const context = Object.create(this.context);
         const runtime = context.runtime = Object.create(this.runtime);
         context.core = runtime.core = this;
@@ -70,31 +74,28 @@ class Core extends EventEmitter2 {
     }
 
     start(...args: any[]): Core {
-        this.use(performanceMiddleware);
-        this.use(resourceMiddleware);
-        this.use(XHRMiddleware);
-        this.use(eventMiddleware);
-        this.use(PVMiddleware);
-        this.use(reportMiddleware);
+        this.use(performanceMiddleware)
+            .use(resourceMiddleware)
+            .use(XHRMiddleware)
+            .use(eventMiddleware)
+            .use(PVMiddleware)
+            .use(reportMiddleware);
         this.on('LOGGING', this.callback());
         return;
     }
 
-    set(...args: any[]): void {
+    set(opt: InitOption): Core {
         `Set prajna configurations`
-        return;
+        this.pageId = opt.pageId || this.pageId;
+        this.pageUrl = opt.pageUrl || this.pageUrl;
+        this.channel = opt.channel || this.channel;
+        return this;
     }
 
     use(lambda: (...args: any[]) => any): Core {
         `Install prajna middleware`
         this.middleware.push(lambda);
         return this;
-    }
-
-    // @pageView
-    pageView(): void {
-        `Send PV manually`
-        return;
     }
 
     // TODO: @prajnaEvent

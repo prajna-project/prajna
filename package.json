@@ -51,6 +51,7 @@
     "debug": "^3.1.0",
     "delegates": "^1.0.0",
     "eventemitter2": "^4.1.2",
+    "local-storage": "^1.4.2",
     "lodash": "^4.17.4",
     "only": "^0.0.2",
     "user-agent-parser": "^0.6.0",

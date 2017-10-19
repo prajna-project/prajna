@@ -152,6 +152,7 @@ module.exports = {
               // It enables caching results in ./node_modules/.cache/babel-loader/
               // directory for faster rebuilds.
               cacheDirectory: true,
+              plugins: ["transform-decorators-legacy", "transform-decorators"]
             },
           },
           // "postcss" loader applies autoprefixer to our CSS.
@@ -222,8 +223,9 @@ module.exports = {
     new gadgetPlugin({
       includes: ['./public/index.html'],
       prajnaOptions: {
-        project: 'test',
-        category: 'react-test'
+        autopv: true,
+        project: 'react-test',
+        category: 'lx-react-test'
       }
     }),
     // Generates an `index.html` file with the <script> injected.

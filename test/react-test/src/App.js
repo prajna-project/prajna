@@ -7,29 +7,30 @@ import './App.css';
 const owl = require('@dp/owl');
 
 class App extends Component {
-    componentWillMount () {
+    constructor () {
+        super();
         owl.start({
             devMode: 'beta',
             project: window.__appName__,
             pageUrl: 'http://localhost:8088'
         });
         let prajna = Prajna.init({
-            autopv: false,
-            channel: 'qrcode'
+            pageId: 'test',
+            channel: 'web'
         });
         prajna.use(async (ctx, next)=>{
-            console.log(1);
+            console.log(ctx);
             next();
-            console.log(4);
-        });
-        prajna.use(async (ctx, next)=>{
-            console.log(2);
-            next();
-            console.log(3);
         });
         // prajna.use(Dejavu);
         prajna.start();
         prajna.report({});
+        prajna.pageView();
+    }
+
+    // @window.pageView
+    componentWillMount () {
+        // console.log('here');
     }
 
     // @prajnaEvent
