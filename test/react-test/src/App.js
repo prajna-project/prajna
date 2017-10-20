@@ -18,14 +18,9 @@ class App extends Component {
             pageId: 'test',
             channel: 'web'
         });
-        prajna.use(async (ctx, next)=>{
-            console.log(ctx);
-            next();
-        });
         // prajna.use(Dejavu);
         prajna.start();
-        prajna.report({});
-        prajna.pageView();
+        // prajna.pageView();
     }
 
     // @window.pageView

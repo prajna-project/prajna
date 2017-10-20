@@ -5,6 +5,7 @@ import getCurrentPosition from '../util/geolocation';
 const only = require('only');
 const version = require('../../package.json').version;
 const UAParser = require('user-agent-parser');
+const userAgent = require('useragent.js');
 
 const GLOBAL: any = window;
 const NAV: any = GLOBAL.navigator;

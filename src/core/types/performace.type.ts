@@ -45,6 +45,6 @@ export interface Memory {
 export default interface Performance {
     pageUrl: string,            // 页面 url
     timing: Timing,
-    navigation?: Navigation
+    navigation?: Navigation,
     memory?: Memory
 }

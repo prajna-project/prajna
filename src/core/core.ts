@@ -25,7 +25,7 @@ class Core extends EventEmitter2 {
     public pageUrl: string = GLOBAL.location.href;
     public pageId: string = '';
     public channel: string = null;
-    // public performanceFlag: boolean = false;
+    public pageView: any;
 
     constructor(opt: any) {
         super();
@@ -38,7 +38,7 @@ class Core extends EventEmitter2 {
         this.channel = opt.channel || this.channel;
     }
 
-    toJSON(): Core {
+    public toJSON(): Core {
         return only(this, [
             'env',
             'url',
@@ -49,11 +49,11 @@ class Core extends EventEmitter2 {
         ]);
     }
 
-    inspect(): Core {
+    public inspect(): Core {
         return this.toJSON();
     }
 
-    callback(): () => any {		// TODO
+    private callback(): () => any {		// TODO
         const lambda: (ctx: any, next?: any) => any = compose(this.middleware);
         const handler = () => {
             const ctx = this.createContext();
@@ -65,7 +65,7 @@ class Core extends EventEmitter2 {
         return handler;
     }
 
-    createContext(): void {		// TODO
+    private createContext(): void {		// TODO
         const context = Object.create(this.context);
         const runtime = context.runtime = Object.create(this.runtime);
         context.core = runtime.core = this;
@@ -73,18 +73,19 @@ class Core extends EventEmitter2 {
         return context;
     }
 
-    start(...args: any[]): Core {
+    public start(...args: any[]): Core {
         this.use(performanceMiddleware)
             .use(resourceMiddleware)
             .use(XHRMiddleware)
             .use(eventMiddleware)
-            .use(PVMiddleware)
-            .use(reportMiddleware);
-        this.on('LOGGING', this.callback());
+            .use(reportMiddleware)
+            .use(PVMiddleware);
+        this.on('BEAT_EVENT', this.callback());
+        this.beat();			// beat once when start
         return;
     }
 
-    set(opt: InitOption): Core {
+    public set(opt: InitOption): Core {
         `Set prajna configurations`
         this.pageId = opt.pageId || this.pageId;
         this.pageUrl = opt.pageUrl || this.pageUrl;
@@ -92,9 +93,14 @@ class Core extends EventEmitter2 {
         return this;
     }
 
-    use(lambda: (...args: any[]) => any): Core {
+    public use(lambda: (...args: any[]) => any): Core {
         `Install prajna middleware`
         this.middleware.push(lambda);
+        return this;
+    }
+
+    private beat(): Core {
+        this.emit('BEAT_EVENT');
         return this;
     }
 
@@ -102,12 +108,6 @@ class Core extends EventEmitter2 {
     prajnaEvent(message: Message): void {
         `Aftermath of page events`
 
-        return;
-    }
-
-    report(message: Message): void {
-        `Report ERROR|WARNING|INFO|DEBUG info`
-        this.emit('LOGGING')
         return;
     }
 }

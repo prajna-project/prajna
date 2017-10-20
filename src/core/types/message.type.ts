@@ -22,7 +22,7 @@ export interface Bridge {
 
 export interface Device {
     model: string,
-    venfor: string,
+    vendor: string,
     type: string
 }
 
