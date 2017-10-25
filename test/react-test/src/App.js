@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import Prajna from 'prajna';        // 基础功能
-// import Dejavu from 'prajna-dejavu'; // 场景还原
+import KNB from '@dp/knb';
+import Prajna from 'prajna';            // 基础功能
+import Dejavu from 'prajna-dejavu';        // 场景还原
+import PrajnaKNB from '@dp/prajna-knb'; // knb
 import logo from './logo.svg';
-// import KNB from '@dp/knb';
 import './App.css';
 const owl = require('@dp/owl');
 
@@ -10,15 +11,21 @@ class App extends Component {
     constructor () {
         super();
         owl.start({
-            devMode: 'beta',
+            devMode: true,
             project: window.__appName__,
             pageUrl: 'http://localhost:8088'
         });
+        window.LXAnalytics('pageView', null, null, 'example-page');
         let prajna = Prajna.init({
             pageId: 'test',
             channel: 'web'
         });
-        // prajna.use(Dejavu);
+        prajna.use(Dejavu);
+        prajna.use(PrajnaKNB);
+        prajna.use(async (ctx, next) => {
+            console.log(ctx);
+            next();
+        });
         prajna.start();
         // prajna.pageView();
     }

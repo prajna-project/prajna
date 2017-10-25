@@ -1,5 +1,5 @@
 import { Timing } from './types/performace.type';
-import { ThirdParty, ThirdPartyType, Network, Bridge, BridgeType, Region, UserAgent } from './types/message.type';
+import { ThirdParty, ThirdPartyType, Network, Bridge, BridgeType, Region, UserAgent, UA } from './types/message.type';
 import getCurrentPosition from '../util/geolocation';
 
 const only = require('only');
@@ -29,14 +29,23 @@ const runtime: any = {
         return GLOBAL.__prajnaEnv__;
     },
 
+    set env(val: string) {
+        GLOBAL.__prajnaEnv__ = val;
+    },
+
     get project(): string {
         return GLOBAL.__appName__;
     },
 
-    get thirdParty(): ThirdParty {
-        return {
+    set project(val) {
+        GLOBAL.__appName__ = val;
+    },
+
+    get thirdparty(): ThirdParty {
+        let tp = {
             "type": ThirdPartyType.NONE // Not a message from thirdparty sdk
-        };
+        }
+        return tp;
     },
 
     get version(): string {
@@ -52,6 +61,7 @@ const runtime: any = {
     },
 
     get netowrk(): Network {
+        console.log('ere');
         `get network status`
         let connection: string;
         let network: Network = {
@@ -81,12 +91,14 @@ const runtime: any = {
         };
     },
 
-    get ua(): UserAgent {
-        let uap = new UAParser(GLOBAL.navigator.userAgent);
+    get ua(): UA {
+        let ua = GLOBAL.navigator.userAgent;
         return {
-            device: uap.getDevice(),
-            engine: uap.getEngine(),
-            os: uap.getOS()
+            ua: ua,
+            browser: userAgent.analyze(ua).browser.full || '',
+            os: userAgent.analyze(ua).os.full || '',
+            device: userAgent.analyze(ua).device.full || '',
+            platform: userAgent.analyze(ua).platform.full || ''
         };
     },
 
@@ -95,14 +107,15 @@ const runtime: any = {
         return region;
     },
 
-    set timestamp(isoString: string) {
-        if (isoString) {
-            this.msg['@timestamp'] = isoString
-        } else {
-            let now = new Date();
-            this.msg['@timestamp'] = now.toISOString();
-        }
+    get timestamp(): string {
+        let time = new Date();
+        return time.toTimeString();
     },
+
+    // set timestamp(timeString: string) {
+    //     let time = new Date();
+    //     this.timestamp = timeString || time.toTimeString();
+    // },
 
     async getRegion(): Promise<Region> {
         let region = await getCurrentPosition();

@@ -1,4 +1,4 @@
-import { Timing, Navigation, Memory } from '../core/types/performance.type';
+import { Timing, Navigation, Memory } from '../core/types/performace.type';
 const Global: Window = window;
 
 let PERFORMANCE_FLAG: boolean = true;
@@ -53,6 +53,7 @@ function _sendPerformanceData(ctx: any) {
         }
     };
     data.push(msg);
+    console.log(data);
     let _xhr: XMLHttpRequest = new XMLHttpRequest();
     _xhr.open('POST', ctx.core.url + '/api/prajna', true);
     _xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");

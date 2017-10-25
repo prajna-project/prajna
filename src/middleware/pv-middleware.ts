@@ -19,17 +19,17 @@ function _sendPVData(ctx: any) {
             'netowrk': ctx.runtime.netowrk,
             'jsBridge': ctx.runtime.jsBridge,
             'ua': ctx.runtime.ua,
-            // 'region': ctx.runtime.region
+            // 'region': ctx.runtime.region,
             'pv': e
         });
     });
-    // console.log(mergedData);
+    console.log(mergedData);
     let _xhr: XMLHttpRequest = new XMLHttpRequest();
     _xhr.open('POST', ctx.core.url + '/api/prajna', true);
     _xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     _xhr.onload = function (e) {
-        cache.pv = [];
-        ls.set('prajna_cache', cache);
+        // cache.pv = [];
+        // ls.set('prajna_cache', cache);
     };
     _xhr.onerror = function (e) {
         console.log(e);

@@ -25,16 +25,16 @@ const context: any = {
 };
 
 delegate(context, 'runtime')
-    .getter('env')
-    .getter('project')
-    .getter('thirdparty')
-    .getter('version')
-    .getter('auto')
-    .getter('channel')
-    .getter('network')
-    .getter('jsBridge')
-    .getter('ua')
-    .getter('region')
-    .access('timestamp');
+    .access('env')
+    .access('project')
+    .access('thirdparty')
+    .access('version')
+    .access('auto')
+    .access('channel')
+    .access('network')
+    .access('jsBridge')
+    .access('ua')
+    .access('region')
+    .getter('timestamp');
 
 export default context;
