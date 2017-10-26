@@ -116,10 +116,13 @@ export interface FRMS {
 }
 
 export default interface Performance {
-    pageUrl: string,            // 页面 url
+    pageUrl: string,
     timing?: Timing,
     navigation?: Navigation,
     memory?: Memory,
+    performanceNavigationTiming?: PerformanceNavigationTiming,
+    performanceResourceTiming?: PerformanceResourceTiming,
+    performancePaintTiming?: PerformancePaintTiming[]
     fps?: FPS,
     frms?: FRMS
 }
