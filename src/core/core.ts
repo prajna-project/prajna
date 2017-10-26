@@ -2,7 +2,6 @@ import compose from './compose';
 import context from './context';
 import runtime from './runtime';
 import eventMiddleware from '../middleware/event-middleware';
-import performanceMiddleware from '../middleware/performance-middleware';
 import PVMiddleware from '../middleware/pv-middleware';
 import reportMiddleware from '../middleware/report-middleware';
 import resourceMiddleware from '../middleware/resource-middleware';
@@ -79,12 +78,11 @@ class Core extends EventEmitter2 {
     }
 
     public start(...args: any[]): Core {
-        this// .use(performanceMiddleware)
+        this.use(PVMiddleware)
             .use(resourceMiddleware)
             .use(XHRMiddleware)
             .use(eventMiddleware)
-            .use(reportMiddleware)
-            .use(PVMiddleware);
+            .use(reportMiddleware);
         this.on('BEAT_EVENT', this.callback());
         this.beat();			// beat once when start
         return;
