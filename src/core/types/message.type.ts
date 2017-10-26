@@ -1,4 +1,4 @@
-import Performance from './performace.type';
+import Performance, { Memory } from './performance.type';
 import Log from './log.type';
 import Resouce from './resouce.type';
 import Event from './event.type';
@@ -83,10 +83,12 @@ export default interface Message {
     network?: Network,			// [OPTIONAL] 网络情况
     region?: Region,			// [OPTIONAL] 用户地理信息
     jsBridge?: Bridge,			// [OPTIONAL] JS bridge 信息(Hybrid 应用)
+
     pv?: PV,					// [OPTIONAL] PV 信息
     performance?: Performance,	// [OPTIONAL] 页面性能数据信息
     xhr?: Xhr,					// [OPTIONAL] 网络 ajax 请求信息
     resource?: Resouce,			// [OPTIONAL] 网络资源请求信息
+
     event?: Event,				// [OPTIONAL] 页面事件信息
     log?: Log,					// [OPTIONAL] 主动上报日志信息
     episodeId?: number,			// [OPTIONAL] 场景还原的情节 Id

@@ -1,37 +1,37 @@
-import { Timing, Navigation, Memory } from '../core/types/performace.type';
-const Global: Window = window;
+import { Timing, Navigation, Memory } from '../core/types/performance.type';
+import GLOBAL from '../util/global';
 
 let PERFORMANCE_FLAG: boolean = true;
 
 function _sendPerformanceData(ctx: any) {
     let time = new Date();
     let data: any[] = [];
-    let performance: any = Global.performance,
+    let performance: any = GLOBAL.performance,
         timing: Timing = performance.timing,
         navigation: Navigation = performance.navigation,
         memory: Memory = performance.memory;
     // const deltaTiming = {
-    //     connectEnd: Global.performance.timing.connectEnd === 0 ? 0 : Global.performance.timing.connectEnd - Global.performance.timing.navigationStart,
-    //     connectStart: Global.performance.timing.connectStart === 0 ? 0 : Global.performance.timing.connectStart - Global.performance.timing.navigationStart,
-    //     domComplete: Global.performance.timing.domComplete === 0 ? 0 : Global.performance.timing.domComplete - Global.performance.timing.navigationStart,
-    //     domContentLoadedEventEnd: Global.performance.timing.domContentLoadedEventEnd === 0 ? 0 : Global.performance.timing.domContentLoadedEventEnd - Global.performance.timing.navigationStart,
-    //     domContentLoadedEventStart: Global.performance.timing.domContentLoadedEventStart === 0 ? 0 : Global.performance.timing.domContentLoadedEventStart - Global.performance.timing.navigationStart,
-    //     domInteractive: Global.performance.timing.domInteractive === 0 ? 0 : Global.performance.timing.domInteractive - Global.performance.timing.navigationStart,
-    //     domLoading: Global.performance.timing.domLoading === 0 ? 0 : Global.performance.timing.domLoading - Global.performance.timing.navigationStart,
-    //     domainLookupEnd: Global.performance.timing.domainLookupEnd === 0 ? 0 : Global.performance.timing.domainLookupEnd - Global.performance.timing.navigationStart,
-    //     domainLookupStart: Global.performance.timing.domainLookupStart === 0 ? 0 : Global.performance.timing.domainLookupStart - Global.performance.timing.navigationStart,
-    //     fetchStart: Global.performance.timing.fetchStart === 0 ? 0 : Global.performance.timing.fetchStart - Global.performance.timing.navigationStart,
-    //     loadEventEnd: Global.performance.timing.loadEventEnd === 0 ? 0 : Global.performance.timing.loadEventEnd - Global.performance.timing.navigationStart,
-    //     loadEventStart: Global.performance.timing.loadEventStart === 0 ? 0 : Global.performance.timing.loadEventStart - Global.performance.timing.navigationStart,
-    //     navigationStart: Global.performance.timing.navigationStart === 0 ? 0 : Global.performance.timing.navigationStart - Global.performance.timing.navigationStart,
-    //     redirectEnd: Global.performance.timing.redirectEnd === 0 ? 0 : Global.performance.timing.redirectEnd - Global.performance.timing.navigationStart,
-    //     redirectStart: Global.performance.timing.redirectStart === 0 ? 0 : Global.performance.timing.redirectStart - Global.performance.timing.navigationStart,
-    //     requestStart: Global.performance.timing.requestStart === 0 ? 0 : Global.performance.timing.requestStart - Global.performance.timing.navigationStart,
-    //     responseEnd: Global.performance.timing.responseEnd === 0 ? 0 : Global.performance.timing.responseEnd - Global.performance.timing.navigationStart,
-    //     responseStart: Global.performance.timing.responseStart === 0 ? 0 : Global.performance.timing.responseStart - Global.performance.timing.navigationStart,
-    //     secureConnectionStart: Global.performance.timing.secureConnectionStart === 0 ? 0 : Global.performance.timing.secureConnectionStart - Global.performance.timing.navigationStart,
-    //     unloadEventStart: Global.performance.timing.unloadEventStart === 0 ? 0 : Global.performance.timing.unloadEventStart - Global.performance.timing.navigationStart,
-    //     unloadEventEnd: Global.performance.timing.unloadEventEnd === 0 ? 0 : Global.performance.timing.unloadEventEnd - Global.performance.timing.navigationStart
+    //     connectEnd: GLOBAL.performance.timing.connectEnd === 0 ? 0 : GLOBAL.performance.timing.connectEnd - GLOBAL.performance.timing.navigationStart,
+    //     connectStart: GLOBAL.performance.timing.connectStart === 0 ? 0 : GLOBAL.performance.timing.connectStart - GLOBAL.performance.timing.navigationStart,
+    //     domComplete: GLOBAL.performance.timing.domComplete === 0 ? 0 : GLOBAL.performance.timing.domComplete - GLOBAL.performance.timing.navigationStart,
+    //     domContentLoadedEventEnd: GLOBAL.performance.timing.domContentLoadedEventEnd === 0 ? 0 : GLOBAL.performance.timing.domContentLoadedEventEnd - GLOBAL.performance.timing.navigationStart,
+    //     domContentLoadedEventStart: GLOBAL.performance.timing.domContentLoadedEventStart === 0 ? 0 : GLOBAL.performance.timing.domContentLoadedEventStart - GLOBAL.performance.timing.navigationStart,
+    //     domInteractive: GLOBAL.performance.timing.domInteractive === 0 ? 0 : GLOBAL.performance.timing.domInteractive - GLOBAL.performance.timing.navigationStart,
+    //     domLoading: GLOBAL.performance.timing.domLoading === 0 ? 0 : GLOBAL.performance.timing.domLoading - GLOBAL.performance.timing.navigationStart,
+    //     domainLookupEnd: GLOBAL.performance.timing.domainLookupEnd === 0 ? 0 : GLOBAL.performance.timing.domainLookupEnd - GLOBAL.performance.timing.navigationStart,
+    //     domainLookupStart: GLOBAL.performance.timing.domainLookupStart === 0 ? 0 : GLOBAL.performance.timing.domainLookupStart - GLOBAL.performance.timing.navigationStart,
+    //     fetchStart: GLOBAL.performance.timing.fetchStart === 0 ? 0 : GLOBAL.performance.timing.fetchStart - GLOBAL.performance.timing.navigationStart,
+    //     loadEventEnd: GLOBAL.performance.timing.loadEventEnd === 0 ? 0 : GLOBAL.performance.timing.loadEventEnd - GLOBAL.performance.timing.navigationStart,
+    //     loadEventStart: GLOBAL.performance.timing.loadEventStart === 0 ? 0 : GLOBAL.performance.timing.loadEventStart - GLOBAL.performance.timing.navigationStart,
+    //     navigationStart: GLOBAL.performance.timing.navigationStart === 0 ? 0 : GLOBAL.performance.timing.navigationStart - GLOBAL.performance.timing.navigationStart,
+    //     redirectEnd: GLOBAL.performance.timing.redirectEnd === 0 ? 0 : GLOBAL.performance.timing.redirectEnd - GLOBAL.performance.timing.navigationStart,
+    //     redirectStart: GLOBAL.performance.timing.redirectStart === 0 ? 0 : GLOBAL.performance.timing.redirectStart - GLOBAL.performance.timing.navigationStart,
+    //     requestStart: GLOBAL.performance.timing.requestStart === 0 ? 0 : GLOBAL.performance.timing.requestStart - GLOBAL.performance.timing.navigationStart,
+    //     responseEnd: GLOBAL.performance.timing.responseEnd === 0 ? 0 : GLOBAL.performance.timing.responseEnd - GLOBAL.performance.timing.navigationStart,
+    //     responseStart: GLOBAL.performance.timing.responseStart === 0 ? 0 : GLOBAL.performance.timing.responseStart - GLOBAL.performance.timing.navigationStart,
+    //     secureConnectionStart: GLOBAL.performance.timing.secureConnectionStart === 0 ? 0 : GLOBAL.performance.timing.secureConnectionStart - GLOBAL.performance.timing.navigationStart,
+    //     unloadEventStart: GLOBAL.performance.timing.unloadEventStart === 0 ? 0 : GLOBAL.performance.timing.unloadEventStart - GLOBAL.performance.timing.navigationStart,
+    //     unloadEventEnd: GLOBAL.performance.timing.unloadEventEnd === 0 ? 0 : GLOBAL.performance.timing.unloadEventEnd - GLOBAL.performance.timing.navigationStart
     // }
     // console.log(deltaTiming);
     let msg = {
@@ -46,7 +46,7 @@ function _sendPerformanceData(ctx: any) {
         'jsBridge': ctx.runtime.jsBridge,
         'ua': ctx.runtime.ua,
         'performance': {
-            pageUrl: Global.location.href,
+            pageUrl: GLOBAL.location.href,
             timing: timing,
             navigation: navigation,
             memory: memory
@@ -67,7 +67,7 @@ function _sendPerformanceData(ctx: any) {
 }
 
 function performanceMiddleware(ctx: any, next: any): any {
-    ctx.runtime.performance = Global.performance;
+    ctx.runtime.performance = GLOBAL.performance;
     console.log('use performance-middleware');
 
     if (PERFORMANCE_FLAG) {

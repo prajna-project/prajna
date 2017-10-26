@@ -21,7 +21,7 @@ class Core extends EventEmitter2 {
     private runtime: any;
     public env: string = GLOBAL.__prajnaEnv__ || 'dev';
     public autopv: string = GLOBAL.__prajnaAutoPV__ || true;
-    public url: string = 'http://localhost:8081' || GLOBAL.__envMapping__[this.env]; // es 的 url
+    public url: string = 'http://localhost:8081' || GLOBAL.__envMapping__[this.env];
     public pageUrl: string = GLOBAL.location.href;
     public pageId: string = '';
     public channel: string = null;
@@ -110,10 +110,10 @@ class Core extends EventEmitter2 {
     }
 
     // TODO: @prajnaEvent
-    prajnaEvent(message: Message): void {
-        `Aftermath of page events`
-        return;
-    }
+    // prajnaEvent(message: Message): void {
+    //     `Aftermath of page events`
+    //     return;
+    // }
 }
 
 function runtimeHelper(ctx: any) {

@@ -1,35 +1,24 @@
 const ls = require('local-storage');
+import GLOBAL from '../util/global';
 
 let AUTOPV_FLAG: boolean = true;
 
 function _sendPVData(ctx: any) {
-    let time = new Date();
     let cache: any = ls.get('prajna_cache');
     let mergedData: any[] = [];
     cache.pv.forEach((e: any) => {
+        let raw = ctx.inspect();
         e.name = ctx.core.pageId;
-        mergedData.push({
-            '@timestamp': time.toISOString(),
-            'env': ctx.runtime.env,
-            'project': ctx.runtime.project,
-            'thirdParty': ctx.runtime.thirdParty,
-            'version': ctx.runtime.version,
-            'auto': ctx.runtime.auto,
-            'channel': ctx.runtime.channel,
-            'netowrk': ctx.runtime.netowrk,
-            'jsBridge': ctx.runtime.jsBridge,
-            'ua': ctx.runtime.ua,
-            // 'region': ctx.runtime.region,
-            'pv': e
-        });
+        raw.pv = e;
+        mergedData.push(raw);
     });
     console.log(mergedData);
     let _xhr: XMLHttpRequest = new XMLHttpRequest();
     _xhr.open('POST', ctx.core.url + '/api/prajna', true);
     _xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     _xhr.onload = function (e) {
-        // cache.pv = [];
-        // ls.set('prajna_cache', cache);
+        cache.pv = [];
+        ls.set('prajna_cache', cache);
     };
     _xhr.onerror = function (e) {
         console.log(e);
@@ -38,15 +27,28 @@ function _sendPVData(ctx: any) {
 }
 
 function PVMiddleware(ctx: any, next: any): any {
-    console.log('use pv-middleware');
+    // console.log('use pv-middleware');
     function pageView() {
-        ctx.core.beat();
-        _sendPVData(ctx);
+        if (GLOBAL.document.readyState === 'complete') {
+            ctx.core.beat();
+            _sendPVData(ctx);
+        } else {
+            const wof = window.onload;
+            window.onload = function () {
+                ctx.core.beat();
+                _sendPVData(ctx);
+                return wof.apply(this);
+            }
+        }
     }
     ctx.core.pageView = pageView;
     if (AUTOPV_FLAG && ctx.core.autopv) {
         AUTOPV_FLAG = false;
-        _sendPVData(ctx);
+        const wof = window.onload;
+        window.onload = function () {
+            _sendPVData(ctx);
+            return wof.apply(this);
+        }
     }
     next();
 }

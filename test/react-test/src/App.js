@@ -20,24 +20,23 @@ class App extends Component {
             pageId: 'test',
             channel: 'web'
         });
-        prajna.use(Dejavu);
-        prajna.use(PrajnaKNB);
         prajna.use(async (ctx, next) => {
-            console.log(ctx);
+	        console.log(ctx);
             next();
         });
         prajna.start();
-        // prajna.pageView();
     }
 
     // @window.pageView
-    componentWillMount () {
-        // console.log('here');
+    componentDidMount () {
     }
 
     // @prajnaEvent
     onClickEvent (e) {
-        console.log(arguments[0].type);    // click
+        // console.log(arguments[0].type);    // click
+        var perfData = window.performance.timing;
+        var pageLoadTime = perfData.loadEventEnd - perfData.navigationStart;
+        console.log(pageLoadTime);
     }
 
     render() {

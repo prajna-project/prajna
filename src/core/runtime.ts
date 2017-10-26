@@ -1,14 +1,24 @@
-import { Timing } from './types/performace.type';
-import { ThirdParty, ThirdPartyType, Network, Bridge, BridgeType, Region, UserAgent, UA } from './types/message.type';
+import {
+    ThirdParty,
+    ThirdPartyType,
+    Network,
+    Bridge,
+    BridgeType,
+    Region,
+    UserAgent,
+    UA,
+} from './types/message.type';
+import Performance, { Timing } from './types/performance.type';
 import getCurrentPosition from '../util/geolocation';
+import GLOBAL from '../util/global';
 
 const only = require('only');
 const version = require('../../package.json').version;
 const UAParser = require('user-agent-parser');
 const userAgent = require('useragent.js');
 
-const GLOBAL: any = window;
 const NAV: any = GLOBAL.navigator;
+const isSupportGetEntry = GLOBAL.performance && GLOBAL.performance.getEntries !== void (0);
 
 const runtime: any = {
     inspect(): any {
@@ -61,7 +71,6 @@ const runtime: any = {
     },
 
     get netowrk(): Network {
-        console.log('ere');
         `get network status`
         let connection: string;
         let network: Network = {
@@ -107,7 +116,12 @@ const runtime: any = {
         return region;
     },
 
-    get timestamp(): string {
+    // get timestamp(): string {
+    //     let time = new Date();
+    //     return time.toTimeString();
+    // },
+
+    get ['@timestamp'](): string {
         let time = new Date();
         return time.toTimeString();
     },

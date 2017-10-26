@@ -1,4 +1,5 @@
 const delegate = require('delegates');
+const only = require('only');
 
 const context: any = {
     inspect(): void {
@@ -7,10 +8,19 @@ const context: any = {
     },
 
     toJSON(): any {
-        return {
-            'testing...': true,
-            'core': this.core.toJSON()
-        };
+        return only(this, [
+            'env',
+            'project',
+            'thirdparty',
+            'network',
+            'version',
+            'auto',
+            'channel',
+            'jsBridge',
+            'ua',
+            // 'region',
+            '@timestamp'
+        ]);
     },
 
     throw(...args: any[]) {
@@ -28,13 +38,16 @@ delegate(context, 'runtime')
     .access('env')
     .access('project')
     .access('thirdparty')
+    .access('network')			// runtime context doesn't match
     .access('version')
     .access('auto')
     .access('channel')
-    .access('network')
     .access('jsBridge')
     .access('ua')
     .access('region')
-    .getter('timestamp');
+    // .getter('timestamp')
+    .getter('@timestamp')
+    // .getter('performance')
+    ;
 
 export default context;
