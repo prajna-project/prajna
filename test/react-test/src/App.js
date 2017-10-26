@@ -25,6 +25,7 @@ class App extends Component {
             next();
         });
         prajna.start();
+	    this.prajna = prajna;
     }
 
     // @window.pageView
@@ -33,10 +34,11 @@ class App extends Component {
 
     // @prajnaEvent
     onClickEvent (e) {
-        // console.log(arguments[0].type);    // click
-        var perfData = window.performance.timing;
-        var pageLoadTime = perfData.loadEventEnd - perfData.navigationStart;
-        console.log(pageLoadTime);
+	    this.prajna.pageView();
+        // // console.log(arguments[0].type);    // click
+        // var perfData = window.performance.timing;
+        // var pageLoadTime = perfData.loadEventEnd - perfData.navigationStart;
+        // console.log(pageLoadTime);
     }
 
     render() {
@@ -49,7 +51,7 @@ class App extends Component {
                 <p className="App-intro">
                     Events
                 </p>
-                <a className="button" onClick={this.onClickEvent}>click me</a>
+		        <a className="button" onClick={this.onClickEvent.bind(this)}>click me</a>
             </div>
         );
     }
