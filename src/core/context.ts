@@ -18,8 +18,8 @@ const context: any = {
             'channel',
             'jsBridge',
             'ua',
+            '@timestamp',
             // 'region',
-            '@timestamp'
         ]);
     },
 
@@ -38,16 +38,13 @@ delegate(context, 'runtime')
     .access('env')
     .access('project')
     .access('thirdparty')
-    .access('network')			// runtime context doesn't match
+    .access('network')
     .access('version')
     .access('auto')
     .access('channel')
     .access('jsBridge')
     .access('ua')
     .access('region')
-    // .getter('timestamp')
-    .getter('@timestamp')
-    // .getter('performance')
-    ;
+    .getter('@timestamp');
 
 export default context;
