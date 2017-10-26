@@ -63,9 +63,17 @@ function _sendPVData(ctx: any) {
     let _xhr: XMLHttpRequest = new XMLHttpRequest();
     _xhr.open('POST', ctx.core.url + '/api/prajna', true);
     _xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    _xhr.onload = function (e) {
-        // cache.pv = [];
-        // ls.set('prajna_cache', cache);
+    _xhr.onreadystatechange = function (e) {
+        if (_xhr.readyState == 4) {
+            if (_xhr.status == 200) {
+                cache.pv = [];
+                ls.set('prajna_cache', cache);
+            } else {
+                // TODO:
+            }
+        } else {
+            // TODO: do nothing
+        }
     };
     _xhr.onerror = function (e) {
         console.log(e);
