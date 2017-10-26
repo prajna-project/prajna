@@ -35,20 +35,15 @@ const runtime: any = {
         ]);
     },
 
+    // get body() {
+    // },
+
     get env(): string {
         return GLOBAL.__prajnaEnv__;
     },
 
-    set env(val: string) {
-        GLOBAL.__prajnaEnv__ = val;
-    },
-
     get project(): string {
         return GLOBAL.__appName__;
-    },
-
-    set project(val) {
-        GLOBAL.__appName__ = val;
     },
 
     get thirdparty(): ThirdParty {
@@ -116,20 +111,10 @@ const runtime: any = {
         return region;
     },
 
-    // get timestamp(): string {
-    //     let time = new Date();
-    //     return time.toTimeString();
-    // },
-
     get ['@timestamp'](): string {
         let time = new Date();
-        return time.toTimeString();
+        return time.toISOString();
     },
-
-    // set timestamp(timeString: string) {
-    //     let time = new Date();
-    //     this.timestamp = timeString || time.toTimeString();
-    // },
 
     async getRegion(): Promise<Region> {
         let region = await getCurrentPosition();
