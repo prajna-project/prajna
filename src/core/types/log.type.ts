@@ -2,7 +2,7 @@
 export enum LogLevel {
     ERROR = 'ERROR',
     WARNING = 'WARNING',
-    info = 'info',
+    info = 'INFO',
     DEBUG = 'DEBUG',
 }
 
@@ -13,7 +13,8 @@ export interface Padding {		// 附加信息是任意 json 结构的数据
 export enum Category {
     SCRIPT = 'jsError',
     AJAX = 'ajaxError',
-    RESOURCE = 'resourceError'
+    RESOURCE = 'resourceError',
+    REPORT = 'jsReport',
 }
 
 export default interface Log {
