@@ -2,7 +2,7 @@
 export enum LogLevel {
     ERROR = 'ERROR',
     WARNING = 'WARNING',
-    info = 'INFO',
+    INFO = 'INFO',
     DEBUG = 'DEBUG',
 }
 
@@ -15,6 +15,9 @@ export enum Category {
     AJAX = 'ajaxError',
     RESOURCE = 'resourceError',
     REPORT = 'jsReport',
+    MODULE_CLICK = 'moduleClick',
+    MODULE_VIEW = 'moduleView',
+    MODULE_EDIT = 'moduleEdit',
 }
 
 export default interface Log {
