@@ -1,5 +1,6 @@
 const ls = require('local-storage');
 import GLOBAL from '../util/global';
+import Message from '../core/types/message.type';
 import Log, {
     Category,
     LogLevel
@@ -10,7 +11,7 @@ let FORMER_JSERROR_FLAG: boolean = true;
 function _sendJSData(ctx: any) {
     ctx.core.beat();
     let cache: any = ls.get('prajna_cache');
-    let mergedData: any[] = [];
+    let mergedData: Message[] = [];
     if (cache.js.length) {
         cache.js.forEach((e: any, i: number) => {
             let raw: any = ctx.inspect();

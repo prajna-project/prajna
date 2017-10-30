@@ -1,5 +1,6 @@
 const ls = require('local-storage');
 import GLOBAL from '../util/global';
+import Message from '../core/types/message.type';
 import Performance, {
     PerformanceNavigationTiming,
     PerformancePaintTiming
@@ -9,7 +10,7 @@ let AUTOPV_FLAG: boolean = true;
 
 function _sendPVData(ctx: any) {
     let cache: any = ls.get('prajna_cache');
-    let mergedData: any[] = [];
+    let mergedData: Message[] = [];
     let performanceNavigation: Performance = {
         pageUrl: GLOBAL.location.href,
         timing: GLOBAL.performance.timing,
