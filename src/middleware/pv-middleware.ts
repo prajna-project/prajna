@@ -58,7 +58,7 @@ function _sendPVData(ctx: any) {
         mergedData.push(raw);
     }
 
-    console.log(mergedData);
+    // console.log(mergedData);
 
     let _xhr: XMLHttpRequest = new XMLHttpRequest();
     _xhr.open('POST', ctx.core.url + '/api/prajna', true);
@@ -69,10 +69,10 @@ function _sendPVData(ctx: any) {
                 cache.pv = [];
                 ls.set('prajna_cache', cache);
             } else {
-                // TODO:
+                // TODO: 存入 localstorage
             }
         } else {
-            // TODO: do nothing
+            // TODO: 存入 localstorage
         }
     };
     _xhr.onerror = function (e) {

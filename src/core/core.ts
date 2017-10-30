@@ -6,6 +6,7 @@ import PVMiddleware from '../middleware/pv-middleware';
 import reportMiddleware from '../middleware/report-middleware';
 import resourceMiddleware from '../middleware/resource-middleware';
 import XHRMiddleware from '../middleware/xhr-middleware';
+import JSMiddleware from '../middleware/js-middleware';
 
 import Message from './types/message.type';
 import { InitOption } from './types/core.type';
@@ -61,12 +62,14 @@ class Core extends EventEmitter2 {
                 console.log(err);
             });
         };
+
         return handler;
     }
 
     private createContext(): void {		// TODO
         const context = Object.create(this.context);
         const runtime = context.runtime = Object.create(this.runtime);
+
         context.core = runtime.core = this;
         context.state = {
             error: false,
@@ -74,6 +77,7 @@ class Core extends EventEmitter2 {
             info: false,
             debug: false
         };
+
         return context;
     }
 
@@ -82,9 +86,13 @@ class Core extends EventEmitter2 {
             .use(resourceMiddleware)
             .use(XHRMiddleware)
             .use(eventMiddleware)
+            .use(JSMiddleware)
             .use(reportMiddleware);
+
         this.on('BEAT_EVENT', this.callback());
+
         this.beat();			// beat once when start
+
         return;
     }
 
@@ -93,17 +101,20 @@ class Core extends EventEmitter2 {
         this.pageId = opt.pageId || this.pageId;
         this.pageUrl = opt.pageUrl || this.pageUrl;
         this.channel = opt.channel || this.channel;
+
         return this;
     }
 
     public use(lambda: (...args: any[]) => any): Core {
         `Install prajna middleware`
         this.middleware.push(lambda);
+
         return this;
     }
 
     private beat(): Core {
         this.emit('BEAT_EVENT');
+
         return this;
     }
 
