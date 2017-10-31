@@ -52,7 +52,7 @@ function reportMiddleware(ctx: any, next: any): any {
             }
         };
         _xhr.onerror = function (e) { console.log(e); };
-        _xhr.send('data=' + JSON.stringify(mergedData));
+        _xhr.send('data=' + encodeURIComponent(JSON.stringify(mergedData)));
     };
     next();
 }
