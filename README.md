@@ -6,6 +6,12 @@
 ## Overview
 Prajna, Analysing browser side javascript application with wisdom
 
+## Install
+```shell
+npm install --save prajna
+```
+
+
 ## Usage
 ```javascript
 import Prajna from 'prajna';
