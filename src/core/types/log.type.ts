@@ -14,6 +14,7 @@ export enum Category {
     SCRIPT = 'jsError',
     AJAX = 'ajaxError',
     RESOURCE = 'resourceError',
+
     REPORT = 'jsReport',
     MODULE_CLICK = 'moduleClick',
     MODULE_VIEW = 'moduleView',
