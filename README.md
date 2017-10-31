@@ -16,7 +16,7 @@ var prajna = Prajna.init({
 });
 
 this.prajna.use(async (ctx, next) => {
-    // do someting
+    // use a middleware
     next();
 });
 
