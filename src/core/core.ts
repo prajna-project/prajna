@@ -20,7 +20,7 @@ class Core extends EventEmitter2 {
     private context: any;
     private runtime: any;
     public env: string = GLOBAL.__prajnaEnv__ || 'dev';
-    public autopv: string = GLOBAL.__prajnaAutoPV__ || true;
+    public autopv: string = GLOBAL.__prajnaAutoPV__;
     public url: string = GLOBAL.__envMapping__[this.env] || 'http://localhost:8081';
     public pageUrl: string = GLOBAL.location.href;
     public pageId: string = '';
