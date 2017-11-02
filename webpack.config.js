@@ -11,7 +11,6 @@ module.exports = {
         libraryTarget: 'commonjs2'
     },
     externals: ['cookie'],
-    // watch: false,
     devtool: 'source-map',
     resolve: {
         extensions: ['.webpack.js', '.web.js', '.ts', '.tsx', '.js'],
