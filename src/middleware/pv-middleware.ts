@@ -14,8 +14,8 @@ function _sendPVData(ctx: any) {
     let mergedData: Message[] = [];
     let ptiming = GLOBAL.performance.timing;
     let performanceNavigation: Performance = Object.assign({
-
-        pageUrl: GLOBAL.location.href,
+        pageUrl: ctx.core.pageUrl,
+        pageId: ctx.core.pageId,
         timing: (() => {
             return {
                 connectEnd: (ptiming.connectEnd === 0 ? ptiming.connectEnd : ptiming.connectEnd - ptiming.navigationStart),
@@ -77,7 +77,7 @@ function _sendPVData(ctx: any) {
     } else {
         let raw = ctx.inspect();
         raw.pv = {
-            name: ctx.core.name,
+            pageId: ctx.core.pageId,
             auto: GLOBAL.__prajnaAutoPV__,
             referUrl: GLOBAL.document.referrer,
             unix: (+new Date()),

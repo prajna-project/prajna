@@ -4,7 +4,7 @@ export interface Padding {		// 附加信息是任意 json 结构的数据
 }
 
 export default interface PV {
-    name: string,						// 页面名称
+    pageId: string,						// 页面名称
     auto: boolean,						// 是否是自动pv
     referUrl: string,					// referer url
     unix: number,						// unix 时间戳

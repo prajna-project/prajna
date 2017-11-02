@@ -21,6 +21,7 @@ class Core extends EventEmitter2 {
     private runtime: any;
     public env: string = GLOBAL.__prajnaEnv__ || 'dev';
     public autopv: string = GLOBAL.__prajnaAutoPV__;
+    public duration: number = 0;
     public url: string = GLOBAL.__envMapping__[this.env] || 'http://localhost:8081';
     public pageUrl: string = GLOBAL.location.href;
     public pageId: string = '';
@@ -117,12 +118,6 @@ class Core extends EventEmitter2 {
 
         return this;
     }
-
-    // TODO: @prajnaEvent
-    // prajnaEvent(message: Message): void {
-    //     `Aftermath of page events`
-    //     return;
-    // }
 }
 
 function runtimeHelper(ctx: any) {

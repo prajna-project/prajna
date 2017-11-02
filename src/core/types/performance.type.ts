@@ -117,6 +117,7 @@ export interface FRMS {
 
 export default interface Performance {
     pageUrl: string,
+    pageId?: string,
     timing?: Timing,
     navigation?: Navigation,
     memory?: Memory,
