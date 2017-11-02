@@ -22,7 +22,7 @@ class Core extends EventEmitter2 {
     public env: string = GLOBAL.__prajnaEnv__ || 'dev';
     public autopv: string = GLOBAL.__prajnaAutoPV__;
     public duration: number = 0;
-    public url: string = GLOBAL.__envMapping__[this.env] || 'http://localhost:8081';
+    public url: string = GLOBAL.__envMapping__[this.env];
     public pageUrl: string = GLOBAL.location.href;
     public pageId: string = '';
     public channel: string = null;
@@ -72,12 +72,7 @@ class Core extends EventEmitter2 {
         const runtime = context.runtime = Object.create(this.runtime);
 
         context.core = runtime.core = this;
-        context.state = {
-            error: false,
-            warning: false,
-            info: false,
-            debug: false
-        };
+        context.state = {};
 
         return context;
     }

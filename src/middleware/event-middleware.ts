@@ -8,6 +8,8 @@ import Log, {
 function eventMiddleware(ctx: any, next: any): any {
     function eventMethodFactory(category: Category) {
         return function (name: string, padding?: any) {
+            ctx.core.emit(LogLevel.INFO);
+            ctx.core.beat();
             let cache: any = ls.get('prajna_cache') || {};
             let cachedLog: Log[] = cache.log || [];
             let mergedData: Message[] = [];
