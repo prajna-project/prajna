@@ -51,9 +51,7 @@ export interface UA {
 }
 
 export enum ThirdPartyType {
-    NONE,
-    CAT,
-    LINGXI,
+    NONE = "NONE",
 }
 
 export interface ThirdParty {

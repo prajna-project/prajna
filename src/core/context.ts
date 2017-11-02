@@ -8,19 +8,15 @@ const context: any = {
     },
 
     toJSON(): any {
-        return only(this, [
-            'env',
-            'project',
-            'thirdparty',
-            'network',
-            'version',
-            'auto',
-            'channel',
-            'jsBridge',
-            'ua',
-            '@timestamp',
-            'region',
-        ]);
+        let ignores: string[] = ['inspect', 'toJSON', 'throw', 'onerror'];
+        let runtimes: string[] = [];
+        for (var prop in this) {
+            if (!this.hasOwnProperty(prop) && ignores.indexOf(prop) === -1) {
+                runtimes.push(prop);
+            }
+        }
+
+        return only(this, runtimes);
     },
 
     throw(...args: any[]) {
@@ -31,6 +27,17 @@ const context: any = {
         if (null == err) return;
         if (!(err instanceof Error)) err = new Error(`non-error thrown: ${err}`);
         return;
+    },
+
+    setKey(key: string, value: any) {
+        Object.defineProperty(this.runtime, key, {
+            get: function () {
+                return value;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        delegate(context, 'runtime').getter(key);
     }
 };
 
