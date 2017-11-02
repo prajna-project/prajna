@@ -64,7 +64,7 @@ const runtime: any = {
         return this.core.channel; // BUG: 在内部 runtime 里拿不到 channel
     },
 
-    get netowrk(): Network {
+    get network(): any {
         `get network status`
         let connection: string;
         let network: Network = {
@@ -115,9 +115,14 @@ const runtime: any = {
         return time.toISOString();
     },
 
-    async getRegion(): Promise<Region> {
-        let region = await getCurrentPosition();
-        return region;
+    // async getRegion(): Promise<Region> {
+    getRegion(): Region {
+        // let region = await getCurrentPosition();
+        // return region;
+        return {
+            lng: void (0),
+            lat: void (0)
+        };
     }
 };
 

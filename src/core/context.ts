@@ -19,7 +19,7 @@ const context: any = {
             'jsBridge',
             'ua',
             '@timestamp',
-            // 'region',
+            'region',
         ]);
     },
 
@@ -45,6 +45,7 @@ delegate(context, 'runtime')
     .access('jsBridge')
     .access('ua')
     .access('region')
+    .getter('region')
     .getter('@timestamp');
 
 export default context;

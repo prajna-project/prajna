@@ -227,6 +227,7 @@ module.exports = {
         env: 'test',
         project: 'prajna-test',
         category: 'lx-prajna-test',
+        sendToLingxi: false,
         forbidLX4: false
       }
     }),

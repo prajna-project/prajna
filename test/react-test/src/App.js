@@ -18,22 +18,21 @@ class App extends Component {
             pageUrl: 'http://localhost:8088'
         });
         window.LXAnalytics('pageView', null, null, 'example-page');
+
         this.prajna = Prajna.init({
-            pageId: 'test',
+            pageId: 'you-name-it',
             channel: 'web'
         });
         this.prajna.use(Dejavu);
         this.prajna.use(async (ctx, next) => {
-            // console.log(ctx);
+            console.log(ctx.senceId);
             next();
         });
         this.prajna.start();
-        // window.onerror = function (msg, url, line) {
-        //     console.log(arguments);
-        // };
     }
 
     componentDidMount () {
+        // this.prajna.pageView();
         // axios.get('fewawg/feawfew', {
         // }).then((response) => {
         //     console.log(response);
@@ -44,7 +43,6 @@ class App extends Component {
 
     // @prajnaEvent
     onClickEvent (e) {
-        this.prajna.report();
         // owl.addError({
         //     name: 'whereAmI-type-weixin',
         //     msg: '失败的原因有很多'
@@ -57,6 +55,10 @@ class App extends Component {
         // var perfData = window.performance.timing;
         // var pageLoadTime = perfData.loadEventEnd - perfData.navigationStart;
         // console.log(pageLoadTime);
+        this.prajna.report({
+            level: 'ERROR',
+            CONTENT: 'testing...'
+        });
     }
 
     render() {
