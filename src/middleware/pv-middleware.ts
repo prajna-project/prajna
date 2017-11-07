@@ -1,5 +1,6 @@
 const ls = require('local-storage');
 import GLOBAL from '../util/global';
+import getEntries from '../util/getEntries';
 import Message from '../core/types/message.type';
 import Performance, {
     PerformanceNavigationTiming,
@@ -7,7 +8,7 @@ import Performance, {
 } from '../core/types/performance.type';
 
 let AUTOPV_FLAG: boolean = true;
-let getEntries = GLOBAL.performance.getEntries;
+// let getEntries = GLOBAL.performance.getEntries;
 
 function _sendPVData(ctx: any) {
     let cache: any = ls.get('prajna_cache');
@@ -128,7 +129,7 @@ function PVMiddleware(ctx: any, next: any): any {
     };
     if (AUTOPV_FLAG && ctx.core.autopv) {
         AUTOPV_FLAG = false;
-        window.addEventListener("load", function () {
+        GLOBAL.addEventListener("load", function () {
             setTimeout(() => {
                 _sendPVData(ctx);
             }, 0);

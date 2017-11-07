@@ -5,7 +5,6 @@ import {
     Bridge,
     BridgeType,
     Region,
-    UserAgent,
     UA,
 } from './types/message.type';
 import Performance, { Timing } from './types/performance.type';
@@ -34,7 +33,8 @@ const runtime: any = {
         ]);
     },
 
-    // get body() {
+    // get getEntries() {
+    //     return GLOBAL.performance.getEntries || void (0);
     // },
 
     get env(): string {

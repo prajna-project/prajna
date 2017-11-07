@@ -1,9 +1,8 @@
 import Performance, { Memory } from './performance.type';
 import Log from './log.type';
-import Resouce from './resouce.type';
+import Resource from './resource.type';
 import Event from './event.type';
 import PV from './pv.type';
-import Xhr from './xhr.type';
 
 export interface Region {
     lng: string,				// longitude
@@ -20,28 +19,6 @@ export interface Bridge {
     type: BridgeType
 }
 
-export interface Device {
-    model: string,
-    vendor: string,
-    type: string
-}
-
-export interface Engine {
-    name: string,
-    version: string
-}
-
-export interface OS {
-    name: string,
-    version: string
-}
-
-export interface UserAgent {
-    device: Device
-    engine: Engine
-    os: OS
-}
-
 export interface UA {
     ua: string,					// us string
     browser: string,			// 浏览器信息
@@ -51,7 +28,8 @@ export interface UA {
 }
 
 export enum ThirdPartyType {
-    NONE = "NONE",
+    NONE,						// TODO: to string
+    // NONE = "NONE",
 }
 
 export interface ThirdParty {
@@ -83,10 +61,8 @@ export default interface Message {
     jsBridge?: Bridge,			// [OPTIONAL] JS bridge 信息(Hybrid 应用)
     pv?: PV,					// [OPTIONAL] PV 信息
     performance?: Performance,	// [OPTIONAL] 页面性能数据信息
-    xhr?: Xhr,					// [OPTIONAL] 网络 ajax 请求信息
-    resource?: Resouce,			// [OPTIONAL] 网络资源请求信息
+    xhr?: Resource,				// [OPTIONAL] 网络 ajax 请求信息
+    resource?: Resource,			// [OPTIONAL] 网络资源请求信息
     event?: Event,				// [OPTIONAL] 页面事件信息
     log?: Log,					// [OPTIONAL] 主动上报日志信息
-    // episodeId?: number,			// [OPTIONAL] 场景还原的情节 Id
-    // senceId?: number			// [OPTIONAL] 场景还原的场景 Id
 }
