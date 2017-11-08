@@ -72,7 +72,7 @@ const runtime: any = {
         };
         // if jsbridge exists, please write middleware to set accurate values
         let conn: any = NAV.connection || NAV.mozConnection || NAV.webkitConnection;
-        let type: string = conn.type;
+        let type: string = conn && conn.type;
         if (conn) {
             if (type) {
                 connection = type
