@@ -39,7 +39,7 @@ function _sendErrors(ctx: any) {
             }
         };
         _xhr.onerror = function (e) { console.log(e); };
-        _xhr.send('data=' + encodeURIComponent(JSON.stringify(mergedData)));
+        _xhr.send('data=' + encodeURIComponent(JSON.stringify(mergedData)) + '&type=resource');
     }
 }
 
@@ -116,7 +116,7 @@ function _sendEntries(ctx: any, ent: PerformanceEntry[]): void {
             }
         };
         _xhr.onerror = function (e) { console.log(e); };
-        _xhr.send('data=' + encodeURIComponent(JSON.stringify(mergedData)));
+        _xhr.send('data=' + encodeURIComponent(JSON.stringify(mergedData)) + '&type=resource');
     }
 }
 

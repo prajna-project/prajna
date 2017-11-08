@@ -46,7 +46,7 @@ function eventMiddleware(ctx: any, next: any): any {
                 }
             };
             _xhr.onerror = function (e) { console.log(e); };
-            _xhr.send('data=' + encodeURIComponent(JSON.stringify(mergedData)));
+            _xhr.send('data=' + encodeURIComponent(JSON.stringify(mergedData)) + '&type=event');
         };
     }
 

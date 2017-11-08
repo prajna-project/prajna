@@ -45,7 +45,7 @@ function _sendJSData(ctx: any) {
             } else { }
         };
         _xhr.onerror = function (e) { console.log(e); };
-        _xhr.send('data=' + encodeURIComponent(JSON.stringify(mergedData)));
+        _xhr.send('data=' + encodeURIComponent(JSON.stringify(mergedData)) + '&type=js');
     }
 }
 
