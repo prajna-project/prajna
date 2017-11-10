@@ -50,7 +50,7 @@ export default interface Message {
     project: string,			// 项目名称
     thirdparty: ThirdParty,		// 第三方 sdk
     auto: boolean,				// 是否是自动打点(默认false，true给无埋点用)
-    ua: UA,						// ua 信息
+    userAgent: UA,						// ua 信息
     os?: string,				// [废弃] 操作系统信息
     device?: string,			// [废弃] 设备信息
     channel?: string,			// [OPTIONAL] 渠道

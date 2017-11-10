@@ -8,9 +8,8 @@ import Performance, {
 } from '../core/types/performance.type';
 
 let AUTOPV_FLAG: boolean = true;
-// let getEntries = GLOBAL.performance.getEntries;
 
-function _sendPVData(ctx: any) {
+function _sendPVData(ctx: any, padding?: any) {
     let cache: any = ls.get('prajna_cache');
     let mergedData: Message[] = [];
     let ptiming = GLOBAL.performance.timing;
@@ -43,7 +42,7 @@ function _sendPVData(ctx: any) {
             };
         })(),
         navigation: GLOBAL.performance.navigation,
-    }, (getEntries ? {
+    }, ((Perf && getEntries) ? {
         performanceNavigationTiming: (() => {
             let navigationTiming: PerformanceNavigationTiming;
             let entries = GLOBAL.performance.getEntries();
@@ -69,10 +68,13 @@ function _sendPVData(ctx: any) {
         cache.pv.forEach((e: any, i: number) => {
             let raw = ctx.inspect();
             e.name = ctx.core.pageId;
-            raw.pv = e;
             if (i == cache.pv.length - 1) { // last one
+                if (padding) {
+                    e.padding = padding;
+                }
                 raw.performanceNavigation = performanceNavigation;
             }
+            raw.pv = e;
             mergedData.push(raw);
         });
     } else {
@@ -82,8 +84,11 @@ function _sendPVData(ctx: any) {
             auto: GLOBAL.__prajnaAutoPV__,
             referUrl: GLOBAL.document.referrer,
             unix: (+new Date()),
-            url: GLOBAL.location.href
+            url: GLOBAL.location.href,
         };
+        if (padding) {
+            raw.pv.padding = padding;
+        }
         raw.performanceNavigation = performanceNavigation;
         mergedData.push(raw);
     }
@@ -113,15 +118,15 @@ function _sendPVData(ctx: any) {
 
 function PVMiddleware(ctx: any, next: any): any {
     // console.log('use pv-middleware');
-    ctx.core.pageView = function () {
+    ctx.core.pageView = function (padding: any): void {
         if (GLOBAL.document.readyState === 'complete') {
             ctx.core.beat();
-            _sendPVData(ctx);
+            _sendPVData(ctx, padding);
         } else {
             const _pv = function () {
                 setTimeout(() => {
                     ctx.core.beat();
-                    _sendPVData(ctx);
+                    _sendPVData(ctx, padding);
                 }, 0);
             };
             window.addEventListener("load", _pv);

@@ -53,6 +53,7 @@ delegate(context, 'runtime')
     .access('ua')
     .access('region')
     .getter('region')
+    .getter('screen')
     .getter('@timestamp');
 
 export default context;

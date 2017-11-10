@@ -61,7 +61,7 @@ const runtime: any = {
     },
 
     get channel(): string {
-        return this.core.channel; // BUG: 在内部 runtime 里拿不到 channel
+        return this.core.channel;
     },
 
     get network(): any {
@@ -108,6 +108,12 @@ const runtime: any = {
     get region(): Region {
         let region: Region = runtime.getRegion();
         return region;
+    },
+
+    get screen(): string {
+        const height = GLOBAL.screen.height;
+        const width = GLOBAL.screen.width;
+        return width + "*" + height;
     },
 
     get ['@timestamp'](): string {
