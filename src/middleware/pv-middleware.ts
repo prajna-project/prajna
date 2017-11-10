@@ -42,7 +42,7 @@ function _sendPVData(ctx: any, padding?: any) {
             };
         })(),
         navigation: GLOBAL.performance.navigation,
-    }, ((Perf && getEntries) ? {
+    }, (getEntries ? {
         performanceNavigationTiming: (() => {
             let navigationTiming: PerformanceNavigationTiming;
             let entries = GLOBAL.performance.getEntries();
