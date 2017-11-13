@@ -1,36 +1,36 @@
 # Prajna (प्रज्ञ)
 
-[![npm version](https://d25lcipzij17d.cloudfront.net/badge.svg?id=js&type=6&v=1.0.0-beta9&x2=0)](https://www.npmjs.com/package/prajna)
-
+[![npm version](https://d25lcipzij17d.cloudfront.net/badge.svg?id=js&type=6&v=1.0.0-beta9e&x2=0)](https://www.npmjs.com/package/prajna)
 
 ## Overview
 Prajna, Analysing browser side javascript application with wisdom
+[![NPM Stats](https://nodei.co/npm/prajna.png?downloads=true)](https://npmjs.org/package/prajna)
 
-## Install
+## Usage
+- Install and config [prajan-gadget-plugin](https://github.com/mtdp-diancan-f2e/prajna-gadget-plugin)
+```shell
+npm install --save prajna-gadget-plugin
+```
+
+- Install prajna
 ```shell
 npm install --save prajna
 ```
 
-
-## Usage
+- Start prajna in your code
 ```javascript
 import Prajna from 'prajna';
 
 var prajna = Prajna.init({
     pageId: 'you-name-it',
-    channel: 'browser'
+    channel: 'qrcode'
 });
 
-this.prajna.use(async (ctx, next) => {
-    // use a middleware
-    next();
-});
-
-this.prajna.start();
+prajna.start();
 ```
 
 ## Documentation
-[Wiki](https://github.com/mtdp-diancan-f2e/prajna/wiki)
+Moved to Prajna [Wiki](https://github.com/mtdp-diancan-f2e/prajna/wiki)
 
 ## License
 MIT

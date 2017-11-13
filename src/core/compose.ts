@@ -1,4 +1,4 @@
-export default function compose(middleware: any[]): (ctx: any, next?: any) => any {
+function compose(middleware: any[]): (ctx: any, next?: any) => any {
     return function (context: any, next: any) {
         let index = -1;
 
@@ -30,3 +30,5 @@ export default function compose(middleware: any[]): (ctx: any, next?: any) => an
         }
     }
 }
+
+export default compose;
