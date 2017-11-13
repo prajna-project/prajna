@@ -3,7 +3,6 @@ import context from './context';
 import runtime from './runtime';
 import eventMiddleware from '../middleware/event-middleware';
 import PVMiddleware from '../middleware/pv-middleware';
-import PDMiddleware from '../middleware/pd-middleware';
 import reportMiddleware from '../middleware/report-middleware';
 import resourceMiddleware from '../middleware/resource-middleware';
 import XHRMiddleware from '../middleware/xhr-middleware';
@@ -86,8 +85,7 @@ class Core extends EventEmitter2 {
             .use(XHRMiddleware)
             .use(eventMiddleware)
             .use(JSMiddleware)
-            .use(reportMiddleware)
-            .use(PDMiddleware);
+            .use(reportMiddleware);
 
         this.on('BEAT_EVENT', this.callback());
 

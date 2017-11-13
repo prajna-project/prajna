@@ -1,5 +1,6 @@
 const ls = require('local-storage');
 import Message from '../core/types/message.type';
+import GLOBAL from '../util/global';
 import Log, {
     Category,
     LogLevel
@@ -49,7 +50,23 @@ function eventMiddleware(ctx: any, next: any): any {
             _xhr.send('data=' + encodeURIComponent(JSON.stringify(mergedData)) + '&type=event');
         };
     }
-
+    let startTime: number, duration: number, sendDP: boolean;
+    GLOBAL.addEventListener("load", function () {
+        sendDP = false;
+        console.log('aaaaaaaa')
+        startTime = new Date().getTime();
+    });
+    GLOBAL.addEventListener("beforeunload", function () {
+        duration = new Date().getTime() - startTime;
+        console.log('bbbbb')
+        const sendPDData = eventMethodFactory(Category.PAGE_DISAPPEAR);
+        if (!sendDP) {
+            sendDP = true;
+            sendPDData('page-disappear', {
+                duration: duration
+            });
+        }
+    });
     ctx.core.moduleClick = eventMethodFactory(Category.MODULE_CLICK);
     ctx.core.moduleView = eventMethodFactory(Category.MODULE_VIEW);
     ctx.core.moduleEdit = eventMethodFactory(Category.MODULE_EDIT);

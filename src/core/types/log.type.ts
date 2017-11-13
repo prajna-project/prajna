@@ -19,6 +19,7 @@ export enum Category {
     MODULE_CLICK = 'moduleClick',
     MODULE_VIEW = 'moduleView',
     MODULE_EDIT = 'moduleEdit',
+    PAGE_DISAPPEAR = 'pageDisappear'
 }
 
 export default interface Log {
