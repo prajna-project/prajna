@@ -18,7 +18,7 @@ npm install --save prajna-gadget-plugin
 npm install --save prajna
 ```
 
-- Start prajna in your code
+- Start prajna in your code enterance
 ```javascript
 import Prajna from 'prajna';
 
