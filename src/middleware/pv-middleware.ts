@@ -12,37 +12,36 @@ let AUTOPV_FLAG: boolean = true;
 function _sendPVData(ctx: any, padding?: any) {
     let cache: any = ls.get('prajna_cache');
     let mergedData: Message[] = [];
-    let ptiming = GLOBAL.performance.timing;
+    let ptiming: any = getEntries ? GLOBAL.performance.timing : void (0);
+    let pnavigation: any = getEntries ? GLOBAL.performance.navigation : void (0);
     let performanceNavigation: Performance = Object.assign({
         pageUrl: ctx.core.pageUrl,
         pageId: ctx.core.pageId,
-        timing: (() => {
-            return {
-                connectEnd: (ptiming.connectEnd === 0 ? ptiming.connectEnd : ptiming.connectEnd - ptiming.navigationStart),
-                connectStart: (ptiming.connectStart === 0 ? ptiming.connectStart : ptiming.connectStart - ptiming.navigationStart),
-                domComplete: (ptiming.domComplete === 0 ? ptiming.domComplete : ptiming.domComplete - ptiming.navigationStart),
-                domContentLoadedEventEnd: (ptiming.domContentLoadedEventEnd === 0 ? ptiming.domContentLoadedEventEnd : ptiming.domContentLoadedEventEnd - ptiming.navigationStart),
-                domContentLoadedEventStart: (ptiming.domContentLoadedEventStart === 0 ? ptiming.domContentLoadedEventStart : ptiming.domContentLoadedEventStart - ptiming.navigationStart),
-                domInteractive: (ptiming.domInteractive === 0 ? ptiming.domInteractive : ptiming.domInteractive - ptiming.navigationStart),
-                domLoading: (ptiming.domLoading === 0 ? ptiming.domLoading : ptiming.domLoading - ptiming.navigationStart),
-                domainLookupEnd: (ptiming.domainLookupEnd === 0 ? ptiming.domainLookupEnd : ptiming.domainLookupEnd - ptiming.navigationStart),
-                domainLookupStart: (ptiming.domainLookupStart === 0 ? ptiming.domainLookupStart : ptiming.domainLookupStart - ptiming.navigationStart),
-                fetchStart: (ptiming.fetchStart === 0 ? ptiming.fetchStart : ptiming.fetchStart - ptiming.navigationStart),
-                loadEventEnd: (ptiming.loadEventEnd === 0 ? ptiming.loadEventEnd : ptiming.loadEventEnd - ptiming.navigationStart),
-                loadEventStart: (ptiming.loadEventStart === 0 ? ptiming.loadEventStart : ptiming.loadEventStart - ptiming.navigationStart),
-                navigationStart: (ptiming.navigationStart === 0 ? ptiming.navigationStart : ptiming.navigationStart - ptiming.navigationStart),
-                redirectEnd: (ptiming.redirectEnd === 0 ? ptiming.redirectEnd : ptiming.redirectEnd - ptiming.navigationStart),
-                redirectStart: (ptiming.redirectStart === 0 ? ptiming.redirectStart : ptiming.redirectStart - ptiming.navigationStart),
-                requestStart: (ptiming.requestStart === 0 ? ptiming.requestStart : ptiming.requestStart - ptiming.navigationStart),
-                responseEnd: (ptiming.responseEnd === 0 ? ptiming.responseEnd : ptiming.responseEnd - ptiming.navigationStart),
-                responseStart: (ptiming.responseStart === 0 ? ptiming.responseStart : ptiming.responseStart - ptiming.navigationStart),
-                secureConnectionStart: (ptiming.secureConnectionStart === 0 ? ptiming.secureConnectionStart : ptiming.secureConnectionStart - ptiming.navigationStart),
-                unloadEventEnd: (ptiming.unloadEventEnd === 0 ? ptiming.unloadEventEnd : ptiming.unloadEventEnd - ptiming.navigationStart),
-                unloadEventStart: (ptiming.unloadEventStart === 0 ? ptiming.unloadEventStart : ptiming.unloadEventStart - ptiming.navigationStart),
-            };
-        })(),
-        navigation: GLOBAL.performance.navigation,
+        navigation: pnavigation,
     }, (getEntries ? {
+        timing: {
+            connectEnd: (ptiming.connectEnd === 0 ? ptiming.connectEnd : ptiming.connectEnd - ptiming.navigationStart),
+            connectStart: (ptiming.connectStart === 0 ? ptiming.connectStart : ptiming.connectStart - ptiming.navigationStart),
+            domComplete: (ptiming.domComplete === 0 ? ptiming.domComplete : ptiming.domComplete - ptiming.navigationStart),
+            domContentLoadedEventEnd: (ptiming.domContentLoadedEventEnd === 0 ? ptiming.domContentLoadedEventEnd : ptiming.domContentLoadedEventEnd - ptiming.navigationStart),
+            domContentLoadedEventStart: (ptiming.domContentLoadedEventStart === 0 ? ptiming.domContentLoadedEventStart : ptiming.domContentLoadedEventStart - ptiming.navigationStart),
+            domInteractive: (ptiming.domInteractive === 0 ? ptiming.domInteractive : ptiming.domInteractive - ptiming.navigationStart),
+            domLoading: (ptiming.domLoading === 0 ? ptiming.domLoading : ptiming.domLoading - ptiming.navigationStart),
+            domainLookupEnd: (ptiming.domainLookupEnd === 0 ? ptiming.domainLookupEnd : ptiming.domainLookupEnd - ptiming.navigationStart),
+            domainLookupStart: (ptiming.domainLookupStart === 0 ? ptiming.domainLookupStart : ptiming.domainLookupStart - ptiming.navigationStart),
+            fetchStart: (ptiming.fetchStart === 0 ? ptiming.fetchStart : ptiming.fetchStart - ptiming.navigationStart),
+            loadEventEnd: (ptiming.loadEventEnd === 0 ? ptiming.loadEventEnd : ptiming.loadEventEnd - ptiming.navigationStart),
+            loadEventStart: (ptiming.loadEventStart === 0 ? ptiming.loadEventStart : ptiming.loadEventStart - ptiming.navigationStart),
+            navigationStart: (ptiming.navigationStart === 0 ? ptiming.navigationStart : ptiming.navigationStart - ptiming.navigationStart),
+            redirectEnd: (ptiming.redirectEnd === 0 ? ptiming.redirectEnd : ptiming.redirectEnd - ptiming.navigationStart),
+            redirectStart: (ptiming.redirectStart === 0 ? ptiming.redirectStart : ptiming.redirectStart - ptiming.navigationStart),
+            requestStart: (ptiming.requestStart === 0 ? ptiming.requestStart : ptiming.requestStart - ptiming.navigationStart),
+            responseEnd: (ptiming.responseEnd === 0 ? ptiming.responseEnd : ptiming.responseEnd - ptiming.navigationStart),
+            responseStart: (ptiming.responseStart === 0 ? ptiming.responseStart : ptiming.responseStart - ptiming.navigationStart),
+            secureConnectionStart: (ptiming.secureConnectionStart === 0 ? ptiming.secureConnectionStart : ptiming.secureConnectionStart - ptiming.navigationStart),
+            unloadEventEnd: (ptiming.unloadEventEnd === 0 ? ptiming.unloadEventEnd : ptiming.unloadEventEnd - ptiming.navigationStart),
+            unloadEventStart: (ptiming.unloadEventStart === 0 ? ptiming.unloadEventStart : ptiming.unloadEventStart - ptiming.navigationStart),
+        },
         performanceNavigationTiming: (() => {
             let navigationTiming: PerformanceNavigationTiming;
             let entries = GLOBAL.performance.getEntries();
