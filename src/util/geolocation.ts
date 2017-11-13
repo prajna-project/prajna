@@ -8,8 +8,8 @@ function getCurrentPosition(): Promise<Region> {
             reject("Geolocation is not supported by your browser")
         } else {
             GLOBAL.navigator.geolocation.getCurrentPosition((position: any) => {
-                region.lng = position.coords.latitude;;
-                region.lat = position.coords.longitude;;
+                region.lng = position.coords.latitude;
+                region.lat = position.coords.longitude;
                 resolve(region);
             }, (err: any) => {
                 reject("getCurrentPosition error")

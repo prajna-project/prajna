@@ -8,7 +8,7 @@ const context: any = {
     },
 
     toJSON(): any {
-        let ignores: string[] = ['inspect', 'toJSON', 'throw', 'onerror'];
+        let ignores: string[] = ['inspect', 'toJSON', 'throw', 'onerror', 'defineGetter'];
         let runtimes: string[] = [];
         for (var prop in this) {
             if (!this.hasOwnProperty(prop) && ignores.indexOf(prop) === -1) {
@@ -29,7 +29,7 @@ const context: any = {
         return;
     },
 
-    setKey(key: string, value: any) {
+    defineGetter(key: string, value: any) {
         Object.defineProperty(this.runtime, key, {
             get: function () {
                 return value;

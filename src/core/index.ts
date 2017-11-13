@@ -1,8 +1,5 @@
 import Core from './core';
-import {
-    InitOption,
-    Prajna
-} from './types/core.type';
+import { InitOption, Prajna } from './types/core.type';
 
 let singleton: Core = null;
 

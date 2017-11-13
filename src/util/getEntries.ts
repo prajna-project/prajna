@@ -2,7 +2,7 @@ import GLOBAL from './global';
 
 let Perf: any = GLOBAL.performance;
 let getEntries: any = GLOBAL.performance && GLOBAL.performance.getEntries;
-let PerformanceObserver: any = GLOBAL.PerformanceObserver;
+let PerformanceObserver: any = GLOBAL.performance && GLOBAL.PerformanceObserver;
 
 export {
     PerformanceObserver,

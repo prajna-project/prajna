@@ -33,10 +33,6 @@ const runtime: any = {
         ]);
     },
 
-    // get getEntries() {
-    //     return GLOBAL.performance.getEntries || void (0);
-    // },
-
     get env(): string {
         return GLOBAL.__prajnaEnv__;
     },

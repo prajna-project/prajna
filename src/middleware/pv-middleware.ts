@@ -117,7 +117,6 @@ function _sendPVData(ctx: any, padding?: any) {
 }
 
 function PVMiddleware(ctx: any, next: any): any {
-    // console.log('use pv-middleware');
     ctx.core.pageView = function (padding: any): void {
         if (GLOBAL.document.readyState === 'complete') {
             ctx.core.beat();
