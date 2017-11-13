@@ -4,6 +4,7 @@
 
 ## Overview
 Prajna, Analysing browser side javascript application with wisdom
+
 [![NPM Stats](https://nodei.co/npm/prajna.png?downloads=true)](https://npmjs.org/package/prajna)
 
 ## Usage
