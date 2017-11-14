@@ -17,6 +17,7 @@ const userAgent = require('useragent.js');
 
 const NAV: any = GLOBAL.navigator;
 const isSupportGetEntry = GLOBAL.performance && GLOBAL.performance.getEntries !== void (0);
+const startTime = new Date().getTime();
 
 const runtime: any = {
     inspect(): any {
@@ -125,6 +126,10 @@ const runtime: any = {
             lng: void (0),
             lat: void (0)
         };
+    },
+
+    getDuration(): number {
+        return new Date().getTime() - startTime;
     }
 };
 

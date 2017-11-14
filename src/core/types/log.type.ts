@@ -18,8 +18,7 @@ export enum Category {
     REPORT = 'jsReport',
     MODULE_CLICK = 'moduleClick',
     MODULE_VIEW = 'moduleView',
-    MODULE_EDIT = 'moduleEdit',
-    PAGE_DISAPPEAR = 'pageDisappear'
+    MODULE_EDIT = 'moduleEdit'
 }
 
 export default interface Log {
