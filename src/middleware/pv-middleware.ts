@@ -63,7 +63,7 @@ function _sendPVData(ctx: any, padding?: any) {
             return paintTiming;
         })()
     } : {}));
-    if (cache.pv.length) {
+    if (cache && cache.pv && cache.pv.length) {
         cache.pv.forEach((e: any, i: number) => {
             let raw = ctx.inspect();
             e.name = ctx.core.pageId;

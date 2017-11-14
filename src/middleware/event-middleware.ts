@@ -5,7 +5,7 @@ import Log, {
     Category,
     LogLevel
 } from '../core/types/log.type';
-
+let PD_FLAG: boolean = true;
 function eventMiddleware(ctx: any, next: any): any {
     function eventMethodFactory(category: Category) {
         return function (name: string, padding?: any) {
@@ -50,23 +50,20 @@ function eventMiddleware(ctx: any, next: any): any {
             _xhr.send('data=' + encodeURIComponent(JSON.stringify(mergedData)) + '&type=event');
         };
     }
-    let startTime: number, duration: number, sendDP: boolean;
-    GLOBAL.addEventListener("load", function () {
-        sendDP = false;
-        console.log('aaaaaaaa')
-        startTime = new Date().getTime();
-    });
-    GLOBAL.addEventListener("beforeunload", function () {
-        duration = new Date().getTime() - startTime;
-        console.log('bbbbb')
-        const sendPDData = eventMethodFactory(Category.PAGE_DISAPPEAR);
-        if (!sendDP) {
-            sendDP = true;
+    let startTime: number, duration: number;
+    if (PD_FLAG) {
+        PD_FLAG = false;
+        GLOBAL.addEventListener("load", function () {
+            startTime = new Date().getTime();
+        });
+        GLOBAL.addEventListener("beforeunload", function () {
+            duration = new Date().getTime() - startTime;
+            const sendPDData = eventMethodFactory(Category.PAGE_DISAPPEAR);
             sendPDData('page-disappear', {
                 duration: duration
             });
-        }
-    });
+        });
+    }
     ctx.core.moduleClick = eventMethodFactory(Category.MODULE_CLICK);
     ctx.core.moduleView = eventMethodFactory(Category.MODULE_VIEW);
     ctx.core.moduleEdit = eventMethodFactory(Category.MODULE_EDIT);
