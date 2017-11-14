@@ -5,14 +5,18 @@
  * @license MIT
  */
 
-let global: any = window;
+import GLOBAL from './global';
+import Log, {
+    Category,
+    LogLevel
+} from '../core/types/log.type';
 let nav: any = Navigator;
-let xhr: any = global.XMLHttpRequest;
+let xhr: any = GLOBAL.XMLHttpRequest;
 
 function hijackSendBeacon(env: string): void {
     let _sd: any = nav.prototype.sendBeacon;
     let host: string = (env === 'beta' ? 'http://parjna.51ping.com' : 'http://prajna.sankuai.com');
-    nav.prototype.sendBeacon = function(url: string, data: any) {
+    nav.prototype.sendBeacon = function (url: string, data: any) {
         let time = new Date();
         this.originUrl = url;
         this.originMethod = 'POST';
@@ -48,13 +52,13 @@ function hijackSendBeacon(env: string): void {
  * rewrite XMLHttpRequest.open
  */
 function hijackOpen(env: string): void {
-    let protocol: string = global.location.protocol;
+    let protocol: string = GLOBAL.location.protocol;
     if (protocol === 'file:') return;
 
     let _open: any = xhr.prototype.open;
     let host: string = (env === 'beta' ? 'http://parjna.51ping.com' : 'http://prajna.sankuai.com');
 
-    xhr.prototype.open = function(method: string, url: string) {
+    xhr.prototype.open = function (method: string, url: string) {
         console.info(`XHR open at ${url}`);
         this.originUrl = url;
         this.originMethod = method;
@@ -69,34 +73,24 @@ function hijackOpen(env: string): void {
     };
 };
 
-function hijackSend(env: string): void {
-    let _send = xhr.prototype.send;
+function hijackSend(ctx: any): void {
+    let _send: any = xhr.prototype.send;
 
-    xhr.prototype.send = function() {
-        console.log(`Hijacking ${this.originUrl}`);
-        let time = new Date();
-        let rawSendContent = arguments[0];
-        if (/catfront.(dianping|51ping).com/.test(this.originUrl)) {
-            if (rawSendContent) {
-                arguments[0] = "data=" + encodeURIComponent(JSON.stringify({
-                    "url": this.originUrl,
-                    "method": this.originMethod,
-                    "@timestamp": time.toISOString(),
-                    "env": env,
-                    "cat": rawSendContent // encodeURIComponent(JSON.stringify(rawSendContent))
-                }));
-            }
-        } else if (/report.meituan.com/.test(this.originUrl)) { // lingxi 3.0
-            if (rawSendContent) {
-                arguments[0] = "data=" + encodeURIComponent(JSON.stringify({
-                    "url": this.originUrl,
-                    "method": this.originMethod,
-                    "@timestamp": time.toISOString(),
-                    "env": env,
-                    "lingxi": rawSendContent // encodeURIComponent(JSON.stringify(rawSendContent))
-                }));
-            }
-        }
+    xhr.prototype.send = function () {
+        let _this = this;
+        _this.addEventListener('readystatechange', function () {
+            switch (_this.readyState) {
+                case 2: break;
+                case 3: break;
+                case 4:
+                    if (_this.status >= 300) {
+                        ctx.core.emit(LogLevel.ERROR);
+                    }
+                    break;
+                default: break;
+            };
+        });
+
         return _send.apply(this, arguments); // call owl's xhr.send
     };
 }
