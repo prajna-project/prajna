@@ -1,7 +1,6 @@
 const ls = require('local-storage');
 import Message from '../core/types/message.type';
 import GLOBAL from '../util/global';
-import runtime from '../core/runtime';
 import Log, {
     Category,
     LogLevel

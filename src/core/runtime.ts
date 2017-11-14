@@ -119,7 +119,8 @@ const runtime: any = {
     },
 
     get duration(): number {
-        return runtime.getDuration();
+        const duration = new Date().getTime() - startTime;
+        return duration;
     },
     // async getRegion(): Promise<Region> {
     getRegion(): Region {
@@ -129,10 +130,6 @@ const runtime: any = {
             lng: void (0),
             lat: void (0)
         };
-    },
-    getDuration(): number {
-        const duration = new Date().getTime() - startTime;
-        return duration;
     }
 };
 
