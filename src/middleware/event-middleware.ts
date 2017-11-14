@@ -1,10 +1,10 @@
 const ls = require('local-storage');
 import Message from '../core/types/message.type';
+import GLOBAL from '../util/global';
 import Log, {
     Category,
     LogLevel
 } from '../core/types/log.type';
-
 function eventMiddleware(ctx: any, next: any): any {
     function eventMethodFactory(category: Category) {
         return function (name: string, padding?: any) {
@@ -49,7 +49,6 @@ function eventMiddleware(ctx: any, next: any): any {
             _xhr.send('data=' + encodeURIComponent(JSON.stringify(mergedData)) + '&type=event');
         };
     }
-
     ctx.core.moduleClick = eventMethodFactory(Category.MODULE_CLICK);
     ctx.core.moduleView = eventMethodFactory(Category.MODULE_VIEW);
     ctx.core.moduleEdit = eventMethodFactory(Category.MODULE_EDIT);

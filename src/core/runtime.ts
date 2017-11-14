@@ -17,6 +17,7 @@ const userAgent = require('useragent.js');
 
 const NAV: any = GLOBAL.navigator;
 const isSupportGetEntry = GLOBAL.performance && GLOBAL.performance.getEntries !== void (0);
+const startTime = new Date().getTime();
 
 const runtime: any = {
     inspect(): any {
@@ -117,6 +118,10 @@ const runtime: any = {
         return time.toISOString();
     },
 
+    get duration(): number {
+        const duration = new Date().getTime() - startTime;
+        return duration;
+    },
     // async getRegion(): Promise<Region> {
     getRegion(): Region {
         // let region = await getCurrentPosition();

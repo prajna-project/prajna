@@ -12,7 +12,7 @@ function _sendJSData(ctx: any) {
     ctx.core.beat();
     let cache: any = ls.get('prajna_cache');
     let mergedData: Message[] = [];
-    if (cache.js.length) {
+    if (cache && cache.js && cache.js.length) {
         cache.js.forEach((e: any, i: number) => {
             let raw: any = ctx.inspect();
             raw.log = {

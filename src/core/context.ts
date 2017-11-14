@@ -54,6 +54,7 @@ delegate(context, 'runtime')
     .access('region')
     .getter('region')
     .getter('screen')
-    .getter('@timestamp');
+    .getter('@timestamp')
+    .getter('duration');
 
 export default context;

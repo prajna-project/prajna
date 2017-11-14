@@ -3,6 +3,7 @@ import Log from './log.type';
 import Resource from './resource.type';
 import Event from './event.type';
 import PV from './pv.type';
+import PD from './pd.type';
 
 export interface Region {
     lng: string,				// longitude
@@ -60,6 +61,7 @@ export default interface Message {
     region?: Region,			// [OPTIONAL] 用户地理信息
     jsBridge?: Bridge,			// [OPTIONAL] JS bridge 信息(Hybrid 应用)
     pv?: PV,					// [OPTIONAL] PV 信息
+    pd?: PD,                    // [OPTIONAL] PD 信息
     performance?: Performance,	// [OPTIONAL] 页面性能数据信息
     xhr?: Resource,				// [OPTIONAL] 网络 ajax 请求信息
     resource?: Resource,			// [OPTIONAL] 网络资源请求信息
