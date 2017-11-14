@@ -118,6 +118,9 @@ const runtime: any = {
         return time.toISOString();
     },
 
+    get duration(): number {
+        return runtime.getDuration();
+    },
     // async getRegion(): Promise<Region> {
     getRegion(): Region {
         // let region = await getCurrentPosition();
@@ -127,9 +130,9 @@ const runtime: any = {
             lat: void (0)
         };
     },
-
     getDuration(): number {
-        return new Date().getTime() - startTime;
+        const duration = new Date().getTime() - startTime;
+        return duration;
     }
 };
 
