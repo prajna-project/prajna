@@ -1,6 +1,6 @@
 {
   "name": "prajna",
-  "version": "1.0.0-rc1",
+  "version": "1.0.0-rc2",
   "description": "prajna browser side SDK",
   "main": "index.js",
   "scripts": {
@@ -46,6 +46,7 @@
     "@types/debug": "0.0.30",
     "@types/eventemitter2": "^4.1.0",
     "@types/lodash": "^4.14.74",
+    "@types/stacktrace-js": "0.0.32",
     "cookie": "^0.3.1",
     "datascript": "^0.16.2",
     "debug": "^3.1.0",
@@ -54,6 +55,8 @@
     "local-storage": "^1.4.2",
     "lodash": "^4.17.4",
     "only": "^0.0.2",
+    "stacktrace-gps": "^3.0.2",
+    "stacktrace-js": "^2.0.0",
     "useragent.js": "^0.5.6"
   },
   "homepage": "https://github.com/YoungLeeNENU/prajna#readme"
