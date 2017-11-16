@@ -91,7 +91,7 @@ const runtime: any = {
         };
     },
 
-    get ua(): UA {
+    get userAgent(): UA {
         let ua = GLOBAL.navigator.userAgent;
         return {
             ua: ua,

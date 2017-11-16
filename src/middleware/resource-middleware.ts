@@ -12,9 +12,7 @@ let ENTRY_SIZE = 0;
 
 const match = function (name: string, ignore: RegExp[]) {
     for (let i: number = 0; i < ignore.length; i++) {
-        if (ignore[i].test(name) === true) {
-            return true;
-        }
+        if (ignore[i].test(name) === true) { return true; }
     }
     return false;
 };
@@ -36,7 +34,9 @@ let findResource = function (ctx: any, ent: PerformanceEntry[]): PerformanceEntr
             _e.responsetime = _e.duration;
             delete _e.name;
             delete _e.duration;
-            res.push(_e);
+            if (!match(_e.resourceUrl, ctx.core.ignore)) {
+                res.push(_e);
+            }
         }
     });
     return res;
@@ -75,6 +75,9 @@ function reportLoaded(ctx: any, resources: PerformanceEntry[]) {
 
 function reportUnloaded(ctx: any) {
     let cache: any = ls.get('prajna_cache_resource') || [];
+    cache = cache.filter((e: any) => {
+        return !match(e.resourceUrl, ctx.core.ignore);
+    });
     let mergedData: Message[] = [];
     if (cache.length) {
         cache.forEach(function (e: Resource, i: number) {
@@ -114,7 +117,8 @@ function _resourceRuntime(ctx: any): void {
             let target = e.target || e.srcElement;
             if (target instanceof Window) { return; }
             let url = target.src || target.href;
-            if (['SCRIPT', 'LINK', 'IMG', 'STYLE', 'IFRAME', 'HTML'].indexOf(target.nodeName) !== -1) {
+            if (['SCRIPT', 'LINK', 'IMG', 'STYLE', 'IFRAME', 'HTML'].indexOf(target.nodeName) !== -1 &&
+                !match(target.src || target.href, ctx.core.ignore)) {
                 ctx.core.emit(LogLevel.ERROR);
                 let mergedData: Message[] = [];
                 let body = {
@@ -153,35 +157,6 @@ function _resourceRuntime(ctx: any): void {
                 for (const entry of list.getEntries()) {
                     let resources: PerformanceEntry[] = [entry];
                     reportLoaded(ctx, resources);
-                    // resources = findResource(ctx, resources).filter((e: any) => {
-                    //     if (e.initiatorType !== 'beacon' && e.initiatorType !== 'xmlhttprequest') {
-                    //         return true;
-                    //     }
-                    // });
-                    // if (resources.length) {
-                    //     let mergedData: Message[] = [];
-                    //     resources.map((e: any, i: number) => {
-                    //         mergedData.push(Object.assign(ctx.inspect(), { resource: e }));
-                    //     });
-
-                    //     let _xhr: XMLHttpRequest = new XMLHttpRequest();
-                    //     _xhr.open('POST', ctx.core.url + '/api/prajna', true);
-                    //     _xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                    //     _xhr.onreadystatechange = function (e) {
-                    //         if (_xhr.readyState === 4) {
-                    //             if (_xhr.status !== 200) {
-                    //                 console.log(_xhr.status);
-                    //                 let cache: any = ls.get('prajna_cache_resource') || [];
-                    //                 for (let i: number = 0; i < resources.length; i++) {
-                    //                     cache.push(resources[i]);
-                    //                 }
-                    //                 ls.set('prajna_cache_resource', cache);
-                    //             }
-                    //         }
-                    //     };
-                    //     _xhr.onerror = function (e) { console.log(e); };
-                    //     _xhr.send('data=' + encodeURIComponent(JSON.stringify(mergedData)) + '&type=resource&status=success');
-                    // }
                 }
             });
             observer.observe({ entryTypes: ['resource'] });

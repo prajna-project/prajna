@@ -15,11 +15,10 @@ function _sendEntries(ctx: any, ent: PerformanceEntry[]): void {
 }
 
 function _sendStorage(ctx: any): void {
-    let cache: any = ls.get('prajna_cache');
-    let cachedXHR: Resource[] = cache.xhr || [];
+    let cache: any = ls.get('prajna_cache_xhr') || [];
     let mergedData: Message[] = [];
-    if (cachedXHR.length) {
-        cachedXHR.forEach(function (e: Resource, i: number) {
+    if (cache.length) {
+        cache.forEach(function (e: Resource, i: number) {
             let raw = ctx.inspect();
             e.pageId = ctx.core.pageId;
             e.pageUrl = GLOBAL.location.href;
@@ -27,21 +26,16 @@ function _sendStorage(ctx: any): void {
             mergedData.push(raw);
         });
     }
-    console.log(mergedData);
     let _xhr: XMLHttpRequest = new XMLHttpRequest();
     _xhr.open('POST', ctx.core.url + '/api/prajna', true);
     _xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     _xhr.onreadystatechange = function (e) {
         if (_xhr.readyState == 4) {
             if (_xhr.status == 200) {
-                cache.xhr = [];
-                ls.set('prajna_cache', cache);
-                console.log(ls.get('prajna_cache'));
-            } else {
-                // TODO:
+                ls.set('prajna_cache_xhr', []);
             }
         } else {
-            // TODO:
+            ls.set('prajna_cache_xhr', cache);
         }
     };
     _xhr.onerror = function (e) { console.log(e); };
