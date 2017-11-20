@@ -2,8 +2,6 @@ export enum EventType {
     MODULE_CLICK,
     MODULE_VIEW,
     MODULE_EDIT,
-    ORDER,
-    PAY,
     PAGE_DISAPPEAR,
     MGE
 }

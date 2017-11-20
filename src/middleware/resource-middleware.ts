@@ -88,7 +88,6 @@ function reportUnloaded(ctx: any) {
             mergedData.push(raw);
         });
         ctx.core.emit(LogLevel.ERROR);
-        console.log(cache);
         let _xhr: XMLHttpRequest = new XMLHttpRequest();
         _xhr.open('POST', ctx.core.url + '/api/prajna', true);
         _xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -97,7 +96,6 @@ function reportUnloaded(ctx: any) {
                 if (_xhr.status == 200) {
                     cache = [];
                     ls.set('prajna_cache_resource', cache);
-                    console.log(ls.get('prajna_cache_resource'));
                 } else { }		// nothing to do
             } else { }			// nothing to do
         };
