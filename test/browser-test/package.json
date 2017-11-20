@@ -4,6 +4,7 @@
   "description": "prajna browser test",
   "main": "index.js",
   "scripts": {
+    "build-test-context": "webpack --config webpack.test-html.conf.js",
     "test": "karma start karma.conf.js",
     "test-debug": "karma start karma.conf.js --debug"
   },
