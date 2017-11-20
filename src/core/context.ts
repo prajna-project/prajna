@@ -30,6 +30,26 @@ const context: any = {
     },
 
     defineGetter(key: string, value: any) {
+        if (!Object.defineProperty ||
+            !(function () { try { Object.defineProperty({}, 'x', {}); return true; } catch (e) { return false; } }())) {
+            let orig = Object.defineProperty;
+            Object.defineProperty = function (o: any, prop: string, desc: any) {
+                let _Object: any = Object;
+                // In IE8 try built-in implementation for defining properties on DOM prototypes.
+                if (orig) { try { return orig(o, prop, desc); } catch (e) { } }
+                if (o !== Object(o)) { throw TypeError("Object.defineProperty called on non-object"); }
+                if (_Object.prototype.__defineGetter__ && ('get' in desc)) {
+                    _Object.prototype.__defineGetter__.call(o, prop, desc.get);
+                }
+                if (_Object.prototype.__defineSetter__ && ('set' in desc)) {
+                    _Object.prototype.__defineSetter__.call(o, prop, desc.set);
+                }
+                if ('value' in desc) {
+                    o[prop] = desc.value;
+                }
+                return o;
+            };
+        }
         Object.defineProperty(this.runtime, key, {
             get: function () {
                 return value;
