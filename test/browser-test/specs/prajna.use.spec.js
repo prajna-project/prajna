@@ -4,7 +4,7 @@ describe('prajna.use', () => {
     let prajna;
     before(() => {
         prajna = Prajna.init({
-            pageId: 'test',
+            pageId: 'unit-test',
             channel: 'web'
         });
     });

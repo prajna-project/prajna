@@ -40,22 +40,23 @@ function configAppium (
 // https://wiki.saucelabs.com/display/DOCS/Platform+Configurator#/
 const customLaunchers = {
     // 移动设备浏览器
-    al_ios_8_safari: configAppium('Safari', 'iOS', '8.1', 'iPhone 6 Plus Simulator'),
-    al_ios_9_safari: configAppium('Safari', 'iOS', '9.2', 'iPad 2 Simulator'),
-    al_ios_10_safari: configAppium('Safari', 'iOS', '10.2', 'iPhone 6 Simulator'),
-    al_android_4_2: configAppium('Browser', 'Android', '4.4', 'Android Emulator'),
-    al_android_5_1: configAppium('Browser', 'Android', '5.1', 'Android Emulator'),
-    al_android_6_0: configAppium('Chrome', 'Android', '6.0', 'Android Emulator'),
+    // al_ios_8_safari: configAppium('Safari', 'iOS', '8.1', 'iPhone 6 Plus Simulator'),
+    // al_ios_9_safari: configAppium('Safari', 'iOS', '9.2', 'iPad 2 Simulator'),
+    // al_ios_10_safari: configAppium('Safari', 'iOS', '10.2', 'iPhone 6 Simulator'),
+    al_ios_11_safari: configAppium('Safari', 'iOS', '11.0', 'iPhone 8 Simulator'),
+    // al_android_4_2: configAppium('Browser', 'Android', '4.4', 'Android Emulator'),
+    // al_android_5_1: configAppium('Browser', 'Android', '5.1', 'Android Emulator'),
+    // al_android_6_0: configAppium('Chrome', 'Android', '6.0', 'Android Emulator'),
 
     // 主流桌面浏览器
-    sl_win_chrome: configSelenium('chrome', 'Windows 7'),
-    sl_mac_chrome: configSelenium('chrome', 'OS X 10.10'),
-    sl_safari_9: configSelenium('safari', 'OS X 10.11', '9'),
+    // sl_win_chrome: configSelenium('chrome', 'Windows 7'),
+    // sl_mac_chrome: configSelenium('chrome', 'OS X 10.10'),
+    // sl_safari_9: configSelenium('safari', 'OS X 10.11', '9'),
     // sl_ie_8: configSelenium('internet explorer', 'Windows 7', '8'),
     // sl_ie_9: configSelenium('internet explorer', 'Windows 7', '9'),
     // sl_ie_10: configSelenium('internet explorer', 'Windows 8', '10'),
     // sl_ie_11: configSelenium('internet explorer', 'Windows 10', '11'),
-    sl_edge: configSelenium('MicrosoftEdge', 'Windows 10')
+    // sl_edge: configSelenium('MicrosoftEdge', 'Windows 10')
 };
 
 module.exports = function (config) {
@@ -132,7 +133,10 @@ module.exports = function (config) {
         const maxExecuteTime = 5*60*1000;
 
         config.set({
-            reporters: ['html', 'saucelabs'],
+            plugins: [
+                'karma-json-result-reporter'
+            ],
+            reporters: ['html', 'saucelabs', 'json-result'],
 
             autoWatch: false,
             singleRun: true,
@@ -144,7 +148,10 @@ module.exports = function (config) {
                 groupSuites: true,
                 useCompactStyle: true
             },
-
+            jsonResultReporter: {
+                outputFile: 'karma-result.json',
+                isSynchronous: true
+            },
             // 自定义运行测试的 SauceLabs 浏览器
             customLaunchers: customLaunchers,
             browsers: Object.keys(customLaunchers),
@@ -163,6 +170,7 @@ module.exports = function (config) {
                 // 测试的记录号，可以为任意字符，如果希望生成矩阵图，contextHTML 不能为空
                 build: 'contextHTML-' + Date.now()
             },
+
 
             // 最大超时时间
             captureTimeout: maxExecuteTime,
