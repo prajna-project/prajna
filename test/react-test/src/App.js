@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import KNB from '@dp/knb';
+// import KNB from '@dp/knb';
 import Prajna from 'prajna';            // 基础功能
 import Dejavu from 'prajna-dejavu';        // 场景还原
-import PrajnaKNB from '@dp/prajna-knb'; // knb
 import logo from './logo.svg';
 import axios from 'axios';
 import './App.css';
@@ -21,56 +20,65 @@ class App extends Component {
 
         this.prajna = Prajna.init({
             pageId: 'you-name-it',
-            channel: 'web'
+            channel: 'web',
+            // ignore: [/bundle.js/]
         });
+
         this.prajna.use(Dejavu);
-        this.prajna.use(async (ctx, next) => {
-            console.log(ctx.senceId);
+        this.prajna.use(async function (ctx, next) {
             next();
         });
         this.prajna.start();
     }
 
-    componentDidMount () {
-        // this.prajna.pageView();
-        // axios.get('fewawg/feawfew', {
-        // }).then((response) => {
-        //     console.log(response);
-        // }, (error) => {
-        //     console.log(error);
-        // });
+    componentWillMount () {
+        let ctx = this;
+        ctx.setState({ 'r': false });
     }
 
-    // @prajnaEvent
     onClickEvent (e) {
-        // owl.addError({
-        //     name: 'whereAmI-type-weixin',
-        //     msg: '失败的原因有很多'
+        this.orderid = 'xxx';
+        owl.addError('error msg', {level: 'debug', combo: true});
+        // axios.get('/fewaf/fe').then(function () {
+
+        // }).catch(function (error) {
         // });
-
-        // const ee = new Error('test error');
-        // throw ee;
-
-        // // console.log(arguments[0].type);    // click
-        // var perfData = window.performance.timing;
-        // var pageLoadTime = perfData.loadEventEnd - perfData.navigationStart;
-        // console.log(pageLoadTime);
-        this.prajna.report({
-            level: 'ERROR',
-            CONTENT: 'testing...'
+        // this.prajna.report({
+        //     level: 'WARNING',
+        //     name: 'sample-error',
+        //     padding: {
+        //         'key-first': 'padding info',
+        //         'key-second': 'padding info'
+        //         // ...
+        //     },
+        //     content: 'Reporting a prajna log message'
+        // });
+        this.prajna.pay('pay id', {
+            'padding-info': true
         });
+        // this.prajna.moduleView('viewHere', {
+        //     'padding-info': true
+        // });
+        // this.prajna.moduleEdit('editHere', {
+        //     'padding-info': true
+        // });
+        // const a = {};
+        // a.b.forEach((item) => {
+        //     console.log(item);
+        // });
     }
 
     render() {
         return (
             <div className="App">
-                <header className="App-header">
-                    <img src={logo} className="App-logo" alt="logo" />
-                    <h1 className="App-title">React Tests</h1>
-                </header>
-                <p className="App-intro">
-                    Events
-                </p>
+                {this.state.r ? (
+                    <header className="App-header">
+                        <img src={logo} className="App-logo" alt="logo" />
+                        <img src="//yyy.jpg" className="fuck" alt="logos" />
+                        <h1 className="App-title">React Tests</h1>
+                    </header>
+                ) : null}
+                <p className="App-intro">Events</p>
                 <a className="button" onClick={this.onClickEvent.bind(this)}>click me</a>
             </div>
         );

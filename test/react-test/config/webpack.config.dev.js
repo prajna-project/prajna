@@ -224,11 +224,12 @@ module.exports = {
       includes: ['./public/index.html'],
       prajnaOptions: {
         autopv: true,
-        env: 'test',
+        // env: '',
         project: 'prajna-test',
-        category: 'lx-prajna-test',
-        sendToLingxi: false,
-        forbidLX4: false
+        thirdParty: {
+            category: 'lx-prajna-test',
+            lingxiFallback: true
+        }
       }
     }),
     // Generates an `index.html` file with the <script> injected.
