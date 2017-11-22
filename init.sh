@@ -1,5 +1,7 @@
 #!/bin/bash
 
+
+npm install -g webpack
 npm install
 npm run build
 
@@ -10,3 +12,5 @@ npm install
 npm run build-test-context
 
 npm run test
+
+$@

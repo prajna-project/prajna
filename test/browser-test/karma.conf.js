@@ -135,7 +135,7 @@ module.exports = function (config) {
         const maxExecuteTime = 5*60*1000;
 
         config.set({
-            reporters: ['html', 'saucelabs', 'json'],
+            reporters: ['html', 'saucelabs', 'apijson'],
 
             autoWatch: false,
             singleRun: true,
@@ -147,10 +147,9 @@ module.exports = function (config) {
                 groupSuites: true,
                 useCompactStyle: true
             },
-            jsonReporter: {
-                outputFile: "reporters/karma-result.json",
+            apiJsonReporter: {
                 outputUrl: "http://10.72.247.248:9200/unit-test/json-log"
-            },
+            }
             // 自定义运行测试的 SauceLabs 浏览器
             customLaunchers: customLaunchers,
             browsers: Object.keys(customLaunchers),
