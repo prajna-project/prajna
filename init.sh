@@ -3,7 +3,7 @@
 npm install
 npm run build
 
-chdir('test/browser-test')
+cd test/browser-test
 
 npm install
 
