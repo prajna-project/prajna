@@ -149,7 +149,7 @@ module.exports = function (config) {
             },
             apiJsonReporter: {
                 outputUrl: "http://10.72.247.248:9200/unit-test/json-log"
-            }
+            },
             // 自定义运行测试的 SauceLabs 浏览器
             customLaunchers: customLaunchers,
             browsers: Object.keys(customLaunchers),
