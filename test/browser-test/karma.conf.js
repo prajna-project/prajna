@@ -2,8 +2,8 @@
 // Generated on Tue Nov 07 2017 18:16:40 GMT+0800 (CST)
 const webpackConfig = require('./webpack.test.conf');
 const sauce = {
-    "username": "lavonka",
-    "accesskey": "43886c57-4092-4e54-b292-8fc6f84a9986"
+    "username": "jjvein",
+    "accesskey": "0a2c4154-639a-4ce8-a3d9-b590f7447804"
 };
 
 function isDebug(argument) {

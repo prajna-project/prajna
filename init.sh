@@ -4,13 +4,11 @@
 git fetch origin
 git merge origin/master
 
-npm install -g webpack
-npm install -g karma
-npm install
+npm install --registry=https://registry.npm.taobao.org --@dp:registry=http://r.npm.sankuai.com
 npm run build
 
 cd test/browser-test
-npm install
+npm install --registry=https://registry.npm.taobao.org --@dp:registry=http://r.npm.sankuai.com
 npm run build-test-context
 npm run test
 

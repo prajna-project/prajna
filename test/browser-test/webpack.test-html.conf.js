@@ -29,11 +29,14 @@ module.exports = {
             includes: [getHTMLPath('context.html'), getHTMLPath('debug.html')],
             prajnaOptions: {
                 autopv: true,
-                env: 'test',
+                env: 'product',
                 project: 'prajna-browser-test',
-                category: 'lx-prajna-test',
-                forbidLX4: false,
-                sendToLingxi: false
+		thirdParty: {
+                    category: 'lx-prajna-test',
+                    forbidLX4: false,
+		    catFallback: true,
+		    lingxiFallback: true,
+		},
             }
         })
     ]
