@@ -11,13 +11,13 @@ export interface Region {
 }
 
 export enum BridgeType {
-    KNB,
-    ALIPAY,
-    OTHER
+    NONE = 'NONE',
+    OTHER = 'OTHER'
 }
 
 export interface Bridge {
     type: BridgeType
+    // ....
 }
 
 export interface UA {

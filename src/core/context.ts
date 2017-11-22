@@ -1,4 +1,4 @@
-const delegate = require('delegates');
+import Delegator from './delegates';
 const only = require('only');
 
 const context: any = {
@@ -37,11 +37,11 @@ const context: any = {
             enumerable: true,
             configurable: true
         });
-        delegate(context, 'runtime').getter(key);
+        new Delegator(context, 'runtime').getter(key);
     }
 };
 
-delegate(context, 'runtime')
+new Delegator(context, 'runtime')
     .access('env')
     .access('project')
     .access('thirdparty')
@@ -50,7 +50,7 @@ delegate(context, 'runtime')
     .access('auto')
     .access('channel')
     .access('jsBridge')
-    .access('ua')
+    .access('userAgent')
     .access('region')
     .getter('region')
     .getter('screen')

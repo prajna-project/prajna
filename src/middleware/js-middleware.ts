@@ -1,6 +1,7 @@
 const ls = require('local-storage');
 import GLOBAL from '../util/global';
 import Message from '../core/types/message.type';
+import * as StackTrace from 'stacktrace-js';
 import Log, {
     Category,
     LogLevel
@@ -10,10 +11,10 @@ let FORMER_JSERROR_FLAG: boolean = true;
 
 function _sendJSData(ctx: any) {
     ctx.core.beat();
-    let cache: any = ls.get('prajna_cache');
+    let cache: any = ls.get('prajna_cache_js') || [];
     let mergedData: Message[] = [];
-    if (cache && cache.js && cache.js.length) {
-        cache.js.forEach((e: any, i: number) => {
+    if (cache && cache.length) {
+        cache.forEach((e: any, i: number) => {
             let raw: any = ctx.inspect();
             raw.log = {
                 unix: +new Date(),
@@ -39,8 +40,7 @@ function _sendJSData(ctx: any) {
         _xhr.onreadystatechange = function (e) {
             if (_xhr.readyState == 4) {
                 if (_xhr.status == 200) {
-                    cache.js = [];
-                    ls.set('prajna_cache', cache);
+                    ls.set('prajna_cache_js', []);
                 } else { }
             } else { }
         };
@@ -51,7 +51,29 @@ function _sendJSData(ctx: any) {
 
 function _JSRuntime(ctx: any) {
     const globalOnError = GLOBAL.onerror;
+    const callback = function (stackframes: any): void {
+        var stringifiedStack = stackframes.map(function (sf: any, i: number) {
+            // if (i === 0) {
+            //     let stackframe: any = new StackFrame({ fileName: sf.fileName, lineNumber: sf.lineNumber, columnNumber: sf.columnNumber });
+            //     console.log(stackframe);
+            //     let callback: any = function myCallback(foundFunctionName: string) {
+            //         console.log(foundFunctionName);
+            //     };
+            //     let errback: any = function myErrback(error: Error) { console.log(StackTrace.fromError(error)); };
+            //     let gps: any = new StackTraceGPS();
+            //     gps.getMappedLocation(stackframe).then(callback, errback);
+            // }
+            return sf.toString();
+        }).join('\n');
+        // console.log(stringifiedStack);
+    };
+
+    const errback = function (err: any) {
+        console.log(err.message);
+    };
+
     GLOBAL.onerror = function (errorMessage: string, scriptURI: string, lineNumber: number, columnNumber: number, errorObj: any) {
+        StackTrace.fromError(errorObj).then(callback).catch(errback);
         globalOnError && globalOnError.apply(GLOBAL, arguments);
         _sendJSData(ctx);
         ctx.core.emit(LogLevel.ERROR);

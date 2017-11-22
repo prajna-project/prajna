@@ -10,7 +10,7 @@ import Performance, {
 let AUTOPV_FLAG: boolean = true;
 
 function _sendPVData(ctx: any, padding?: any) {
-    let cache: any = ls.get('prajna_cache');
+    let cache: any = ls.get('prajna_cache_pv') || [];
     let mergedData: Message[] = [];
     let ptiming: any = getEntries ? GLOBAL.performance.timing : void (0);
     let pnavigation: any = getEntries ? GLOBAL.performance.navigation : void (0);
@@ -63,11 +63,11 @@ function _sendPVData(ctx: any, padding?: any) {
             return paintTiming;
         })()
     } : {}));
-    if (cache && cache.pv && cache.pv.length) {
-        cache.pv.forEach((e: any, i: number) => {
+    if (cache && cache.length) {
+        cache.forEach((e: any, i: number) => {
             let raw = ctx.inspect();
             e.name = ctx.core.pageId;
-            if (i == cache.pv.length - 1) { // last one
+            if (i == cache.length - 1) { // last one
                 if (padding) {
                     e.padding = padding;
                 }
@@ -100,8 +100,8 @@ function _sendPVData(ctx: any, padding?: any) {
     _xhr.onreadystatechange = function (e) {
         if (_xhr.readyState == 4) {
             if (_xhr.status == 200) {
-                cache.pv = [];
-                ls.set('prajna_cache', cache);
+                cache = [];
+                ls.set('prajna_cache_pv', cache);
             } else {
                 // TODO: 存入 localstorage
             }

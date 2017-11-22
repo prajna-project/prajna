@@ -22,10 +22,9 @@ function reportMiddleware(ctx: any, next: any): any {
             ctx.core.emit(opts.level || LogLevel.ERROR);
             ctx.core.beat();
 
-            let cache: any = ls.get('prajna_cache') || {};
-            let cachedLog: Log[] = cache.log || [];
+            let cache: Log[] = ls.get('prajna_cache_log') || [];
             let mergedData: Message[] = [];
-            cachedLog.push(Object.assign({
+            cache.push(Object.assign({
                 unix: +new Date(),
                 category: Category.REPORT,
                 name: 'prajna-report',
@@ -35,7 +34,7 @@ function reportMiddleware(ctx: any, next: any): any {
                 padding: {},
                 resourceUrl: ''
             }, only(opts, ['level', 'name', 'padding', 'content'])));
-            cachedLog.forEach((e: Log, i: number) => {
+            cache.forEach((e: Log, i: number) => {
                 mergedData.push(Object.assign(ctx.inspect(), {
                     log: e
                 }));
@@ -47,15 +46,10 @@ function reportMiddleware(ctx: any, next: any): any {
             _xhr.onreadystatechange = function (e) {
                 if (_xhr.readyState == 4) {
                     if (_xhr.status == 200) {
-                        cache.log = [];
-                        ls.set('prajna_cache', cache);
-                    } else {
-                        cache.log = cachedLog;
-                        ls.set('prajna_cache', cache);
+                        ls.set('prajna_cache_log', []);
                     }
                 } else {
-                    cache.log = cachedLog;
-                    ls.set('prajna_cache', cache);
+                    ls.set('prajna_cache_log', cache);
                 }
             };
             _xhr.onerror = function (e) { console.log(e); };

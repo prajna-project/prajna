@@ -27,7 +27,7 @@ class Core extends EventEmitter2 {
     public pageUrl: string = GLOBAL.location.href;
     public pageId: string = '';
     public channel: string = null;
-    public whitelist: RegExp[] = [];
+    public ignore: RegExp[] = [];
     public pageView: any;
 
     constructor(opt: any) {
@@ -39,7 +39,7 @@ class Core extends EventEmitter2 {
         this.pageId = opt.pageId || this.pageId;
         this.pageUrl = opt.pageUrl || this.pageUrl;
         this.channel = opt.channel || this.channel;
-        this.whitelist = opt.whitelist || this.whitelist;
+        this.ignore = opt.ignore || this.ignore;
     }
 
     public toJSON(): Core {

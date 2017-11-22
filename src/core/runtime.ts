@@ -5,10 +5,11 @@ import {
     Bridge,
     BridgeType,
     Region,
-    UA,
+    UA
 } from './types/message.type';
 import Performance, { Timing } from './types/performance.type';
 import getCurrentPosition from '../util/geolocation';
+import getEntries from '../util/getEntries';
 import GLOBAL from '../util/global';
 
 const only = require('only');
@@ -43,8 +44,8 @@ const runtime: any = {
     },
 
     get thirdparty(): ThirdParty {
-        let tp = {
-            "type": ThirdPartyType.NONE // Not a message from thirdparty sdk
+        const tp: ThirdParty = {
+            "type": ThirdPartyType.NONE
         }
         return tp;
     },
@@ -91,7 +92,7 @@ const runtime: any = {
         };
     },
 
-    get ua(): UA {
+    get userAgent(): UA {
         let ua = GLOBAL.navigator.userAgent;
         return {
             ua: ua,
@@ -122,10 +123,8 @@ const runtime: any = {
         const duration = new Date().getTime() - startTime;
         return duration;
     },
-    // async getRegion(): Promise<Region> {
+
     getRegion(): Region {
-        // let region = await getCurrentPosition();
-        // return region;
         return {
             lng: void (0),
             lat: void (0)
