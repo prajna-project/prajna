@@ -1,6 +1,6 @@
 {
   "name": "prajna",
-  "version": "1.0.0-rc5",
+  "version": "1.0.0-rc6",
   "description": "prajna browser side SDK",
   "main": "index.js",
   "scripts": {

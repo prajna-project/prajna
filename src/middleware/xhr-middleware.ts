@@ -23,19 +23,21 @@ function _sendStorage(ctx: any): void {
                 mergedData.push(raw);
             }
         });
-    }
-    let _xhr: XMLHttpRequest = new XMLHttpRequest();
-    _xhr.open('POST', ctx.core.url + '/api/prajna', true);
-    _xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    _xhr.onreadystatechange = function (e) {
-        if (_xhr.readyState == 4) {
-            if (_xhr.status == 200) {
-                ls.set('prajna_cache_xhr', []);
+        let _xhr: XMLHttpRequest = new XMLHttpRequest();
+        _xhr.open('POST', ctx.core.url + '/api/prajna', true);
+        _xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        _xhr.onreadystatechange = function (e) {
+            if (_xhr.readyState == 4) {
+                if (_xhr.status == 200) {
+                    ls.set('prajna_cache_xhr', []);
+                }
             }
+        };
+        _xhr.onerror = function (e) { console.log(e); };
+        if (mergedData.length) {
+            _xhr.send('data=' + encodeURIComponent(JSON.stringify(mergedData)) + '&type=xhr');
         }
-    };
-    _xhr.onerror = function (e) { console.log(e); };
-    _xhr.send('data=' + encodeURIComponent(JSON.stringify(mergedData)) + '&type=xhr');
+    }
 }
 
 function _xhrRuntime(ctx: any): void {
@@ -79,7 +81,10 @@ function _xhrRuntime(ctx: any): void {
                                     }
                                 };
                                 _xhr.onerror = function (e) { console.log(e); };
-                                _xhr.send('data=' + encodeURIComponent(JSON.stringify(mergedData)) + '&type=xhr');
+                                if (mergedData.length) {
+                                    console.log(mergedData);
+                                    _xhr.send('data=' + encodeURIComponent(JSON.stringify(mergedData)) + '&type=xhr');
+                                }
                                 if (xhrInstance.status > 400) {
                                     ctx.core.emit(LogLevel.ERROR);
                                 }
