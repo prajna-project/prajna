@@ -65,19 +65,19 @@ function _sendPVData(ctx: any, padding?: any) {
     } : {}));
     if (cache && cache.length) {
         cache.forEach((e: any, i: number) => {
-            let raw = ctx.inspect();
+            let raw: Message = ctx.inspect();
             e.name = ctx.core.pageId;
             if (i == cache.length - 1) { // last one
                 if (padding) {
                     e.padding = padding;
                 }
-                raw.performanceNavigation = performanceNavigation;
+                raw.performance = performanceNavigation;
             }
             raw.pv = e;
             mergedData.push(raw);
         });
     } else {
-        let raw = ctx.inspect();
+        let raw: Message = ctx.inspect();
         raw.pv = {
             pageId: ctx.core.pageId,
             auto: GLOBAL.__prajnaAutoPV__,
@@ -88,7 +88,7 @@ function _sendPVData(ctx: any, padding?: any) {
         if (padding) {
             raw.pv.padding = padding;
         }
-        raw.performanceNavigation = performanceNavigation;
+        raw.performance = performanceNavigation;
         mergedData.push(raw);
     }
 

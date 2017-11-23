@@ -55,9 +55,8 @@ function _JSRuntime(ctx: any) {
         var stringifiedStack = stackframes.map(function (sf: any, i: number) {
             // if (i === 0) {
             //     let stackframe: any = new StackFrame({ fileName: sf.fileName, lineNumber: sf.lineNumber, columnNumber: sf.columnNumber });
-            //     console.log(stackframe);
             //     let callback: any = function myCallback(foundFunctionName: string) {
-            //         console.log(foundFunctionName);
+            //         // TODO:
             //     };
             //     let errback: any = function myErrback(error: Error) { console.log(StackTrace.fromError(error)); };
             //     let gps: any = new StackTraceGPS();
@@ -65,7 +64,6 @@ function _JSRuntime(ctx: any) {
             // }
             return sf.toString();
         }).join('\n');
-        // console.log(stringifiedStack);
     };
 
     const errback = function (err: any) {
@@ -73,11 +71,15 @@ function _JSRuntime(ctx: any) {
     };
 
     GLOBAL.onerror = function (errorMessage: string, scriptURI: string, lineNumber: number, columnNumber: number, errorObj: any) {
-        StackTrace.fromError(errorObj).then(callback).catch(errback);
+        // StackTrace.fromError(errorObj).then(callback).catch(errback);
         globalOnError && globalOnError.apply(GLOBAL, arguments);
         _sendJSData(ctx);
         ctx.core.emit(LogLevel.ERROR);
     };
+    GLOBAL.addEventListener("unhandledrejection", function (event: any) {
+        _sendJSData(ctx);
+        ctx.core.emit(LogLevel.ERROR);
+    });
 }
 
 function JSMiddleware(ctx: any, next: any): any {

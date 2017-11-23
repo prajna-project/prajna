@@ -6,22 +6,16 @@ import getEntries, { PerformanceObserver } from '../util/getEntries';
 import {
     LogLevel
 } from '../core/types/log.type';
+import { match } from '../util/utils';
 
 let FORMER_RESOURCE_FLAG: boolean = true;
 let ENTRY_SIZE = 0;
-
-const match = function (name: string, ignore: RegExp[]) {
-    for (let i: number = 0; i < ignore.length; i++) {
-        if (ignore[i].test(name) === true) { return true; }
-    }
-    return false;
-};
 
 let findResource = function (ctx: any, ent: PerformanceEntry[]): PerformanceEntry[] {
     let res: any[] = [];
     ent.map((e: any, i: number) => {
         if (e.entryType === "resource" &&
-            match(e.name, ctx.core.ignore) === false &&
+            match(e.name, ctx.core.ignore.resource) === false &&
             e.initiatorType !== "xmlhttprequest" &&
             e.initiatorType !== "beacon") {
             let strE = JSON.stringify(e);
@@ -34,7 +28,7 @@ let findResource = function (ctx: any, ent: PerformanceEntry[]): PerformanceEntr
             _e.responsetime = _e.duration;
             delete _e.name;
             delete _e.duration;
-            if (!match(_e.resourceUrl, ctx.core.ignore)) {
+            if (!match(_e.resourceUrl, ctx.core.ignore.resource)) {
                 res.push(_e);
             }
         }

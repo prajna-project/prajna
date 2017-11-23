@@ -7,11 +7,11 @@ function _sendPDData(ctx: any, padding?: any) {
     let cache: PD[] = ls.get('prajna_cache_pd') || [];
     let mergedData: Message[] = [];
     cache.push({
-        pageId: ctx.core.pageId,                     // 页面名称
-        unix: +new Date(),                  // unix 时间戳
-        url: GLOBAL.location.href,                        // 页面 url
-        duration: ctx.duration,                   // 页面停留时间
-        padding: padding || {}                   // 附加信息
+        pageId: ctx.core.pageId,   // 页面名称
+        unix: +new Date(),		   // unix 时间戳
+        url: GLOBAL.location.href, // 页面 url
+        duration: ctx.duration,	   // 页面停留时间
+        padding: padding || {}	   // 附加信息
     });
     cache.forEach((e: PD, i: number) => {
         mergedData.push(Object.assign(ctx.inspect(), { pd: e }));
