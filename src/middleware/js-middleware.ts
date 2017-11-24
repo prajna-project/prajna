@@ -10,7 +10,7 @@ import Log, {
 let FORMER_JSERROR_FLAG: boolean = true;
 
 function _sendJSData(ctx: any) {
-    ctx.core.beat();
+    // ctx.core.beat();
     let cache: any = ls.get('prajna_cache_js') || [];
     let mergedData: Message[] = [];
     if (cache && cache.length) {
