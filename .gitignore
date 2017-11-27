@@ -94,3 +94,6 @@ yarn.lock
 
 dist/
 # test/
+
+test/browser-test/reporters/test_result.html
+
