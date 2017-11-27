@@ -21,7 +21,10 @@ class App extends Component {
         this.prajna = Prajna.init({
             pageId: 'you-name-it',
             channel: 'web',
-            // ignore: [/bundle.js/]
+            ignore: {
+                resource: [],
+                ajax: [/prajna.(51ping|dianping).com/]
+            }
         });
 
         this.prajna.use(Dejavu);
@@ -37,12 +40,15 @@ class App extends Component {
     }
 
     onClickEvent (e) {
-        this.orderid = 'xxx';
-        owl.addError('error msg', {level: 'debug', combo: true});
-        // axios.get('/fewaf/fe').then(function () {
+        let ctx = this;
+        ctx.setState({ 'r': true });
+        // this.orderid = 'xxx';
+        // owl.addError('error msg', {level: 'debug', combo: true});
 
+        // axios.get('/fewaf/fe').then(function () {
         // }).catch(function (error) {
         // });
+
         // this.prajna.report({
         //     level: 'WARNING',
         //     name: 'sample-error',
@@ -53,9 +59,6 @@ class App extends Component {
         //     },
         //     content: 'Reporting a prajna log message'
         // });
-        this.prajna.pay('pay id', {
-            'padding-info': true
-        });
         // this.prajna.moduleView('viewHere', {
         //     'padding-info': true
         // });

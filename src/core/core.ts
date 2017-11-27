@@ -27,7 +27,7 @@ class Core extends EventEmitter2 {
     public pageUrl: string = GLOBAL.location.href;
     public pageId: string = '';
     public channel: string = null;
-    public ignore: RegExp[] = [];
+    public ignore: any = { xhr: [], resource: [] };
     public pageView: any;
 
     constructor(opt: any) {
@@ -70,7 +70,7 @@ class Core extends EventEmitter2 {
         return handler;
     }
 
-    private createContext(): void {		// TODO
+    private createContext(): void {
         const context = Object.create(this.context);
         const runtime = context.runtime = Object.create(this.runtime);
 
