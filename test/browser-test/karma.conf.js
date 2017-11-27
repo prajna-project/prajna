@@ -46,7 +46,8 @@ const customLaunchers = {
     al_android_4_2: configAppium('Browser', 'Android', '4.4', 'Android Emulator'),
     al_android_5_1: configAppium('Browser', 'Android', '5.1', 'Android Emulator'),
     al_android_6_0: configAppium('Chrome', 'Android', '6.0', 'Android Emulator'),
-    //
+    al_samsung_4_4: configAppium('Browser', 'Android', '4.4', 'Samsung Galaxy S3 Emulator'),
+    al_nexus_4_4: configAppium('Browser', 'Android', '4.4', 'Samsung Galaxy Nexus Emulator'),
     // // 主流桌面浏览器
     sl_win_chrome: configSelenium('chrome', 'Windows 7'),
     sl_mac_chrome: configSelenium('chrome', 'OS X 10.10'),
