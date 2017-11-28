@@ -15,6 +15,5 @@ export default interface Event {
     analyticsId: string,		// 埋点信息，对应灵犀的 valBid
     padding?: Padding,			// 附加信息
     unix: number,				// unix 时间戳
-    orderid?: string,			// 订单id(给 C 端支付用)
     duration?: number			// 停留时常(给page disappaer用)
 }

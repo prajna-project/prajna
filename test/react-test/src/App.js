@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-// import KNB from '@dp/knb';
+import knb from '@dp/knb';
+import KNB from '@dp/prajna-knb';
 import Prajna from 'prajna';            // 基础功能
 import Dejavu from 'prajna-dejavu';        // 场景还原
+import Deal from '@dp/prajna-deal';        // 场景还原
 import logo from './logo.svg';
 import axios from 'axios';
 import './App.css';
@@ -11,37 +13,52 @@ const owl = require('@dp/owl');
 class App extends Component {
     constructor () {
         super();
-        owl.start({
-            devMode: true,
-            project: window.__appName__,
-            pageUrl: 'http://localhost:8088'
-        });
-        window.LXAnalytics('pageView', null, null, 'example-page');
+        // owl.start({
+        //     devMode: true,
+        //     project: window.__appName__,
+        //     pageUrl: 'http://localhost:8088'
+        // });
+        // window.LXAnalytics('pageView', null, null, 'example-page');
 
         this.prajna = Prajna.init({
-            pageId: 'you-name-it',
+            pageId: 'order-dish-lancelot-test',
             channel: 'web',
             ignore: {
                 resource: [],
                 ajax: [/prajna.(51ping|dianping).com/]
             }
         });
+        this.prajna.use(KNB);
+
+
+
 
         this.prajna.use(Dejavu);
-        this.prajna.use(async function (ctx, next) {
-            next();
-        });
+        
+        this.prajna.use(Deal);
+        // this.prajna.use(async function (ctx, next) {
+        //     next();
+        // });
         this.prajna.start();
     }
 
     componentWillMount () {
         let ctx = this;
-        ctx.setState({ 'r': false });
+        ctx.setState({ 'r': true });
     }
 
     onClickEvent (e) {
-        let ctx = this;
-        ctx.setState({ 'r': true });
+
+
+        this.prajna.pay("000000001");
+        this.prajna.order("000000003", {
+            orderTime:'2017-11-28 19:34',
+            orderAccount: 'lancelot'
+        });
+
+
+
+        //console.log('combo');
         // this.orderid = 'xxx';
         // owl.addError('error msg', {level: 'debug', combo: true});
 

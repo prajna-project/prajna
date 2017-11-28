@@ -13,6 +13,7 @@ function _sendJSData(ctx: any) {
     // ctx.core.beat();
     let cache: any = ls.get('prajna_cache_js') || [];
     let mergedData: Message[] = [];
+    console.log(cache,'这里是cache')
     if (cache && cache.length) {
         cache.forEach((e: any, i: number) => {
             let raw: any = ctx.inspect();
@@ -34,6 +35,7 @@ function _sendJSData(ctx: any) {
         });
     }
     if (mergedData.length) {
+        console.log("这里有mergedData",mergedData)
         let _xhr: XMLHttpRequest = new XMLHttpRequest();
         _xhr.open('POST', ctx.core.url + '/api/prajna', true);
         _xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -83,6 +85,7 @@ function _JSRuntime(ctx: any) {
 }
 
 function JSMiddleware(ctx: any, next: any): any {
+    console.log("js-middleware")
     if (FORMER_JSERROR_FLAG) {
         FORMER_JSERROR_FLAG = false;
         _JSRuntime(ctx);

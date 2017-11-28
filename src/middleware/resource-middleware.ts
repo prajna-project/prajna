@@ -157,6 +157,7 @@ function _resourceRuntime(ctx: any): void {
 }
 
 function resourceMiddleware(ctx: any, next: any): any {
+    console.log("resourceMiddleware")
     if (FORMER_RESOURCE_FLAG) {
         FORMER_RESOURCE_FLAG = false;
         _resourceRuntime(ctx);

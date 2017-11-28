@@ -84,12 +84,12 @@ const runtime: any = {
         }
         return network;
     },
-
+    set jsBridge(type:Bridge){
+        this._BridgeType = type;
+    },
     get jsBridge(): Bridge {
         `if jsbridge exists, please write middleware to set accurate values`
-        return {
-            type: BridgeType.OTHER
-        };
+        return this._BridgeType || BridgeType.OTHER;
     },
 
     get userAgent(): UA {
@@ -104,8 +104,10 @@ const runtime: any = {
     },
 
     get region(): Region {
-        let region: Region = runtime.getRegion();
-        return region;
+        return this._region|| { lng:'', lat:'' };
+    },
+    set region(reg:Region){
+        this._region = this.getRegion(reg);
     },
 
     get screen(): string {
@@ -125,10 +127,10 @@ const runtime: any = {
         return duration;
     },
 
-    getRegion(): Region {
+    getRegion(reg:Region): Region {
         return {
-            lng: void (0),
-            lat: void (0)
+            lng: reg.lng,
+            lat: reg.lat
         };
     }
 };
