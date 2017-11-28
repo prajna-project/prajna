@@ -5,7 +5,6 @@ import Log, { Category, LogLevel } from '../core/types/log.type';
 
 let EVENT_FLAG: boolean = true;
 function eventMiddleware(ctx: any, next: any): any {
-    console.log("event")
     function eventMethodFactory(category: Category) {
         return function (name: string, padding?: any) {
             ctx.core.emit(LogLevel.INFO);

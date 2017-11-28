@@ -11,9 +11,7 @@ export interface Region {
 }
 
 export enum BridgeType {
-    NONE = 'NONE',
-    OTHER = 'OTHER',
-    KNB = 'KNB'
+    NONE = 'NONE'
 }
 
 export interface Bridge {
