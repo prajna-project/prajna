@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import knb from '@dp/knb';
+// import knb from '@dp/knb';
 import KNB from '@dp/prajna-knb';
 import Prajna from 'prajna';            // 基础功能
 import Dejavu from 'prajna-dejavu';        // 场景还原

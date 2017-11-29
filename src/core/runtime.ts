@@ -84,9 +84,11 @@ const runtime: any = {
         }
         return network;
     },
-    get jsBridge():string {
+    get jsBridge(): Bridge{
         `if jsbridge exists, please write middleware to set accurate values`
-        return BridgeType.NONE;
+        return {
+            type : BridgeType.NONE
+        }
     },
 
     get userAgent(): UA {
