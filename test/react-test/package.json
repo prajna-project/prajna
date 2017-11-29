@@ -5,9 +5,7 @@
   "dependencies": {
     "@dp/knb": "^1.4.4",
     "@dp/owl": "^1.5.21",
-    "@dp/prajna-deal": "^1.0.1",
     "@dp/prajna-gadget-plugin": "^1.0.2",
-    "@dp/prajna-knb": "^1.0.0",
     "autoprefixer": "7.1.2",
     "axios": "^0.17.0",
     "babel-core": "6.25.0",

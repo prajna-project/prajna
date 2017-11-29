@@ -65,7 +65,6 @@ function _JSRuntime(ctx: any) {
             return sf.toString();
         }).join('\n');
     };
-
     const errback = function (err: any) {
         console.log(err.message);
     };

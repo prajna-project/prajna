@@ -1,103 +1,49 @@
 import React, { Component } from 'react';
-// import knb from '@dp/knb';
+import knb from '@dp/knb';
 import KNB from '@dp/prajna-knb';
 import Prajna from 'prajna';            // 基础功能
 import Dejavu from 'prajna-dejavu';        // 场景还原
 import Deal from '@dp/prajna-deal';        // 场景还原
+import Prajna from 'prajna';
 import logo from './logo.svg';
 import axios from 'axios';
 import './App.css';
 
-const owl = require('@dp/owl');
-
 class App extends Component {
     constructor () {
         super();
-        // owl.start({
-        //     devMode: true,
-        //     project: window.__appName__,
-        //     pageUrl: 'http://localhost:8088'
-        // });
-        // window.LXAnalytics('pageView', null, null, 'example-page');
-
         this.prajna = Prajna.init({
-            pageId: 'order-dish-lancelot-test',
+            pageId: 'prajna-test',
             channel: 'web',
             ignore: {
-                resource: [],
-                ajax: [/prajna.(51ping|dianping).com/]
+                ajax: [/prajna.(51ping|dianping|local).com/]
             }
         });
-        this.prajna.use(KNB);
-
-
-
-
-        this.prajna.use(Dejavu);
-        
-        this.prajna.use(Deal);
-        // this.prajna.use(async function (ctx, next) {
-        //     next();
-        // });
         this.prajna.start();
     }
 
-    componentWillMount () {
-        let ctx = this;
-        ctx.setState({ 'r': true });
-    }
+    componentWillMount () {}
 
     onClickEvent (e) {
-
-
-        this.prajna.pay("000000001");
-        this.prajna.order("000000003", {
-            orderTime:'2017-11-28 19:34',
-            orderAccount: 'lancelot'
+        this.prajna.report({
+            level: 'WARNING',
+            name: 'sample-error',
+            padding: {
+                'key-first': 'padding info',
+                'key-second': 'padding info'
+                // ...
+            },
+            content: 'Reporting a prajna log message'
         });
-
-
-
-        //console.log('combo');
-        // this.orderid = 'xxx';
-        // owl.addError('error msg', {level: 'debug', combo: true});
-
-        // axios.get('/fewaf/fe').then(function () {
-        // }).catch(function (error) {
-        // });
-
-        // this.prajna.report({
-        //     level: 'WARNING',
-        //     name: 'sample-error',
-        //     padding: {
-        //         'key-first': 'padding info',
-        //         'key-second': 'padding info'
-        //         // ...
-        //     },
-        //     content: 'Reporting a prajna log message'
-        // });
-        // this.prajna.moduleView('viewHere', {
-        //     'padding-info': true
-        // });
-        // this.prajna.moduleEdit('editHere', {
-        //     'padding-info': true
-        // });
-        // const a = {};
-        // a.b.forEach((item) => {
-        //     console.log(item);
-        // });
     }
 
     render() {
         return (
             <div className="App">
-                {this.state.r ? (
-                    <header className="App-header">
-                        <img src={logo} className="App-logo" alt="logo" />
-                        <img src="//yyy.jpg" className="fuck" alt="logos" />
-                        <h1 className="App-title">React Tests</h1>
-                    </header>
-                ) : null}
+                <header className="App-header">
+                    <img src={logo} className="App-logo" alt="logo" />
+                    <h1 className="App-title">React Tests</h1>
+                </header>
                 <p className="App-intro">Events</p>
                 <a className="button" onClick={this.onClickEvent.bind(this)}>click me</a>
             </div>
