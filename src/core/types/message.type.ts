@@ -46,6 +46,7 @@ export interface Network {
 }
 
 export default interface Message {
+    // runtime
     "@timestamp": string,		// ES 所需要的 UTC timestamp
     env: string,				// 开发环境信息
     project: string,			// 项目名称
@@ -60,6 +61,7 @@ export default interface Message {
     network?: Network,			// [OPTIONAL] 网络情况
     region?: Region,			// [OPTIONAL] 用户地理信息
     jsBridge?: Bridge,			// [OPTIONAL] JS bridge 信息(Hybrid 应用)
+    // middleware
     pv?: PV,					// [OPTIONAL] PV 信息
     pd?: PD,                    // [OPTIONAL] PD 信息
     performance?: Performance,	// [OPTIONAL] 页面性能数据信息
