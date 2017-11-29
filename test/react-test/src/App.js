@@ -12,41 +12,40 @@ const owl = require('@dp/owl');
 class App extends Component {
     constructor () {
         super();
-        owl.start({
-            devMode: true,
-            project: window.__appName__,
-            pageUrl: 'http://localhost:8088'
-        });
-        window.LXAnalytics('pageView', null, null, 'example-page');
+        // owl.start({
+        //     devMode: true,
+        //     project: window.__appName__,
+        //     pageUrl: 'http://localhost:8088'
+        // });
+        // window.LXAnalytics('pageView', null, null, 'example-page');
 
         this.prajna = Prajna.init({
-            pageId: 'you-name-it',
+            pageId: 'order-dish-lancelot-test',
             channel: 'web',
             ignore: {
                 // resource: [],
                 ajax: [/prajna.(51ping|dianping|local).com/]
             }
         });
+        this.prajna.use(KNB);
+
+
+
 
         this.prajna.use(Dejavu);
-        this.prajna.use(prajnaKnb);
-        this.prajna.use(async function (ctx, next) {
-            next();
-        });
-        this.prajna.use(async function (ctx, next) {
-            next();
-        });
+        // this.prajna.use(async function (ctx, next) {
+        //     next();
+        // });
         this.prajna.start();
     }
 
     componentWillMount () {
         let ctx = this;
-        ctx.setState({ 'r': false });
+        ctx.setState({ 'r': true });
     }
 
     onClickEvent (e) {
-        // let ctx = this;
-        // ctx.setState({ 'r': true });
+        //console.log('combo');
         // this.orderid = 'xxx';
         // owl.addError('error msg', {level: 'debug', combo: true});
 
