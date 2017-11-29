@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-// import KNB from '@dp/knb';
+import KNB from '@dp/knb';
 import Prajna from 'prajna';            // 基础功能
 import Dejavu from 'prajna-dejavu';        // 场景还原
+import prajnaKnb from '@dp/prajna-knb';        // 场景还原
 import logo from './logo.svg';
 import axios from 'axios';
 import './App.css';
@@ -22,12 +23,16 @@ class App extends Component {
             pageId: 'you-name-it',
             channel: 'web',
             ignore: {
-                resource: [],
-                ajax: [/prajna.(51ping|dianping).com/]
+                // resource: [],
+                ajax: [/prajna.(51ping|dianping|local).com/]
             }
         });
 
         this.prajna.use(Dejavu);
+        this.prajna.use(prajnaKnb);
+        this.prajna.use(async function (ctx, next) {
+            next();
+        });
         this.prajna.use(async function (ctx, next) {
             next();
         });
@@ -40,8 +45,8 @@ class App extends Component {
     }
 
     onClickEvent (e) {
-        let ctx = this;
-        ctx.setState({ 'r': true });
+        // let ctx = this;
+        // ctx.setState({ 'r': true });
         // this.orderid = 'xxx';
         // owl.addError('error msg', {level: 'debug', combo: true});
 
@@ -49,16 +54,16 @@ class App extends Component {
         // }).catch(function (error) {
         // });
 
-        // this.prajna.report({
-        //     level: 'WARNING',
-        //     name: 'sample-error',
-        //     padding: {
-        //         'key-first': 'padding info',
-        //         'key-second': 'padding info'
-        //         // ...
-        //     },
-        //     content: 'Reporting a prajna log message'
-        // });
+        this.prajna.report({
+            level: 'WARNING',
+            name: 'sample-error',
+            padding: {
+                'key-first': 'padding info',
+                'key-second': 'padding info'
+                // ...
+            },
+            content: 'Reporting a prajna log message'
+        });
         // this.prajna.moduleView('viewHere', {
         //     'padding-info': true
         // });

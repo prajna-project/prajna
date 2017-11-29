@@ -224,7 +224,7 @@ module.exports = {
       includes: ['./public/index.html'],
       prajnaOptions: {
         autopv: true,
-        // env: '',
+        env: 'test',
         project: 'prajna-test',
         thirdParty: {
             category: 'lx-prajna-test',
