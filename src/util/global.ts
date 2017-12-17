@@ -1,2 +1,2 @@
-let GLOBAL: any = window;
+const GLOBAL: any = window;
 export default GLOBAL;

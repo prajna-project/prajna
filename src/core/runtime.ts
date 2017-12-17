@@ -1,23 +1,17 @@
+import GLOBAL from '../util/global';
 import {
-    ThirdParty,
-    ThirdPartyType,
-    Network,
     Bridge,
     BridgeType,
+    Network,
     Region,
-    UA
+    UA,
 } from './types/message.type';
-import Performance, { Timing } from './types/performance.type';
-import getCurrentPosition from '../util/geolocation';
-import getEntries from '../util/getEntries';
-import GLOBAL from '../util/global';
 
 const only = require('only');
 const version = require('../../package.json').version;
 const userAgent = require('useragent.js');
 
 const NAV: any = GLOBAL.navigator;
-const isSupportGetEntry = GLOBAL.performance && GLOBAL.performance.getEntries !== void (0);
 const startTime = +new Date();
 
 const runtime: any = {
@@ -31,7 +25,7 @@ const runtime: any = {
     toJSON(): any {
         return only(this, [
             'project',
-            'env'
+            'env',
         ]);
     },
 
@@ -41,13 +35,6 @@ const runtime: any = {
 
     get project(): string {
         return GLOBAL.__appName__;
-    },
-
-    get thirdparty(): ThirdParty {
-        const tp: ThirdParty = {
-            "type": ThirdPartyType.NONE
-        }
-        return tp;
     },
 
     get version(): string {
@@ -63,17 +50,17 @@ const runtime: any = {
     },
 
     get network(): any {
-        `get network status`
+        // get network status
         let connection: string;
-        let network: Network = {
+        const network: Network = {
             online: NAV.onLine,
         };
         // if jsbridge exists, please write middleware to set accurate values
-        let conn: any = NAV.connection || NAV.mozConnection || NAV.webkitConnection;
-        let type: string = conn && conn.type;
+        const conn: any = NAV.connection || NAV.mozConnection || NAV.webkitConnection;
+        const type: string = conn && conn.type;
         if (conn) {
             if (type) {
-                connection = type
+                connection = type;
             }
             if (conn.effectiveType) {
                 connection = conn.effectiveType; // high version of Chrome
@@ -84,26 +71,26 @@ const runtime: any = {
         }
         return network;
     },
-    get jsBridge(): Bridge{
-        `if jsbridge exists, please write middleware to set accurate values`
+    get jsBridge(): Bridge {
+        // if jsbridge exists, please write middleware to set accurate values
         return {
-            type : BridgeType.NONE
-        }
+            type : BridgeType.NONE,
+        };
     },
 
     get userAgent(): UA {
-        let ua = GLOBAL.navigator.userAgent;
+        const ua = GLOBAL.navigator.userAgent;
         return {
-            ua: ua,
+            ua,
             browser: userAgent.analyze(ua).browser.full || '',
             os: userAgent.analyze(ua).os.full || '',
             device: userAgent.analyze(ua).device.full || '',
-            platform: userAgent.analyze(ua).platform.full || ''
+            platform: userAgent.analyze(ua).platform.full || '',
         };
     },
 
     get region(): Region {
-        return { lng:'', lat:'' };
+        return { lng: '', lat: '' };
     },
 
     get screen(): string {
@@ -113,15 +100,14 @@ const runtime: any = {
     },
 
     get ['@timestamp'](): string {
-        let time = new Date();
-        return time.toISOString();
+        return Date.now().toString();
     },
 
     get duration(): number {
         const now = +new Date();
-        const duration = window.performance ? window.performance.now() : (now - startTime);
+        const duration = window.performance ? Math.floor(window.performance.now()) : Math.floor(now - startTime);
         return duration;
-    }
+    },
 };
 
 export default runtime;

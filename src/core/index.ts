@@ -1,3 +1,4 @@
+import GLOBAL from '../util/global';
 import Core from './core';
 import { InitOption, Prajna } from './types/core.type';
 
@@ -9,9 +10,8 @@ function init(opts: InitOption): Core {
     }
 
     return singleton;
-};
+}
 
-
-const Prajna: Prajna = { init };
-
-export default Prajna;
+!((win) => {
+    win.Prajna = { init };
+})(GLOBAL);

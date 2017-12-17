@@ -7,8 +7,8 @@ module.exports = {
     entry: ['./src/polyfill.js', './src/core/index.ts'],
     output: {
         filename: './dist/prajna.js',
-        library: 'prajna',
-        libraryTarget: 'commonjs2'
+        // library: 'prajna',
+        // libraryTarget: 'commonjs2'
     },
     externals: ['cookie'],
     devtool: 'source-map',
@@ -36,6 +36,12 @@ module.exports = {
                 ],
                 enforce: 'pre'
             },
+            {
+                test: /\.ts$/,
+                enforce: 'pre',
+                loader: 'tslint-loader',
+                options: { /* Loader options go here */ }
+            }
         ]
     },
     plugins: [

@@ -8,9 +8,9 @@ const context: any = {
     },
 
     toJSON(): any {
-        let ignores: string[] = ['inspect', 'toJSON', 'throw', 'onerror', 'defineGetter'];
-        let runtimes: string[] = [];
-        for (var prop in this) {
+        const ignores: string[] = ['inspect', 'toJSON', 'throw', 'onerror', 'defineGetter'];
+        const runtimes: string[] = [];
+        for (const prop in this) {
             if (!this.hasOwnProperty(prop) && ignores.indexOf(prop) === -1) {
                 runtimes.push(prop);
             }
@@ -24,31 +24,35 @@ const context: any = {
     },
 
     onerror(err: any): void {
-        if (null == err) return;
-        if (!(err instanceof Error)) err = new Error(`non-error thrown: ${err}`);
+        if (null == err) {
+            return;
+        }
+        if (!(err instanceof Error)) {
+            err = new Error(`non-error thrown: ${err}`);
+        }
         return;
     },
 
     defineGetter(key: string, value: any) {
         Object.defineProperty(this.runtime, key, {
-            get: function () {
+            get: () => {
                 return value;
             },
             enumerable: true,
-            configurable: true
+            configurable: true,
         });
         new Delegator(context, 'runtime').getter(key);
-    }
+    },
 };
 
 new Delegator(context, 'runtime')
     .access('env')
     .access('project')
-    .access('thirdparty')
+    // .access('thirdparty')
     .access('network')
     .access('version')
     .access('auto')
-    .access('channel')
+    // .access('channel')
     .access('jsBridge')
     .access('userAgent')
     .access('region')

@@ -12,59 +12,59 @@ class Delegator {
     }
 
     public method(name: string): Delegator {
-        let proto: any = this.proto;
-        let target: any = this.target;
+        const proto: any = this.proto;
+        const target: any = this.target;
         this.methods.push(name);
 
-        proto[name] = function () {
+        proto[name] = function() {
             return this[target][name].apply(this[target], arguments);
         };
         return this;
     }
 
     public access(name: string): Delegator {
-        return this.getter(name).setter(name)
+        return this.getter(name).setter(name);
     }
 
     public getter(name: string): Delegator {
-        let proto: any = this.proto;
-        let target: any = this.target;
+        const proto: any = this.proto;
+        const target: any = this.target;
         this.getters.push(name);
 
         Object.defineProperty(proto, name, {
-            get: function () {
+            get() {
                 return this[target][name];
             },
             enumerable: true,
-            configurable: true
+            configurable: true,
         });
 
         return this;
     }
 
     public setter(name: string): Delegator {
-        let proto: any = this.proto;
-        let target: any = this.target;
+        const proto: any = this.proto;
+        const target: any = this.target;
         this.setters.push(name);
 
         Object.defineProperty(proto, name, {
-            set: function (val: any) {
+            set(val: any) {
                 return this[target][name] = val;
             },
             enumerable: true,
-            configurable: true
+            configurable: true,
         });
 
         return this;
     }
 
     public fluent(name: string): Delegator {
-        let proto: any = this.proto;
-        let target: any = this.target;
+        const proto: any = this.proto;
+        const target: any = this.target;
         this.fluents.push(name);
 
-        proto[name] = function (val: any) {
-            if ('undefined' != typeof val) {
+        proto[name] = function(val: any) {
+            if ('undefined' !== typeof val) {
                 this[target][name] = val;
                 return this;
             } else {
@@ -74,6 +74,6 @@ class Delegator {
 
         return this;
     }
-};
+}
 
 export default Delegator;

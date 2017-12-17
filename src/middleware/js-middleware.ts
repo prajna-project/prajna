@@ -1,82 +1,120 @@
-const ls = require('local-storage');
+const ls = require('local-storage'); // tslint-disable-line
+
 import GLOBAL from '../util/global';
+import postXHR from '../util/xhr';
+
+import Category, { CacheKey } from '../core/types/category.type';
+import { LogLevel} from '../core/types/log.type';
 import Message from '../core/types/message.type';
-import * as StackTrace from 'stacktrace-js';
-import Log, {
-    Category,
-    LogLevel
-} from '../core/types/log.type';
 
 let FORMER_JSERROR_FLAG: boolean = true;
 
 function _sendJSData(ctx: any) {
     // ctx.core.beat();
-    let cache: any = ls.get('prajna_cache_js') || [];
-    let mergedData: Message[] = [];
-    if (cache && cache.length) {
-        cache.forEach((e: any, i: number) => {
-            let raw: any = ctx.inspect();
-            raw.log = {
-                unix: +new Date(),
-                category: Category.SCRIPT,
-                name: e.message,
-                content: e.errorStack,
-                level: LogLevel.ERROR,
-                pageUrl: ctx.core.pageUrl,
-                pageId: ctx.core.pageId,
-                padding: {
-                    lineNumber: e.lineNumber,
-                    columnNumber: e.columnNumber,
-                },
-                resourceUrl: e.scriptURL
-            };
-            mergedData.push(raw);
-        });
+    const cache: any = [];
+    if (cache.length > 0) {
+        _sendRawLogs(cache, ctx, () => {
+            ls.set(CacheKey.JS_ERROR, []);
+        }, null);
     }
-    if (mergedData.length) {
-        let _xhr: XMLHttpRequest = new XMLHttpRequest();
-        _xhr.open('POST', ctx.core.url + '/api/prajna', true);
-        _xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        _xhr.onreadystatechange = function (e) {
-            if (_xhr.readyState == 4) {
-                if (_xhr.status == 200) {
-                    ls.set('prajna_cache_js', []);
-                } else { }
-            } else { }
+}
+
+function _sendRawLogs(logs: any, ctx: any, sendSuccess: any, sendFail: any) {
+    const mergedData: Message[] = [];
+    logs.forEach((e: any, i: number) => {
+        const raw: Message = ctx.inspect();
+        raw.log = {
+            unix: +new Date(),
+            name: e.message,
+            content: e.errorStack,
+            level: LogLevel.ERROR,
+            pageUrl: ctx.core.pageUrl,
+            pageId: ctx.core.pageId,
+            padding: {
+                lineNumber: e.lineNumber,
+                columnNumber: e.columnNumber,
+            },
+            resourceUrl: e.scriptURL,
         };
-        _xhr.onerror = function (e) { console.log(e); };
-        _xhr.send('data=' + encodeURIComponent(JSON.stringify(mergedData)) + '&type=js');
-    }
+        raw.category = Category.JS_ERROR,
+        mergedData.push(raw);
+    });
+    postXHR({
+        url: ctx.core.url + '/api/prajna',
+        data: 'data=' + encodeURIComponent(JSON.stringify(mergedData)) + '&type=js',
+        success: () => {
+            if (sendSuccess) {
+                sendSuccess();
+            }
+        },
+        failure: () => {
+            if (sendFail) {
+                sendFail();
+            }
+        },
+    });
 }
 
 function _JSRuntime(ctx: any) {
     const globalOnError = GLOBAL.onerror;
-    const callback = function (stackframes: any): void {
-        var stringifiedStack = stackframes.map(function (sf: any, i: number) {
-            // if (i === 0) {
-            //     let stackframe: any = new StackFrame({ fileName: sf.fileName, lineNumber: sf.lineNumber, columnNumber: sf.columnNumber });
-            //     let callback: any = function myCallback(foundFunctionName: string) {
-            //         // TODO:
-            //     };
-            //     let errback: any = function myErrback(error: Error) { console.log(StackTrace.fromError(error)); };
-            //     let gps: any = new StackTraceGPS();
-            //     gps.getMappedLocation(stackframe).then(callback, errback);
-            // }
-            return sf.toString();
-        }).join('\n');
-    };
-    const errback = function (err: any) {
-        console.log(err.message);
-    };
-
-    GLOBAL.onerror = function (errorMessage: string, scriptURI: string, lineNumber: number, columnNumber: number, errorObj: any) {
-        // StackTrace.fromError(errorObj).then(callback).catch(errback);
-        globalOnError && globalOnError.apply(GLOBAL, arguments);
-        _sendJSData(ctx);
+    GLOBAL.onerror = (errorMessage: string,
+                      scriptURI: string,
+                      lineNumber: number,
+                      columnNumber: number,
+                      errorObj: any) => {
+        const logs: any = [];
+        let errorStack: string = '';
+        if (errorObj && errorObj.stack) {
+            errorStack = errorObj.stack;
+        }
+        logs.push({
+            message: errorMessage,
+            scriptURL: scriptURI,
+            lineNumber,
+            columnNumber,
+            errorStack,
+        });
+        if (globalOnError) {
+            globalOnError.apply(GLOBAL, arguments);
+        }
+        _sendRawLogs(logs, ctx, null, () => {
+            ls.set(CacheKey.JS_ERROR, []);
+        });
         ctx.core.emit(LogLevel.ERROR);
     };
-    GLOBAL.addEventListener("unhandledrejection", function (event: any) {
-        _sendJSData(ctx);
+    GLOBAL.addEventListener("unhandledrejection", (event: any) => {
+        // gadget
+        const logs: any = [];
+
+        let message: string = 'Not Found';
+        let scriptURL: string = 'Not Found';
+        let errorStack: string = 'Not Found';
+
+        if (event && event.reason) {
+            if (event.reason.message) {
+                message = event.reason.message;
+            }
+            if (event.reason.stack) {
+                errorStack = event.reason.stack;
+            }
+        }
+        if (event && event.target && event.target.location.href) {
+            scriptURL = event.target.location.href;
+        }
+
+        logs.push({
+            message,
+            scriptURL,
+            lineNumber: -1,
+            columnNumber: -1,
+            errorStack,
+        });
+        if (globalOnError) {
+            globalOnError.apply(GLOBAL, arguments);
+        }
+        _sendRawLogs(logs, ctx, () => {
+            ls.set(CacheKey.JS_ERROR, []);
+        }, null);
         ctx.core.emit(LogLevel.ERROR);
     });
 }

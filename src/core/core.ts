@@ -1,34 +1,34 @@
 import compose from './compose';
 import context from './context';
 import runtime from './runtime';
-import eventMiddleware from '../middleware/event-middleware';
-import PVMiddleware from '../middleware/pv-middleware';
-import PDMiddleware from '../middleware/pd-middleware';
-import reportMiddleware from '../middleware/report-middleware';
-import resourceMiddleware from '../middleware/resource-middleware';
-import XHRMiddleware from '../middleware/xhr-middleware';
-import JSMiddleware from '../middleware/js-middleware';
 
-import Message from './types/message.type';
-import { InitOption } from './types/core.type';
+import AjaxMiddleware from '../middleware/ajax-middleware';
+import EventMiddleware from '../middleware/event-middleware';
+import JSMiddleware from '../middleware/js-middleware';
+import PDMiddleware from '../middleware/pd-middleware';
+import PVMiddleware from '../middleware/pv-middleware';
+import ReportMiddleware from '../middleware/report-middleware';
+import ResourceMiddleware from '../middleware/resource-middleware';
+
 import { EventEmitter2 } from 'eventemitter2';
+import { InitOption } from './types/core.type';
 
 const only = require('only');
 const GLOBAL: any = window;
 
 class Core extends EventEmitter2 {
-    private middleware: any[];
-    private context: any;
-    private runtime: any;
-    public env: string = GLOBAL.__prajnaEnv__ || 'dev';
+    public env: string = GLOBAL.__prajnaEnv__ || 'beta';
     public autopv: string = GLOBAL.__prajnaAutoPV__;
     public duration: number = 0;
     public url: string = GLOBAL.__envMapping__[this.env];
     public pageUrl: string = GLOBAL.location.href;
     public pageId: string = '';
-    public channel: string = null;
+    // public channel: string = null;
     public ignore: any = { xhr: [], resource: [] };
-    public pageView: any;
+
+    private middleware: any[];
+    private context: any;
+    private runtime: any;
 
     constructor(opt: any) {
         super();
@@ -38,7 +38,7 @@ class Core extends EventEmitter2 {
         this.runtime = Object.create(runtime);
         this.pageId = opt.pageId || this.pageId;
         this.pageUrl = opt.pageUrl || this.pageUrl;
-        this.channel = opt.channel || this.channel;
+        // this.channel = opt.channel || this.channel;
         this.ignore = opt.ignore || this.ignore;
     }
 
@@ -49,12 +49,51 @@ class Core extends EventEmitter2 {
             'autopv',
             'pageUrl',
             'pageId',
-            'channel'
+            // 'channel'
         ]);
     }
 
     public inspect(): Core {
         return this.toJSON();
+    }
+
+    public start(...args: any[]): Core {
+        // console.log('prajna start!');
+        this.use(PVMiddleware)
+            .use(ResourceMiddleware)
+            .use(AjaxMiddleware)
+            .use(EventMiddleware)
+            .use(JSMiddleware)
+            .use(ReportMiddleware)
+            .use(PDMiddleware);
+
+        this.on('BEAT_EVENT', this.callback());
+
+        this.beat();			// beat once when start
+
+        return;
+    }
+
+    public set(opt: InitOption): Core {
+        // Set prajna configurations;
+        this.pageId = opt.pageId || this.pageId;
+        this.pageUrl = opt.pageUrl || this.pageUrl;
+        // this.channel = opt.channel || this.channel;
+
+        return this;
+    }
+
+    public use(lambda: (...args: any[]) => any): Core {
+        // Install prajna middleware
+        this.middleware.push(lambda);
+
+        return this;
+    }
+
+    private beat(): Core {
+        this.emit('BEAT_EVENT');
+
+        return this;
     }
 
     private callback(): () => any {		// TODO
@@ -79,48 +118,10 @@ class Core extends EventEmitter2 {
 
         return context;
     }
-
-    public start(...args: any[]): Core {
-        this.use(PVMiddleware)
-            .use(resourceMiddleware)
-            .use(XHRMiddleware)
-            .use(eventMiddleware)
-            .use(JSMiddleware)
-            .use(reportMiddleware)
-            .use(PDMiddleware);
-
-        this.on('BEAT_EVENT', this.callback());
-
-        this.beat();			// beat once when start
-
-        return;
-    }
-
-    public set(opt: InitOption): Core {
-        `Set prajna configurations`
-        this.pageId = opt.pageId || this.pageId;
-        this.pageUrl = opt.pageUrl || this.pageUrl;
-        this.channel = opt.channel || this.channel;
-
-        return this;
-    }
-
-    public use(lambda: (...args: any[]) => any): Core {
-        `Install prajna middleware`
-        this.middleware.push(lambda);
-
-        return this;
-    }
-
-    private beat(): Core {
-        this.emit('BEAT_EVENT');
-
-        return this;
-    }
 }
 
 function runtimeHelper(ctx: any) {
-    return (ctx: any) => { };
+    return (ctx: any) => {};
 }
 
 export default Core;
