@@ -1,6 +1,6 @@
 {
   "name": "prajna",
-  "version": "1.0.0-rc6",
+  "version": "1.0.0-rc.7",
   "description": "prajna browser side SDK",
   "main": "index.js",
   "scripts": {
@@ -34,6 +34,7 @@
     "es5-shim": "^4.5.9",
     "es6-map": "^0.1.5",
     "es6-promise": "^4.1.1",
+    "google-closure-compiler-js": "^20171203.0.0",
     "path": "^0.12.7",
     "source-map-loader": "^0.2.1",
     "typescript": "^2.5.2",

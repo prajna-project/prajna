@@ -11,7 +11,6 @@ function init(opts: InitOption): Core {
     return singleton;
 };
 
-
 const Prajna: Prajna = { init };
 
 export default Prajna;

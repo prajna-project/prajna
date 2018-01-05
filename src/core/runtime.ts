@@ -84,10 +84,10 @@ const runtime: any = {
         }
         return network;
     },
-    get jsBridge(): Bridge{
+    get jsBridge(): Bridge {
         `if jsbridge exists, please write middleware to set accurate values`
         return {
-            type : BridgeType.NONE
+            type: BridgeType.NONE
         }
     },
 
@@ -103,7 +103,7 @@ const runtime: any = {
     },
 
     get region(): Region {
-        return { lng:'', lat:'' };
+        return { lng: '', lat: '' };
     },
 
     get screen(): string {

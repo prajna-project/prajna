@@ -1,7 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
+const ClosureCompiler = require('google-closure-compiler-js').webpack;
 const relativeToRootPath = './';
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
     entry: ['./src/polyfill.js', './src/core/index.ts'],
@@ -21,6 +21,7 @@ module.exports = {
             {
                 test: /\.ts$/,
                 use: [
+                    'source-map-loader',
                     {
                         loader: 'babel-loader',
                         options: {
@@ -32,16 +33,23 @@ module.exports = {
                         }
                     },
                     'awesome-typescript-loader',
-                    'source-map-loader',
                 ],
                 enforce: 'pre'
             },
         ]
     },
     plugins: [
-        new UglifyJSPlugin({
+        // new ClosureCompiler({
+        //     options: {
+        //         languageIn: 'ECMASCRIPT5',
+        //         languageOut: 'ECMASCRIPT5',
+        //         compilationLevel: 'ADVANCED',
+        //         warningLevel: 'VERBOSE'
+        //     }
+        // }),
+        new webpack.optimize.ModuleConcatenationPlugin(),
+        new webpack.optimize.UglifyJsPlugin({
             sourceMap: true
-        }),
-        new webpack.optimize.ModuleConcatenationPlugin()
+        })
     ]
 };
