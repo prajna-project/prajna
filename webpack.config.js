@@ -7,8 +7,8 @@ module.exports = {
     entry: ['./src/polyfill.js', './src/core/index.ts'],
     output: {
         filename: './dist/prajna.js',
-        library: 'prajna',
-        libraryTarget: 'commonjs2'
+        library: 'Prajna',
+        libraryTarget: 'umd'
     },
     externals: ['cookie'],
     devtool: 'source-map',
@@ -39,14 +39,6 @@ module.exports = {
         ]
     },
     plugins: [
-        // new ClosureCompiler({
-        //     options: {
-        //         languageIn: 'ECMASCRIPT5',
-        //         languageOut: 'ECMASCRIPT5',
-        //         compilationLevel: 'ADVANCED',
-        //         warningLevel: 'VERBOSE'
-        //     }
-        // }),
         new webpack.optimize.ModuleConcatenationPlugin(),
         new webpack.optimize.UglifyJsPlugin({
             sourceMap: true

@@ -1,6 +1,7 @@
 import Core from './core';
-import { InitOption, Prajna } from './types/core.type';
+import { InitOption } from './types/core.type';
 
+let GLOBAL: any = window;
 let singleton: Core = null;
 
 function init(opts: InitOption): Core {
@@ -11,6 +12,4 @@ function init(opts: InitOption): Core {
     return singleton;
 };
 
-const Prajna: Prajna = { init };
-
-export default Prajna;
+export { init };
