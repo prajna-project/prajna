@@ -1,12 +1,12 @@
 {
   "name": "prajna",
-  "version": "1.0.0-rc.7",
+  "version": "1.0.0-rc.8",
   "description": "prajna browser side SDK",
   "main": "index.js",
   "scripts": {
     "clean": "rm -rf ./dist/*",
-    "dev": "node $NODE_DEBUG_OPTION node_modules/.bin/webpack --watch",
-    "build": "npm run clean && node $NODE_DEBUG_OPTION node_modules/.bin/webpack"
+    "dev": "node build/version.js && node $NODE_DEBUG_OPTION node_modules/.bin/webpack --watch",
+    "build": "npm run clean && node build/version.js && node $NODE_DEBUG_OPTION node_modules/.bin/webpack"
   },
   "repository": {
     "type": "git",
@@ -29,7 +29,7 @@
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-plugin-transform-object-assign": "^6.22.0",
-    "babel-polyfill": "^6.23.0",
+    "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.0",
     "babel-preset-es3": "^1.0.1",
     "es5-shim": "^4.5.9",
@@ -54,7 +54,8 @@
     "local-storage": "^1.4.2",
     "lodash": "^4.17.4",
     "only": "^0.0.2",
-    "rxdb": "^7.0.1",
+    "rxdb": "^7.3.1",
+    "rxjs": "^5.5.6",
     "stacktrace-gps": "^3.0.2",
     "stacktrace-js": "^2.0.0",
     "useragent.js": "^0.5.6"

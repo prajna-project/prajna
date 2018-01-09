@@ -13,7 +13,7 @@ import getEntries from '../util/getEntries';
 import GLOBAL from '../util/global';
 
 const only = require('only');
-const version = require('../../package.json').version;
+const version = require('../../build/version.json').version;
 const userAgent = require('useragent.js');
 
 const NAV: any = GLOBAL.navigator;

@@ -1,3 +1,5 @@
+// import 'babel-polyfill';
+// import RxDB from 'rxdb';
 import compose from './compose';
 import context from './context';
 import runtime from './runtime';
@@ -81,13 +83,14 @@ class Core extends EventEmitter2 {
     }
 
     public start(...args: any[]): Core {
-        this.use(PVMiddleware)
-            .use(resourceMiddleware)
-            .use(XHRMiddleware)
-            .use(eventMiddleware)
-            .use(JSMiddleware)
-            .use(reportMiddleware)
-            .use(PDMiddleware);
+        // this.use(PVMiddleware)
+        // .use(resourceMiddleware)
+        // .use(XHRMiddleware)
+        // .use(eventMiddleware)
+        // .use(JSMiddleware)
+        // .use(reportMiddleware)
+        // .use(PDMiddleware)
+        // ;
 
         this.on('BEAT_EVENT', this.callback());
 
