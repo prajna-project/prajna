@@ -9,5 +9,4 @@ export interface InitOption {
 
 export interface Prajna {
     init: (opt: InitOption) => Core
-    pageView?: (target: any, key: string, descriptor: any) => any
 }
