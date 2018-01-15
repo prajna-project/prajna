@@ -16,7 +16,7 @@ Prajna stands for wisdom in Sanskrit.
 npm install --save prajna-wrapper-plugin
 ```
 
-- Set up [prajna-wrapper-plugin](https://github.com/prajna-project/prajna-wrapper-plugin) in your webpack.config.js
+- Set up [prajna-wrapper-plugin](https://github.com/prajna-project/prajna-wrapper-plugin) in your webpack configuration file
 ```javascript
 const PrajnaWrapperPlugin = require('prajna-wrapper-plugin');
 // ...
