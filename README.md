@@ -6,7 +6,7 @@ Prajna, Analysing browser side javascript application with wisdom.
 ## Overview
 <!-- [![NPM Stats](https://nodei.co/npm/prajna.png?downloads=true)](https://npmjs.org/package/prajna) -->
 
-Prajna is a in browser supervising and analysing tool which heavily inspired by [Koa](https://github.com/koajs/koa). It can trace your pageview action, resource load action, performance status, javascript error stack, etc, and you can report individual logs to the server url of yours. You can write your own middleware to fetch your own data, form your own log, even add new methods as a plugin. You can read more detail in [Prajna Wiki](https://github.com/mtdp-diancan-f2e/prajna/wiki).
+Prajna is a in browser supervising and analysing tool which heavily inspired by [Koa](https://github.com/koajs/koa). It can trace your page navigation, resource loading, performance status, javascript error stack, etc, and you can report individual logs to the server url of yours. You can write your own middleware to fetch your own data, form your own log, even add new methods as a plugin. You can read more detail in [Prajna Wiki](https://github.com/mtdp-diancan-f2e/prajna/wiki).
 
 Prajna stands for wisdom in Sanskrit.
 
