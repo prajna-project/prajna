@@ -15,6 +15,8 @@ import Message from './types/message.type';
 import { InitOption } from './types/core.type';
 import { EventEmitter2 } from 'eventemitter2';
 
+// RxDB.plugin(require('pouchdb-adapter-localstorage'));
+
 const only = require('only');
 const GLOBAL: any = window;
 
@@ -25,7 +27,7 @@ class Core extends EventEmitter2 {
     public env: string = GLOBAL.__prajnaEnv__ || 'dev';
     public autopv: string = GLOBAL.__prajnaAutoPV__;
     public duration: number = 0;
-    public url: string = GLOBAL.__envMapping__[this.env];
+    public url: string = GLOBAL.__prajnaServerUrl__;
     public pageUrl: string = GLOBAL.location.href;
     public pageId: string = '';
     public channel: string = null;
@@ -83,7 +85,7 @@ class Core extends EventEmitter2 {
     }
 
     public start(...args: any[]): Core {
-        // this.use(PVMiddleware)
+        this.use(PVMiddleware);
         // .use(resourceMiddleware)
         // .use(XHRMiddleware)
         // .use(eventMiddleware)
@@ -92,6 +94,14 @@ class Core extends EventEmitter2 {
         // .use(PDMiddleware)
         // ;
 
+        // const db: any = await RxDB.create({
+        //     name: 'prajnadb',
+        //     adapter: 'localstorage',
+        //     multiInstance: true
+        // });
+        // await db.collection({ name: 'prajna', schema: mySchema });    // create collection
+        // db.prajna.insert({ firstName: 'Young', lastName: 'Lee' });
+
         this.on('BEAT_EVENT', this.callback());
 
         this.beat();			// beat once when start
@@ -99,8 +109,10 @@ class Core extends EventEmitter2 {
         return;
     }
 
+    /**
+     * Set prajna configurations
+     */
     public set(opt: InitOption): Core {
-        `Set prajna configurations`
         this.pageId = opt.pageId || this.pageId;
         this.pageUrl = opt.pageUrl || this.pageUrl;
         this.channel = opt.channel || this.channel;
@@ -108,8 +120,12 @@ class Core extends EventEmitter2 {
         return this;
     }
 
+    /**
+     * Install prajna middleware
+     */
     public use(lambda: (...args: any[]) => any): Core {
-        `Install prajna middleware`
+        if (typeof lambda !== 'function')
+            throw new TypeError('middleware must be a function!');
         this.middleware.push(lambda);
 
         return this;
@@ -123,7 +139,10 @@ class Core extends EventEmitter2 {
 }
 
 function runtimeHelper(ctx: any) {
-    return (ctx: any) => { };
+    // TODO: 
+    return (ctx: any) => {
+        // TODO: 
+    };
 }
 
 export default Core;

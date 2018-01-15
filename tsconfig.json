@@ -9,6 +9,7 @@
         "typeRoots": [
 			"node_modules/@types"
         ],
+        "allowJS": true,
         "target": "es6"
     },
     "include": [

@@ -9,6 +9,7 @@ import {
 } from './types/message.type';
 import Performance, { Timing } from './types/performance.type';
 import getCurrentPosition from '../util/geolocation';
+import getUuid from '../util/uuid';
 import getEntries from '../util/getEntries';
 import GLOBAL from '../util/global';
 
@@ -62,8 +63,18 @@ const runtime: any = {
         return this.core.channel;
     },
 
+    get pageId(): string {
+        return this.core.pageId;
+    },
+
+    get pageUrl(): string {
+        return this.core.pageUrl;
+    },
+
+	/**
+	 * Get Network Status
+	 */
     get network(): any {
-        `get network status`
         let connection: string;
         let network: Network = {
             online: NAV.onLine,
@@ -84,8 +95,11 @@ const runtime: any = {
         }
         return network;
     },
+
+	/**
+	 * if jsbridge exists, please write middleware to set accurate values
+	 */
     get jsBridge(): Bridge {
-        `if jsbridge exists, please write middleware to set accurate values`
         return {
             type: BridgeType.NONE
         }
@@ -112,7 +126,7 @@ const runtime: any = {
         return width + "*" + height;
     },
 
-    get ['@timestamp'](): string {
+    get timestamp(): string {
         let time = new Date();
         return time.toISOString();
     },
@@ -121,6 +135,10 @@ const runtime: any = {
         const now = +new Date();
         const duration = window.performance ? window.performance.now() : (now - startTime);
         return duration;
+    },
+
+    get uuid(): string {
+        return getUuid();
     }
 };
 

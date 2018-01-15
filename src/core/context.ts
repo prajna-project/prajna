@@ -54,7 +54,9 @@ new Delegator(context, 'runtime')
     .access('region')
     .getter('region')
     .getter('screen')
-    .getter('@timestamp')
+    .getter('timestamp')
+    .getter('pageId')
+    .getter('uuid')
     .getter('duration');
 
 export default context;

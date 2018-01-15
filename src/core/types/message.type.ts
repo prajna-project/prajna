@@ -46,7 +46,7 @@ export interface Network {
 
 export default interface Message {
     // runtime
-    "@timestamp": string,		// ES 所需要的 UTC timestamp
+    timestamp: string,		// ES 所需要的 UTC timestamp
     env: string,				// 开发环境信息
     project: string,			// 项目名称
     thirdparty: ThirdParty,		// 第三方 sdk

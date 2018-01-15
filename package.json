@@ -6,7 +6,7 @@
   "scripts": {
     "clean": "rm -rf ./dist/*",
     "dev": "node build/version.js && node $NODE_DEBUG_OPTION node_modules/.bin/webpack --watch",
-    "build": "npm run clean && node build/version.js && node $NODE_DEBUG_OPTION node_modules/.bin/webpack"
+    "build": "npm run clean && node build/version.js && node $NODE_DEBUG_OPTION node_modules/.bin/webpack --optimize-minimize"
   },
   "repository": {
     "type": "git",
@@ -54,6 +54,7 @@
     "local-storage": "^1.4.2",
     "lodash": "^4.17.4",
     "only": "^0.0.2",
+    "pouchdb-adapter-localstorage": "^6.4.1",
     "rxdb": "^7.3.1",
     "rxjs": "^5.5.6",
     "stacktrace-gps": "^3.0.2",

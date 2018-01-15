@@ -20,8 +20,9 @@ function b(
             b					// random hex digits
         )
 }
+
 /**
- *
+ * 
  * @returns {string}
  */
 export default function (): string {
