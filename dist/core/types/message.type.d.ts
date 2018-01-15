@@ -35,7 +35,7 @@ export interface Network {
     connection?: string;
 }
 export default interface Message {
-    "@timestamp": string;
+    timestamp: string;
     env: string;
     project: string;
     thirdparty: ThirdParty;

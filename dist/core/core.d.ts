@@ -19,7 +19,13 @@ declare class Core extends EventEmitter2 {
     private callback();
     private createContext();
     start(...args: any[]): Core;
+    /**
+     * Set prajna configurations
+     */
     set(opt: InitOption): Core;
+    /**
+     * Install prajna middleware
+     */
     use(lambda: (...args: any[]) => any): Core;
     private beat();
 }

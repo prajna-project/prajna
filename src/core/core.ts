@@ -85,6 +85,12 @@ class Core extends EventEmitter2 {
     }
 
     public start(...args: any[]): Core {
+        // this.use((ctx: any, next: any) => {
+        //     ctx.core.foobar = function () {
+        //         console.log('foobar');
+        //     }
+        //     next();
+        // });
         this.use(PVMiddleware);
         // .use(resourceMiddleware)
         // .use(XHRMiddleware)
