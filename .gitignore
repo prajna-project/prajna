@@ -93,3 +93,4 @@ yarn.lock
 .node_repl_history
 
 # test/
+dist/
