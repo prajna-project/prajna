@@ -59,10 +59,10 @@ prajna.report({
 });
 ```
 
-Prajna is published to [CDN](https://cdn.jsdelivr.net/npm/prajna@1.0.0-rc.9/dist/prajna.1.0.0-rc.9.js) by default instead of npm package because Prajna needs to work before npm packages load and start working. The webpack plugin prajna-wrapper-plugin just mentioned serves Prajna in the `<script></script>` tag, you can change the script's src attribute by configure your webpack.config.js file. the new url of Prajna comes from your own build and deployment and you can set up your own server which serves Prajna static javascript file using the docker image [youngleehua/prajna](https://hub.docker.com/r/youngleehua/prajna/).
+Prajna is published to [CDN](https://cdn.jsdelivr.net/npm/prajna@1.0.0-rc.9/dist/prajna.1.0.0-rc.9.js) by default instead of npm package because Prajna needs to work before npm packages load and start working. The webpack plugin [prajna-wrapper-plugin](https://github.com/prajna-project/prajna-wrapper-plugin) just mentioned serves Prajna in the `<script></script>` tag, you can change the script's src attribute by configure your webpack.config.js file. the new url of Prajna comes from your own build and deployment and you can set up your own server which serves Prajna static javascript file using the docker image [youngleehua/prajna](https://hub.docker.com/r/youngleehua/prajna/).
 
 ## Documentation
-Please migrate to [Prajna Wiki](https://github.com/mtdp-diancan-f2e/prajna/wiki)
+Migrated to [Prajna Wiki](https://github.com/mtdp-diancan-f2e/prajna/wiki)
 
 ## License
 MIT
