@@ -15,7 +15,7 @@ function _sendStorage(ctx: any): void {
     let mergedData: Message[] = [];
     if (cache.length) {
         cache.forEach(function (e: Resource, i: number) {
-            if (match(e.resourceUrl, ctx.core.ignore.ajax) === false) {
+            if (!match(e.resourceUrl, ctx.core.ignore.ajax) && !match(e.resourceUrl, [new RegExp(ctx.core.url)])) {
                 let raw = ctx.inspect();
                 e.pageId = ctx.core.pageId;
                 e.pageUrl = GLOBAL.location.href;
@@ -24,7 +24,7 @@ function _sendStorage(ctx: any): void {
             }
         });
         let _xhr: XMLHttpRequest = new XMLHttpRequest();
-        _xhr.open('POST', ctx.core.url + '/api/prajna', true);
+        _xhr.open('POST', ctx.core.url, true);
         _xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
         _xhr.onreadystatechange = function (e) {
             if (_xhr.readyState == 4) {
@@ -60,7 +60,7 @@ function _xhrRuntime(ctx: any): void {
                             let cache: any = ls.get('prajna_cache_xhr') || [];
                             let mergedData: Message[] = [];
                             let raw = ctx.inspect();
-                            if (match(xhrInstance.resourceUrl, ctx.core.ignore.ajax) === false) {
+                            if (!match(xhrInstance.resourceUrl, ctx.core.ignore.ajax) && !match(xhrInstance.resourceUrl, [new RegExp(ctx.core.url)])) {
                                 xhrInstance.status = this.status;
                                 xhrInstance.responsetime = +new Date() - xhrInstance.unix;
                                 xhrInstance.pageId = ctx.core.pageId;
@@ -68,7 +68,7 @@ function _xhrRuntime(ctx: any): void {
                                 raw.xhr = xhrInstance;
                                 mergedData.push(raw);
                                 let _xhr: XMLHttpRequest = new XMLHttpRequest();
-                                _xhr.open('POST', ctx.core.url + '/api/prajna', true);
+                                _xhr.open('POST', ctx.core.url, true);
                                 _xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                                 _xhr.onreadystatechange = function (e) {
                                     if (_xhr.readyState == 4) {

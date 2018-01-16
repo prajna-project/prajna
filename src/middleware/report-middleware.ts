@@ -41,7 +41,7 @@ function reportMiddleware(ctx: any, next: any): any {
             });
 
             let _xhr: XMLHttpRequest = new XMLHttpRequest();
-            _xhr.open('POST', ctx.core.url + '/api/prajna', true);
+            _xhr.open('POST', ctx.core.url, true);
             _xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
             _xhr.onreadystatechange = function (e) {
                 if (_xhr.readyState == 4) {

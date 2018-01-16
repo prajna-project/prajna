@@ -18,7 +18,7 @@ function _sendPDData(ctx: any, padding?: any) {
     });
 
     let _xhr: XMLHttpRequest = new XMLHttpRequest();
-    _xhr.open('POST', ctx.core.url + '/api/prajna', false);
+    _xhr.open('POST', ctx.core.url, false);
     _xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     _xhr.onreadystatechange = function (e) {
         if (_xhr.readyState == 4) {

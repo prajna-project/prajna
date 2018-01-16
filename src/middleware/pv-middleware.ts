@@ -118,12 +118,12 @@ function _sendPVData(ctx: any, padding?: any) {
 function PVMiddleware(ctx: any, next: any): any {
     ctx.core.pageView = function (padding: any): void {
         if (GLOBAL.document.readyState === 'complete') {
-            ctx.core.beat();
+            // ctx.core.beat();
             _sendPVData(ctx, padding);
         } else {
             const _pv = function () {
                 setTimeout(() => {
-                    ctx.core.beat();
+                    // ctx.core.beat();
                     _sendPVData(ctx, padding);
                 }, 0);
             };

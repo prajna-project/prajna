@@ -1,5 +1,3 @@
-// import 'babel-polyfill';
-// import RxDB from 'rxdb';
 import compose from './compose';
 import context from './context';
 import runtime from './runtime';
@@ -15,8 +13,6 @@ import Message from './types/message.type';
 import { InitOption } from './types/core.type';
 import { EventEmitter2 } from 'eventemitter2';
 
-// RxDB.plugin(require('pouchdb-adapter-localstorage'));
-
 const only = require('only');
 const GLOBAL: any = window;
 
@@ -31,7 +27,7 @@ class Core extends EventEmitter2 {
     public pageUrl: string = GLOBAL.location.href;
     public pageId: string = '';
     public channel: string = null;
-    public ignore: any = { xhr: [], resource: [] };
+    public ignore: any = { ajax: [], resource: [] };
     public pageView: any;
 
     constructor(opt: any) {
@@ -86,21 +82,12 @@ class Core extends EventEmitter2 {
 
     public start(...args: any[]): Core {
         this.use(PVMiddleware);
-        // .use(resourceMiddleware)
-        // .use(XHRMiddleware)
-        // .use(eventMiddleware)
-        // .use(JSMiddleware)
-        // .use(reportMiddleware)
-        // .use(PDMiddleware)
-        // ;
-
-        // const db: any = await RxDB.create({
-        //     name: 'prajnadb',
-        //     adapter: 'localstorage',
-        //     multiInstance: true
-        // });
-        // await db.collection({ name: 'prajna', schema: mySchema });    // create collection
-        // db.prajna.insert({ firstName: 'Young', lastName: 'Lee' });
+        this.use(resourceMiddleware);
+        this.use(XHRMiddleware);
+        this.use(JSMiddleware);
+        this.use(reportMiddleware);
+        this.use(eventMiddleware);
+        this.use(PDMiddleware);
 
         this.on('BEAT_EVENT', this.callback());
 
